@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "commerce-ssr",
+  "description": "Server side rendering utilities for commerce",
+  "main": "../dist/commerce-ssr/headless.js",
+  "module": "../dist/commerce-ssr/headless.esm.js",
+  "browser": "../dist/browser/commerce-ssr/headless.esm.js",
+  "types": "../dist/definitions/commerce-ssr.index.d.ts",
+  "license": "Apache-2.0"
+}

@@ -1,5 +1,8 @@
 import {FunctionComponent} from 'react';
-import {SearchHydratedState, SearchStaticState} from '../../lib/generic/engine';
+import {
+  SearchHydratedState,
+  SearchStaticState,
+} from '../../lib/generic/commerce-engine';
 
 export interface HydrationMetadataProps {
   staticState: SearchStaticState;
@@ -23,7 +26,7 @@ export const HydrationMetadata: FunctionComponent<HydrationMetadataProps> = ({
     <span id="hydrated-msg">
       Rendered page with{' '}
       {
-        (hydratedState ?? staticState).controllers.resultList.state.results
+        (hydratedState ?? staticState).controllers.productList.state.products
           .length
       }{' '}
       results

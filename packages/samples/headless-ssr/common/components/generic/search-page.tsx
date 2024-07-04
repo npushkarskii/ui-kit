@@ -1,15 +1,14 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {useSyncSearchParameterManager} from '../../hooks/generic/search-parameter-manager';
+// import {useSyncSearchParameterManager} from '../../hooks/generic/search-parameter-manager';
 import {
   SearchStaticState,
   SearchHydratedState,
   hydrateStaticState,
-} from '../../lib/generic/engine';
+} from '../../lib/generic/commerce-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
-import {Facet} from './facet';
-import {ResultList} from './result-list';
+import {ProductList} from './product-list';
 import {SearchBox} from './search-box';
 
 export default function SearchPage({
@@ -22,16 +21,16 @@ export default function SearchPage({
   >(undefined);
 
   useEffect(() => {
-    const {searchParameterManager, context} = staticState.controllers;
+    const {context} = staticState.controllers;
     hydrateStaticState({
       searchAction: staticState.searchAction,
       controllers: {
         context: {
-          initialState: context.state,
+          options: context.state,
         },
-        searchParameterManager: {
-          initialState: searchParameterManager.state,
-        },
+        // searchParameterManager: {
+        //   initialState: searchParameterManager.state,
+        // },
       },
     }).then(({engine, controllers}) => {
       setHydratedState({engine, controllers});
@@ -41,10 +40,10 @@ export default function SearchPage({
   /**
    * This hook is used to synchronize the URL with the state of the search interface.
    */
-  useSyncSearchParameterManager({
-    staticState: staticState.controllers.searchParameterManager.state,
-    controller: hydratedState?.controllers.searchParameterManager,
-  });
+  // useSyncSearchParameterManager({
+  //   staticState: staticState.controllers.searchParameterManager.state,
+  //   controller: hydratedState?.controllers.searchParameterManager,
+  // });
 
   return (
     <>
@@ -52,14 +51,16 @@ export default function SearchPage({
         staticState={staticState.controllers.searchBox.state}
         controller={hydratedState?.controllers.searchBox}
       />
-      <Facet
+      {/* TODO: add facet generator component instead */}
+      {/* <Facet
         title="Author"
         staticState={staticState.controllers.authorFacet.state}
         controller={hydratedState?.controllers.authorFacet}
-      />
-      <ResultList
-        staticState={staticState.controllers.resultList.state}
-        controller={hydratedState?.controllers.resultList}
+      /> */}
+      {/* TODO: uncomment */}
+      <ProductList
+        staticState={staticState.controllers.productList.state}
+        controller={hydratedState?.controllers.productList}
       />
       <HydrationMetadata
         staticState={staticState}

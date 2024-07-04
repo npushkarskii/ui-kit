@@ -1,6 +1,7 @@
 import SearchPage from '@/common/components/generic/search-page';
-import {fetchStaticState} from '@/common/lib/generic/engine';
-import {buildSSRSearchParameterSerializer} from '@coveo/headless/ssr';
+import {fetchStaticState} from '@/common/lib/generic/commerce-engine';
+
+// import {buildSSRSearchParameterSerializer} from '@coveo/headless/commerce-ssr';
 
 /**
  * This file defines a Search component that uses the Coveo Headless library to manage its state.
@@ -13,28 +14,35 @@ import {buildSSRSearchParameterSerializer} from '@coveo/headless/ssr';
  * The context values are hard-coded to represent a specific user segment (age group 30-45 with a main interest in sports) as the initial context.
  * These values will be added to the payload of the search request when the search page is rendered.
  */
-export default async function Search(url: {
+// export default async function Search(url: {
+//   searchParams: {[key: string]: string | string[] | undefined};
+// }) {
+export default async function Listing(url: {
   searchParams: {[key: string]: string | string[] | undefined};
 }) {
-  const {toSearchParameters} = buildSSRSearchParameterSerializer();
-  const searchParameters = toSearchParameters(url.searchParams);
-  const contextValues = {
-    ageGroup: '30-45',
-    mainInterest: 'sports',
+  // const {toSearchParameters} = buildSSRSearchParameterSerializer();
+  // const searchParameters = toSearchParameters(url.searchParams);
+  () => {
+    url;
   };
   const staticState = await fetchStaticState({
     controllers: {
       context: {
-        initialState: {
-          values: contextValues,
+        options: {
+          country: 'US',
+          currency: 'USD',
+          language: 'en',
+          view: {
+            url: 'https://sports-dev.barca.group/browse/promotions/surf-with-us-this-year',
+          },
         },
       },
-      searchParameterManager: {
-        initialState: {parameters: searchParameters},
-      },
+      // searchParameterManager: {
+      //   initialState: {parameters: searchParameters},
+      // },
     },
   });
-  return <SearchPage staticState={staticState}></SearchPage>;
+  return <SearchPage staticState={staticState}></SearchPage>; // TODO: convert to listing page
 }
 
 // A page with search parameters cannot be statically rendered, since its rendered state should look different based on the current search parameters.

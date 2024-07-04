@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/*.d.ts": true,
+    "**/*.pcss": true,
+    "pages-router": true,
+    "app-router/.next": true,
+    "app-router/src/app/react": true,
+    "node_modules": true,
+    "common/components/react": true,
+    "common/lib/react": true
+  },
+  "explorerExclude.backup": {}
+}

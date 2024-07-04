@@ -1,7 +1,7 @@
 import {
   SearchBoxState,
   SearchBox as SearchBoxController,
-} from '@coveo/headless/ssr';
+} from '@coveo/headless/commerce-ssr';
 import {useEffect, useState, FunctionComponent} from 'react';
 import SearchBoxCommon from '../common/search-box';
 

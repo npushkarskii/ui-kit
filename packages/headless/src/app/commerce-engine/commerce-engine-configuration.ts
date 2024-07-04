@@ -1,3 +1,4 @@
+/* eslint-disable @cspell/spellchecker */
 import {RecordValue, Schema, StringValue} from '@coveo/bueno';
 import {getOrganizationEndpoints} from '../../api/platform-client';
 import {CartInitialState} from '../../controllers/commerce/context/cart/headless-cart';
@@ -40,21 +41,22 @@ export const commerceEngineConfigurationSchema =
 // TODO KIT-3244: Use a different sample organization
 export function getSampleCommerceEngineConfiguration(): CommerceEngineConfiguration {
   return {
-    accessToken: 'xxc481d5de-16cb-4290-bd78-45345319d94c',
-    organizationId: 'barcasportsmcy01fvu',
+    accessToken: 'xx697404a7-6cfd-48c6-93d1-30d73d17e07a',
+    organizationId: 'barcagroupproductionkwvdy6lp',
     organizationEndpoints: getOrganizationEndpoints(
-      'barcasportsmcy01fvu',
-      'dev'
+      'barcagroupproductionkwvdy6lp',
+      'prod'
     ),
     analytics: {
       trackingId: 'sports',
+      enabled: false,
     },
     context: {
       language: 'en',
       country: 'US',
       currency: 'USD',
       view: {
-        url: 'https://sports-dev.barca.group/browse/promotions/skis-boards/surfboards',
+        url: 'https://sports.barca.group/browse/promotions/skis-boards/surfboards',
       },
     },
     cart: {

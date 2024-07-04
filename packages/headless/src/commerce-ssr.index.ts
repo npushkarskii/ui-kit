@@ -609,6 +609,14 @@ export type {
   Delimiters,
 } from './controllers/commerce/search-box/headless-search-box.ssr';
 export {defineSearchBox} from './controllers/commerce/search-box/headless-search-box.ssr';
+// TODO: put in separate file
+export type {
+  StandaloneSearchBox,
+  StandaloneSearchBoxOptions,
+  StandaloneSearchBoxProps,
+  StandaloneSearchBoxState,
+} from './controllers/commerce/search-box/headless-search-box.ssr';
+export {defineStandaloneSearchBox} from './controllers/commerce/search-box/headless-search-box.ssr';
 
 export type {
   Context,
@@ -622,6 +630,19 @@ export type {
   ProductListingState,
 } from './controllers/commerce/product-listing/headless-product-listing.ssr';
 export {defineProductListing} from './controllers/commerce/product-listing/headless-product-listing.ssr';
+
+export type {
+  Search,
+  SearchState,
+} from './controllers/commerce/search/headless-search.ssr';
+export {defineSearch} from './controllers/commerce/search/headless-search.ssr';
+
+// TODO: put in separate file
+export type {
+  ProductListingSummaryState,
+  Summary,
+} from './controllers/commerce/product-listing/headless-product-listing.ssr';
+export {defineQuerySummary} from './controllers/commerce/product-listing/headless-product-listing.ssr';
 
 // export type {
 //   SearchParameterManagerBuildProps,

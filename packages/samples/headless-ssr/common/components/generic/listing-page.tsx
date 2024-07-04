@@ -6,13 +6,13 @@ import {
   SearchStaticState,
   SearchHydratedState,
   hydrateStaticState,
-} from '../../lib/generic/commerce-search-engine';
+} from '../../lib/generic/commerce-listing-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
 import {ProductList} from './product-list';
 import {SearchBox} from './search-box';
 import {Summary} from './summary';
 
-export default function SearchPage({
+export default function ListingPage({
   staticState,
 }: {
   staticState: SearchStaticState;
@@ -63,12 +63,12 @@ export default function SearchPage({
       /> */}
       {/* TODO: uncomment */}
       <HydrationMetadata
-        staticState={staticState}
+        staticState={staticState.controllers.summary.state}
         searchOrListingHydratedState={hydratedState}
       />
       <ProductList
-        staticState={staticState.controllers.productList.state}
-        controller={hydratedState?.controllers.productList}
+        staticState={staticState.controllers.search.state}
+        controller={hydratedState?.controllers.search}
       />
     </>
   );

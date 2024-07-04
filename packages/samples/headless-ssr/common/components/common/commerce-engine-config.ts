@@ -4,28 +4,51 @@ import {
   CommerceEngineDefinitionOptions, // defineCommerceFacets,
   CommerceEngine,
   defineProductListing,
-  defineSearchBox,
+  defineStandaloneSearchBox, // defineSearchBox,
   defineContext, // defineCommerceSearchParameterManager,
   getSampleCommerceEngineConfiguration,
+  defineQuerySummary,
+  defineSearchBox,
+  defineSearch,
 } from '@coveo/headless/commerce-ssr';
 
-export const config = {
-  configuration: {
-    ...getSampleCommerceEngineConfiguration(),
-    analytics: {
-      trackingId: 'sports',
-      enabled: false, // TODO: setup navigatorContext
-    },
-    // analytics: {enabled: false},
-  },
+type CommerceEngineConfig = CommerceEngineDefinitionOptions<
+  ControllerDefinitionsMap<CommerceEngine, Controller>
+>;
 
+const configuration = {
+  ...getSampleCommerceEngineConfiguration(),
+  analytics: {
+    trackingId: 'sports',
+    enabled: false, // TODO: setup navigatorContext
+  },
+  // analytics: {enabled: false},
+};
+
+export const searchConfig = {
+  configuration: configuration,
   controllers: {
     context: defineContext(),
-    searchBox: defineSearchBox(),
+    searchBox: defineSearchBox({options: {}}),
     productList: defineProductListing(), // TODO: also need to know how to configure a search page
+    summary: defineQuerySummary(),
     // facets: defineCommerceFacets(), // TODO: need to support facet generator
     // searchParameterManager: defineCommerceSearchParameterManager(),
   },
-} satisfies CommerceEngineDefinitionOptions<
-  ControllerDefinitionsMap<CommerceEngine, Controller>
->;
+} satisfies CommerceEngineConfig;
+
+export const productListingConfig = {
+  configuration: configuration,
+
+  controllers: {
+    context: defineContext(),
+    // searchBox: defineSearchBox({options: {}}),
+    searchBox: defineStandaloneSearchBox({
+      options: {redirectionUrl: '/search'},
+    }),
+    search: defineSearch(),
+    summary: defineQuerySummary(),
+    // facets: defineCommerceFacets(), // TODO: need to support facet generator
+    // searchParameterManager: defineCommerceSearchParameterManager(),
+  },
+} satisfies CommerceEngineConfig;

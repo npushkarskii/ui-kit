@@ -20,7 +20,6 @@ import {
 import {loadReducerError} from '../../../utils/errors';
 import {randomID} from '../../../utils/utils';
 import {validateOptions} from '../../../utils/validate-payload';
-import {StandaloneSearchBoxProps} from '../../standalone-search-box/headless-standalone-search-box';
 import {
   SearchBox,
   SearchBoxState,
@@ -31,6 +30,15 @@ import {
   StandaloneSearchBoxOptions,
   standaloneSearchBoxSchema,
 } from './headless-standalone-search-box-options';
+
+export type {StandaloneSearchBoxOptions};
+
+export interface StandaloneSearchBoxProps {
+  /**
+   * The `SearchBox` controller options.
+   */
+  options: StandaloneSearchBoxOptions;
+}
 
 export interface StandaloneSearchBox extends SearchBox {
   /**

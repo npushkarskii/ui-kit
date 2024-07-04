@@ -2,6 +2,7 @@
  * Utility functions to be used for Server Side Rendering.
  */
 import {UnknownAction} from '@reduxjs/toolkit';
+import {stateKey} from '../../app/state-key';
 import {buildProductListing} from '../../controllers/commerce/product-listing/headless-product-listing';
 import type {Controller} from '../../controllers/controller/headless-controller';
 import {LegacySearchAction} from '../../features/analytics/analytics-utils';
@@ -55,9 +56,18 @@ export type SearchCompletedAction = ReturnType<
 function isListingFetchCompletedAction(
   action: unknown
 ): action is SearchCompletedAction {
-  return /^commerce\/productListing\/fetch\/(fulfilled|rejected)$/.test(
-    (action as UnknownAction).type
-  );
+  // TODO: find a cleaner way to check if the action is a listing fetch action or a commerce search
+  // TODO: this will be used in the case of a listing page
+  const listingAction =
+    /^commerce\/productListing\/fetch\/(fulfilled|rejected)$/.test(
+      (action as UnknownAction).type
+    );
+  // TODO: this will be used in the case of a search page
+  const searchAction =
+    /^commerce\/search\/executeSearch\/(fulfilled|rejected)$/.test(
+      (action as UnknownAction).type
+    );
+  return listingAction || searchAction;
 }
 
 function buildSSRCommerceEngine(
@@ -71,18 +81,17 @@ function buildSSRCommerceEngine(
     ...options,
     middlewares: [...(options.middlewares ?? []), middleware],
   });
-  // TODO: find a way to return the engine with its state. using ...commerceEngine does not copy the state over
+  return {
+    ...commerceEngine,
 
-  const engine: SSRCommerceEngine =
-    commerceEngine as unknown as SSRCommerceEngine;
-  engine.waitForSearchCompletedAction = () => promise;
-  return engine;
-  // return {
-  //   ...commerceEngine,
-  //   waitForSearchCompletedAction() {
-  //     return promise;
-  //   },
-  // };
+    get [stateKey]() {
+      return commerceEngine[stateKey];
+    },
+
+    waitForSearchCompletedAction() {
+      return promise;
+    },
+  };
 }
 
 export interface CommerceEngineDefinition<

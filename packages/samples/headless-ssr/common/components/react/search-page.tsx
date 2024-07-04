@@ -48,7 +48,7 @@ export function SearchPageProvider({
         {children}
         <HydrationMetadata
           staticState={staticState}
-          hydratedState={hydratedState}
+          searchOrListingHydratedState={hydratedState}
         />
       </HydratedStateProvider>
     );
@@ -58,7 +58,7 @@ export function SearchPageProvider({
         {children}
         <HydrationMetadata
           staticState={staticState}
-          hydratedState={hydratedState}
+          searchOrListingHydratedState={hydratedState}
         />
       </StaticStateProvider>
     );

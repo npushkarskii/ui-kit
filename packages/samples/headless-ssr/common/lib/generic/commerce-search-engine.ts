@@ -3,9 +3,9 @@ import {
   InferStaticState,
   InferHydratedState,
 } from '@coveo/headless/commerce-ssr';
-import {config} from '../../components/common/commerce-engine-config';
+import {searchConfig} from '../../components/common/commerce-engine-config';
 
-const engineDefinition = defineCommerceEngine(config);
+const engineDefinition = defineCommerceEngine(searchConfig);
 
 export type SearchStaticState = InferStaticState<typeof engineDefinition>;
 export type SearchHydratedState = InferHydratedState<typeof engineDefinition>;

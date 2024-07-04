@@ -1,13 +1,15 @@
 import {
+  Search as SearchController,
   ProductListing as ProductListingController,
   ProductListingState,
+  SearchState,
 } from '@coveo/headless/commerce-ssr';
 import {useEffect, useState, FunctionComponent} from 'react';
 import ProductListCommon from '../common/product-list';
 
 interface ProductListProps {
-  staticState: ProductListingState;
-  controller?: ProductListingController;
+  staticState: ProductListingState | SearchState;
+  controller?: ProductListingController | SearchController;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({

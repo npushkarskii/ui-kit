@@ -1,5 +1,5 @@
-import SearchPage from '@/common/components/generic/search-page';
-import {fetchStaticState} from '@/common/lib/generic/commerce-search-engine';
+import ListingPage from '@/common/components/generic/listing-page';
+import {fetchStaticState} from '@/common/lib/generic/commerce-listing-engine';
 
 // import {buildSSRSearchParameterSerializer} from '@coveo/headless/commerce-ssr';
 
@@ -42,7 +42,7 @@ export default async function Listing(url: {
       // },
     },
   });
-  return <SearchPage staticState={staticState}></SearchPage>; // TODO: convert to listing page
+  return <ListingPage staticState={staticState}></ListingPage>; // TODO: convert to listing page
 }
 
 // A page with search parameters cannot be statically rendered, since its rendered state should look different based on the current search parameters.

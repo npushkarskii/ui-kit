@@ -1,7 +1,7 @@
 import {
   ProductListingSummaryState,
   Summary as SummaryController,
-} from '@coveo/headless/dist/definitions/commerce-ssr.index';
+} from '@coveo/headless/commerce-ssr';
 import {FunctionComponent, useEffect, useState} from 'react';
 import {SearchHydratedState as ListingSearchHydratedState} from '../../lib/generic/commerce-listing-engine';
 import {SearchHydratedState as SearchSearchHydratedState} from '../../lib/generic/commerce-search-engine';

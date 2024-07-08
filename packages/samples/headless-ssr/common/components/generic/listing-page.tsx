@@ -8,6 +8,7 @@ import {
   hydrateStaticState,
 } from '../../lib/generic/commerce-listing-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
+import {FacetGenerator} from './facet-generator';
 import {ProductList} from './product-list';
 import {SearchBox} from './search-box';
 import {Summary} from './summary';
@@ -55,20 +56,17 @@ export default function ListingPage({
         staticState={staticState.controllers.summary.state}
         controller={hydratedState?.controllers.summary}
       />
-      {/* TODO: add facet generator component instead */}
-      {/* <Facet
-        title="Author"
-        staticState={staticState.controllers.authorFacet.state}
-        controller={hydratedState?.controllers.authorFacet}
-      /> */}
-      {/* TODO: uncomment */}
+      <FacetGenerator
+        staticState={staticState.controllers.facets.state} // TODO: the facet generator state is useless
+        controller={hydratedState?.controllers.facets}
+      />
       <HydrationMetadata
         staticState={staticState.controllers.summary.state}
         searchOrListingHydratedState={hydratedState}
       />
       <ProductList
-        staticState={staticState.controllers.search.state}
-        controller={hydratedState?.controllers.search}
+        staticState={staticState.controllers.productList.state}
+        controller={hydratedState?.controllers.productList}
       />
     </>
   );

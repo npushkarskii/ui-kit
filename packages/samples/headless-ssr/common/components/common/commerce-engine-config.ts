@@ -7,6 +7,7 @@ import {
   defineStandaloneSearchBox, // defineSearchBox,
   defineContext, // defineCommerceSearchParameterManager,
   getSampleCommerceEngineConfiguration,
+  defineFacets,
   defineQuerySummary,
   defineSearchBox,
   defineSearch,
@@ -22,33 +23,33 @@ const configuration = {
     trackingId: 'sports',
     enabled: false, // TODO: setup navigatorContext
   },
-  // analytics: {enabled: false},
+};
+
+const commonControllers = {
+  context: defineContext(),
+  // searchParameterManager: defineCommerceSearchParameterManager(), // TODO: not sure
 };
 
 export const searchConfig = {
   configuration: configuration,
   controllers: {
-    context: defineContext(),
+    ...commonControllers,
     searchBox: defineSearchBox({options: {}}),
-    productList: defineProductListing(), // TODO: also need to know how to configure a search page
+    search: defineSearch(),
     summary: defineQuerySummary(),
-    // facets: defineCommerceFacets(), // TODO: need to support facet generator
-    // searchParameterManager: defineCommerceSearchParameterManager(),
+    // facets: defineFacets(),
   },
 } satisfies CommerceEngineConfig;
 
 export const productListingConfig = {
   configuration: configuration,
-
   controllers: {
-    context: defineContext(),
-    // searchBox: defineSearchBox({options: {}}),
+    ...commonControllers,
     searchBox: defineStandaloneSearchBox({
       options: {redirectionUrl: '/search'},
     }),
-    search: defineSearch(),
+    productList: defineProductListing(), // TODO: also need to know how to configure a search page
     summary: defineQuerySummary(),
-    // facets: defineCommerceFacets(), // TODO: need to support facet generator
-    // searchParameterManager: defineCommerceSearchParameterManager(),
+    facets: defineFacets(),
   },
 } satisfies CommerceEngineConfig;

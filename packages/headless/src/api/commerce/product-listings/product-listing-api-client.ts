@@ -81,6 +81,7 @@ export class ProductListingAPIClient implements FacetSearchAPIClient {
   async getProducts(
     req: ProductListingRequest
   ): Promise<ProductListingAPIResponse<ProductListingSuccessResponse>> {
+    console.log('----> Fetching product listing', req);
     const response = await PlatformClient.call({
       ...buildProductListingRequest(req),
       ...this.options,

@@ -1,13 +1,13 @@
 'use client';
 
 import {useAuthorFacet} from '../../lib/react/engine';
-import FacetCommon from '../common/facet';
+import RegularFacet from '../common/facet';
 
 export const AuthorFacet = () => {
   const {state, methods} = useAuthorFacet();
 
   return (
-    <FacetCommon
+    <RegularFacet
       title="Author"
       values={state.values}
       facetSearchQuery={state.facetSearch.query}

@@ -35,6 +35,7 @@ export default function SearchPage({
       },
     }).then(({engine, controllers}) => {
       setHydratedState({engine, controllers});
+      // controllers.search.executeFirstSearch(); // FIXME: this will trigger 2 queries because React strict mode
     });
   }, [staticState]);
 
@@ -55,20 +56,18 @@ export default function SearchPage({
         staticState={staticState.controllers.summary.state}
         controller={hydratedState?.controllers.summary}
       />
-      {/* TODO: add facet generator component instead */}
-      {/* <Facet
-        title="Author"
-        staticState={staticState.controllers.authorFacet.state}
-        controller={hydratedState?.controllers.authorFacet}
+      {/* TODO: does not work because it has to be built using buildSearch and not buildProductListing */}
+      {/* <FacetGenerator
+        staticState={staticState.controllers.} // TODO: the facet generator state is useless
+        controller={hydratedState?.controllers.facets}
       /> */}
-      {/* TODO: uncomment */}
       <HydrationMetadata
-        staticState={staticState}
+        staticState={staticState.controllers.summary.state}
         searchOrListingHydratedState={hydratedState}
       />
       <ProductList
-        staticState={staticState.controllers.productList.state}
-        controller={hydratedState?.controllers.productList}
+        staticState={staticState.controllers.search.state}
+        controller={hydratedState?.controllers.search}
       />
     </>
   );

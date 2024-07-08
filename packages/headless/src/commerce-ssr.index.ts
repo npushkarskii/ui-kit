@@ -626,24 +626,38 @@ export type {
 export {defineContext} from './controllers/commerce/context/headless-context.ssr';
 
 export type {
-  ProductListing,
-  ProductListingState,
-} from './controllers/commerce/product-listing/headless-product-listing.ssr';
-export {defineProductListing} from './controllers/commerce/product-listing/headless-product-listing.ssr';
-
-export type {
   Search,
   SearchState,
 } from './controllers/commerce/search/headless-search.ssr';
 export {defineSearch} from './controllers/commerce/search/headless-search.ssr';
 
-// TODO: put in separate file
-export type {
-  ProductListingSummaryState,
-  Summary,
-} from './controllers/commerce/product-listing/headless-product-listing.ssr';
-export {defineQuerySummary} from './controllers/commerce/product-listing/headless-product-listing.ssr';
+// export type {
+//   ProductListing,
+//   ProductListingState,
+// } from './controllers/commerce/product-listing/headless-product-listing.ssr';
+// export {defineProductListing} from './controllers/commerce/product-listing/headless-product-listing.ssr';
 
+// TODO: put in separate file
+// export type {
+//   ProductListingSummaryState,
+//   Summary,
+// } from './controllers/commerce/product-listing/headless-product-listing.ssr';
+// export {defineQuerySummary} from './controllers/commerce/product-listing/headless-product-listing.ssr';
+
+export type * from './controllers/commerce/product-listing/headless-product-listing.ssr';
+export * from './controllers/commerce/product-listing/headless-product-listing.ssr';
+export type {
+  CategoryFacetState,
+  DateFacetState,
+  NumericFacetState,
+  RegularFacetState,
+  RegularFacet,
+  DateFacet,
+  NumericFacet,
+  CategoryFacet,
+  RegularFacetValue,
+} from './commerce.index';
+// export {RegularFacetValue} from './commerce.index';
 // export type {
 //   SearchParameterManagerBuildProps,
 //   SearchParameterManagerInitialState,

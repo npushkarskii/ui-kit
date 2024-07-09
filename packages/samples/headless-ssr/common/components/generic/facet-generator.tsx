@@ -3,7 +3,7 @@ import {
   FacetGenerator as FacetGeneratorController,
 } from '@coveo/headless/commerce-ssr';
 import {FunctionComponent} from 'react';
-import NumericFacet from '../common/numeric-facet';
+// import NumericFacet from '../common/numeric-facet';
 import RegularFacet from '../common/regular-facet';
 
 // import {Facet} from './facet';
@@ -27,17 +27,27 @@ export const FacetGenerator: FunctionComponent<FacetGeneratorProps> = ({
 
   return (
     <>
-      {controller?.facets?.map((facet) => {
-        switch (facet.type) {
-          case 'regular':
-            return <RegularFacet facet={facet} />; // TODO: need a way to pass the static state
-          case 'numericalRange':
-            return <NumericFacet facet={facet} />;
+      {
+        // staticState?.facets?.map((facet) => {
+        Object.values(staticState).map((facet) => {
+          switch (facet.type) {
+            case 'regular':
+              return (
+                <RegularFacet
+                  controller={controller?.facets[0] as any}
+                  staticState={facet.state}
+                />
+              ); // TODO: need a way to pass the static state
+            case 'numericalRange':
+              // return <RegularFacet facet={staticState[0] as any} />;
+              return <>Unsupported Facet type: {facet.type}</>;
+            default:
+              return <>Unsupported Facet type: {facet.type}</>;
+          }
+        })
 
-          default:
-            return <>Unsupported Facet type: {facet.type}</>;
-        }
-      })}
+        //   }
+      }
     </>
   );
 };

@@ -37,7 +37,7 @@ export const searchConfig = {
     searchBox: defineSearchBox({options: {}}),
     search: defineSearch(),
     summary: defineQuerySummary(),
-    // facets: defineFacets(),
+    facets: defineFacets(),
   },
 } satisfies CommerceEngineConfig;
 

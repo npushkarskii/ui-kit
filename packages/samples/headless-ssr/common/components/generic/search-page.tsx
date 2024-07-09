@@ -8,6 +8,7 @@ import {
   hydrateStaticState,
 } from '../../lib/generic/commerce-search-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
+import {FacetGenerator} from './facet-generator';
 import {ProductList} from './product-list';
 import {SearchBox} from './search-box';
 import {Summary} from './summary';
@@ -56,11 +57,10 @@ export default function SearchPage({
         staticState={staticState.controllers.summary.state}
         controller={hydratedState?.controllers.summary}
       />
-      {/* TODO: does not work because it has to be built using buildSearch and not buildProductListing */}
-      {/* <FacetGenerator
-        staticState={staticState.controllers.} // TODO: the facet generator state is useless
+      <FacetGenerator
+        staticState={staticState.controllers.facets.state} // TODO: the facet generator state is useless
         controller={hydratedState?.controllers.facets}
-      /> */}
+      />
       <HydrationMetadata
         staticState={staticState.controllers.summary.state}
         searchOrListingHydratedState={hydratedState}

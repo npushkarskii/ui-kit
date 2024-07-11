@@ -29,22 +29,23 @@ export const FacetGenerator: FunctionComponent<FacetGeneratorProps> = ({
     <>
       {
         // staticState?.facets?.map((facet) => {
-        Object.values(staticState).map((facet) => {
-          switch (facet.type) {
-            case 'regular':
-              return (
-                <RegularFacet
-                  controller={controller?.facets[0] as any}
-                  staticState={facet.state}
-                />
-              ); // TODO: need a way to pass the static state
-            case 'numericalRange':
-              // return <RegularFacet facet={staticState[0] as any} />;
-              return <>Unsupported Facet type: {facet.type}</>;
-            default:
-              return <>Unsupported Facet type: {facet.type}</>;
-          }
-        })
+        controller &&
+          Object.values(controller?.facets).map((facet) => {
+            switch (facet.type) {
+              case 'regular':
+                return (
+                  <RegularFacet
+                    controller={controller?.facets[0] as any}
+                    staticState={facet.state}
+                  />
+                ); // TODO: need a way to pass the static state
+              case 'numericalRange':
+                // return <RegularFacet facet={staticState[0] as any} />;
+                return <>Unsupported Facet type: {facet.type}</>;
+              default:
+                return <>Unsupported Facet type: {facet.type}</>;
+            }
+          })
 
         //   }
       }

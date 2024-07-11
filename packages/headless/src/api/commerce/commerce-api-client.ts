@@ -156,6 +156,7 @@ export class CommerceAPIClient implements CommerceFacetSearchAPIClient {
   private async query<T = CommerceSuccessResponse>(
     options: PlatformClientCallOptions
   ) {
+    console.log('----> query');
     const response = await PlatformClient.call(options);
 
     if (response instanceof Error) {

@@ -1,11 +1,13 @@
 'use client';
 
+import {NavigatorContext} from '@coveo/headless';
 import {useEffect, useState} from 'react';
 // import {useSyncSearchParameterManager} from '../../hooks/generic/search-parameter-manager';
 import {
   SearchStaticState,
   SearchHydratedState,
   hydrateStaticState,
+  setNavigatorContext,
 } from '../../lib/generic/commerce-listing-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
 import {FacetGenerator} from './facet-generator';
@@ -15,9 +17,13 @@ import {Summary} from './summary';
 
 export default function ListingPage({
   staticState,
+  navigatorContext,
 }: {
   staticState: SearchStaticState;
+  navigatorContext: NavigatorContext;
 }) {
+  console.log('::: navigatorContext', navigatorContext);
+  setNavigatorContext(() => navigatorContext);
   const [hydratedState, setHydratedState] = useState<
     SearchHydratedState | undefined
   >(undefined);

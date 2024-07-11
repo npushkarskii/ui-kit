@@ -1,7 +1,12 @@
-import ListingPage from '@/common/components/generic/listing-page';
-import {fetchStaticState} from '@/common/lib/generic/commerce-listing-engine';
+'use server';
 
-// import {buildSSRSearchParameterSerializer} from '@coveo/headless/commerce-ssr';
+import ListingPage from '@/common/components/generic/listing-page';
+import {CustomContextProvider} from '@/common/components/navigatorContext';
+import {
+  fetchStaticState,
+  setNavigatorContext,
+} from '@/common/lib/generic/commerce-listing-engine';
+import {headers} from 'next/headers';
 
 /**
  * This file defines a Search component that uses the Coveo Headless library to manage its state.
@@ -17,14 +22,10 @@ import {fetchStaticState} from '@/common/lib/generic/commerce-listing-engine';
 // export default async function Search(url: {
 //   searchParams: {[key: string]: string | string[] | undefined};
 // }) {
-export default async function Listing(url: {
-  searchParams: {[key: string]: string | string[] | undefined};
-}) {
-  // const {toSearchParameters} = buildSSRSearchParameterSerializer();
-  // const searchParameters = toSearchParameters(url.searchParams);
-  () => {
-    url;
-  };
+export default async function Listing() {
+  const navigatorContext = () => new CustomContextProvider(headers()).marshal;
+  setNavigatorContext(navigatorContext);
+
   const staticState = await fetchStaticState({
     controllers: {
       context: {
@@ -42,9 +43,14 @@ export default async function Listing(url: {
       // },
     },
   });
-  return <ListingPage staticState={staticState}></ListingPage>;
+
+  return (
+    <ListingPage
+      staticState={staticState}
+      navigatorContext={navigatorContext()}
+    ></ListingPage>
+  );
+  // return <></>;
 }
 
-// A page with search parameters cannot be statically rendered, since its rendered state should look different based on the current search parameters.
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';

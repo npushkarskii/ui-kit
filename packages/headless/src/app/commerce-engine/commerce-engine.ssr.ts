@@ -7,6 +7,7 @@ import {buildProductListing} from '../../controllers/commerce/product-listing/he
 import type {Controller} from '../../controllers/controller/headless-controller';
 import {LegacySearchAction} from '../../features/analytics/analytics-utils';
 import {createWaitForActionMiddleware} from '../../utils/utils';
+import {NavigatorContextProvider} from '../navigatorContextProvider';
 import {
   buildControllerDefinitions,
   composeFunction,
@@ -116,7 +117,11 @@ export function defineCommerceEngine<
 >(
   // TODO: add a type (search / listing) for the controller definitions
   options: CommerceEngineDefinitionOptions<TControllerDefinitions>
-): CommerceEngineDefinition<TControllerDefinitions> {
+): CommerceEngineDefinition<TControllerDefinitions> & {
+  setNavigatorContext: (
+    navigatorContextProvider: NavigatorContextProvider
+  ) => void;
+} {
   const {controllers: controllerDefinitions, ...engineOptions} = options;
   type Definition = CommerceEngineDefinition<TControllerDefinitions>;
   type BuildFunction = Definition['build'];
@@ -134,11 +139,35 @@ export function defineCommerceEngine<
   type HydrateStaticStateFromBuildResultParameters =
     Parameters<HydrateStaticStateFromBuildResultFunction>;
 
+  class Opts {
+    constructor(private options: typeof engineOptions) {}
+
+    set navigatorContextProvider(
+      navigatorContextProvider: NavigatorContextProvider
+    ) {
+      this.options.navigatorContextProvider = navigatorContextProvider;
+    }
+
+    get() {
+      // console.log(
+      //   '::::: extend navigatorContextProvider',
+      //   this.options.navigatorContextProvider
+      // );
+      return this.options;
+    }
+  }
+
+  const opts = new Opts(engineOptions);
+
+  // const getOpts = () => {
+  // console.log('::::: extend navigatorContextProvider', engineOptions.navigatorContextProvider);
+  //   return engineOptions;
+  // };
+
   const build: BuildFunction = async (...[buildOptions]: BuildParameters) => {
+    // console.log('::::: build');
     const engine = buildSSRCommerceEngine(
-      buildOptions?.extend
-        ? await buildOptions.extend(engineOptions)
-        : engineOptions
+      buildOptions?.extend ? await buildOptions.extend(opts.get()) : opts.get()
     );
     const controllers = buildControllerDefinitions({
       definitionsMap: (controllerDefinitions ?? {}) as TControllerDefinitions,
@@ -155,6 +184,7 @@ export function defineCommerceEngine<
 
   const fetchStaticState: FetchStaticStateFunction = composeFunction(
     async (...params: FetchStaticStateParameters) => {
+      // console.log('::::: fetchStaticState');
       const buildResult = await build(...params);
       const staticState = await fetchStaticState.fromBuildResult({
         buildResult,
@@ -190,6 +220,7 @@ export function defineCommerceEngine<
 
   const hydrateStaticState: HydrateStaticStateFunction = composeFunction(
     async (...params: HydrateStaticStateParameters) => {
+      // console.log('::::: hydrateStaticState', params);
       const buildResult = await build(...(params as BuildParameters));
       const staticState = await hydrateStaticState.fromBuildResult({
         buildResult,
@@ -214,9 +245,18 @@ export function defineCommerceEngine<
     }
   );
 
+  const setNavigatorContext = (
+    navigatorContextProvider: NavigatorContextProvider
+  ) => {
+    // opts.navigatorContextProvider = navigatorContextProvider;
+    // console.log('::::: setNavigatorContext');
+    engineOptions.navigatorContextProvider = navigatorContextProvider;
+  };
+
   return {
     build,
     fetchStaticState,
     hydrateStaticState,
+    setNavigatorContext,
   };
 }

@@ -5,8 +5,8 @@ import {useEffect, useState} from 'react';
 import {
   SearchStaticState,
   SearchHydratedState,
-  hydrateStaticState,
-} from '../../lib/generic/commerce-search-engine';
+  SearchSSR,
+} from '../../lib/generic/commerce-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
 import {FacetGenerator} from './facet-generator';
 import {ProductList} from './product-list';
@@ -24,7 +24,7 @@ export default function SearchPage({
 
   useEffect(() => {
     const {context} = staticState.controllers;
-    hydrateStaticState({
+    SearchSSR.hydrateStaticState({
       searchAction: staticState.searchAction,
       controllers: {
         context: {

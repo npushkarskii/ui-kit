@@ -1,13 +1,13 @@
 /**
- * Utility functions to be used for Server Side Rendering.
+ * Utility functions to be used for Commerce Server Side Rendering.
  */
 import {UnknownAction} from '@reduxjs/toolkit';
 import {stateKey} from '../../app/state-key';
 import {buildProductListing} from '../../controllers/commerce/product-listing/headless-product-listing';
+import {buildSearch} from '../../controllers/commerce/search/headless-search';
 import type {Controller} from '../../controllers/controller/headless-controller';
 import {LegacySearchAction} from '../../features/analytics/analytics-utils';
 import {createWaitForActionMiddleware} from '../../utils/utils';
-import {NavigatorContextProvider} from '../navigatorContextProvider';
 import {
   buildControllerDefinitions,
   composeFunction,
@@ -16,6 +16,7 @@ import {
 import {
   ControllerDefinitionsMap,
   InferControllerPropsMapFromDefinitions,
+  SolutionType,
 } from '../ssr-engine/types/common';
 import {
   EngineDefinition,
@@ -27,6 +28,9 @@ import {
   buildCommerceEngine,
 } from './commerce-engine';
 
+// TODO: remove this when the search engine is refactored
+export interface SSRCommerceEngineOptions extends CommerceEngineOptions {}
+
 /**
  * The SSR commerce engine.
  */
@@ -34,49 +38,41 @@ export interface SSRCommerceEngine extends CommerceEngine {
   /**
    * Waits for the search to be completed and returns a promise that resolves to a `SearchCompletedAction`.
    */
-  waitForSearchCompletedAction(): Promise<SearchCompletedAction>;
+  waitForRequestCompletedAction(): Promise<SearchCompletedAction>;
 }
 
 export type CommerceEngineDefinitionOptions<
   TControllers extends ControllerDefinitionsMap<SSRCommerceEngine, Controller>,
-> = EngineDefinitionOptions<CommerceEngineOptions, TControllers>;
+> = EngineDefinitionOptions<SSRCommerceEngineOptions, TControllers>;
 
 export type SearchCompletedAction = ReturnType<
   LegacySearchAction['fulfilled' | 'rejected']
 >;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// function isSearchCompletedAction(
-//   action: unknown
-// ): action is SearchCompletedAction {
-//   return /^search\/executeSearch\/(fulfilled|rejected)$/.test(
-//     (action as UnknownAction).type
-//   );
-// }
-
 function isListingFetchCompletedAction(
   action: unknown
 ): action is SearchCompletedAction {
-  // TODO: find a cleaner way to check if the action is a listing fetch action or a commerce search
-  // TODO: this will be used in the case of a listing page
-  const listingAction =
-    /^commerce\/productListing\/fetch\/(fulfilled|rejected)$/.test(
-      (action as UnknownAction).type
-    );
-  // TODO: this will be used in the case of a search page
-  const searchAction =
-    /^commerce\/search\/executeSearch\/(fulfilled|rejected)$/.test(
-      (action as UnknownAction).type
-    );
-  return listingAction || searchAction;
+  return /^commerce\/productListing\/fetch\/(fulfilled|rejected)$/.test(
+    (action as UnknownAction).type
+  );
+}
+
+function isSearchCompletedAction(
+  action: unknown
+): action is SearchCompletedAction {
+  return /^commerce\/search\/executeSearch\/(fulfilled|rejected)$/.test(
+    (action as UnknownAction).type
+  );
 }
 
 function buildSSRCommerceEngine(
-  options: CommerceEngineOptions
+  solutionType: SolutionType,
+  options: SSRCommerceEngineOptions
 ): SSRCommerceEngine {
   const {middleware, promise} = createWaitForActionMiddleware(
-    // isSearchCompletedAction // TODO: maybe a argument to pass the action type
-    isListingFetchCompletedAction
+    solutionType === SolutionType.Listing
+      ? isListingFetchCompletedAction
+      : isSearchCompletedAction
   );
   const commerceEngine = buildCommerceEngine({
     ...options,
@@ -89,7 +85,7 @@ function buildSSRCommerceEngine(
       return commerceEngine[stateKey];
     },
 
-    waitForSearchCompletedAction() {
+    waitForRequestCompletedAction() {
       return promise;
     },
   };
@@ -100,8 +96,15 @@ export interface CommerceEngineDefinition<
 > extends EngineDefinition<
     SSRCommerceEngine,
     TControllers,
-    CommerceEngineOptions
+    SSRCommerceEngineOptions
   > {}
+
+export interface MultiSolutionTypeCommerceEngineDefinition<
+  TControllers extends ControllerDefinitionsMap<SSRCommerceEngine, Controller>,
+> {
+  ListingSSR: CommerceEngineDefinition<TControllers>;
+  SearchSSR: CommerceEngineDefinition<TControllers>;
+}
 
 /**
  * Initializes a Commerce engine definition in SSR with given controllers definitions and commerce engine config.
@@ -115,13 +118,8 @@ export function defineCommerceEngine<
     Controller
   >,
 >(
-  // TODO: add a type (search / listing) for the controller definitions
   options: CommerceEngineDefinitionOptions<TControllerDefinitions>
-): CommerceEngineDefinition<TControllerDefinitions> & {
-  setNavigatorContext: (
-    navigatorContextProvider: NavigatorContextProvider
-  ) => void;
-} {
+): MultiSolutionTypeCommerceEngineDefinition<TControllerDefinitions> {
   const {controllers: controllerDefinitions, ...engineOptions} = options;
   type Definition = CommerceEngineDefinition<TControllerDefinitions>;
   type BuildFunction = Definition['build'];
@@ -139,124 +137,112 @@ export function defineCommerceEngine<
   type HydrateStaticStateFromBuildResultParameters =
     Parameters<HydrateStaticStateFromBuildResultFunction>;
 
-  class Opts {
-    constructor(private options: typeof engineOptions) {}
+  const getOpts = () => {
+    return engineOptions;
+  };
 
-    set navigatorContextProvider(
-      navigatorContextProvider: NavigatorContextProvider
-    ) {
-      this.options.navigatorContextProvider = navigatorContextProvider;
-    }
+  const buildFactory: (solutionType: SolutionType) => BuildFunction =
+    (solutionType: SolutionType) =>
+    async (...[buildOptions]: BuildParameters) => {
+      const engine = buildSSRCommerceEngine(
+        solutionType,
+        buildOptions?.extend ? await buildOptions.extend(getOpts()) : getOpts()
+      );
+      const controllers = buildControllerDefinitions({
+        definitionsMap: (controllerDefinitions ?? {}) as TControllerDefinitions,
+        engine,
+        solutionType,
+        propsMap: (buildOptions && 'controllers' in buildOptions
+          ? buildOptions.controllers
+          : {}) as InferControllerPropsMapFromDefinitions<TControllerDefinitions>,
+      });
 
-    get() {
-      // console.log(
-      //   '::::: extend navigatorContextProvider',
-      //   this.options.navigatorContextProvider
-      // );
-      return this.options;
-    }
-  }
-
-  const opts = new Opts(engineOptions);
-
-  // const getOpts = () => {
-  // console.log('::::: extend navigatorContextProvider', engineOptions.navigatorContextProvider);
-  //   return engineOptions;
-  // };
-
-  const build: BuildFunction = async (...[buildOptions]: BuildParameters) => {
-    // console.log('::::: build');
-    const engine = buildSSRCommerceEngine(
-      buildOptions?.extend ? await buildOptions.extend(opts.get()) : opts.get()
-    );
-    const controllers = buildControllerDefinitions({
-      definitionsMap: (controllerDefinitions ?? {}) as TControllerDefinitions,
-      engine,
-      propsMap: (buildOptions && 'controllers' in buildOptions
-        ? buildOptions.controllers
-        : {}) as InferControllerPropsMapFromDefinitions<TControllerDefinitions>,
-    });
-    return {
-      engine,
-      controllers,
+      return {
+        engine,
+        controllers,
+      };
     };
-  };
 
-  const fetchStaticState: FetchStaticStateFunction = composeFunction(
-    async (...params: FetchStaticStateParameters) => {
-      // console.log('::::: fetchStaticState');
-      const buildResult = await build(...params);
-      const staticState = await fetchStaticState.fromBuildResult({
-        buildResult,
-      });
-      return staticState;
-    },
-    {
-      fromBuildResult: async (
-        ...params: FetchStaticStateFromBuildResultParameters
-      ) => {
-        const [
-          {
-            buildResult: {engine, controllers},
-          },
-        ] = params;
-
-        const productListing = buildProductListing(engine);
-        // TODO: tracking id should not be undefined
-        productListing.executeFirstRequest();
-        //  TODO: should now call the appropriate controller
-        // this.searchOrListing =
-        //   this.type === 'product-listing'
-        //     ? buildProductListing(this.engine!)
-        //     : buildSearch(this.engine!);
-
-        return createStaticState({
-          searchAction: await engine.waitForSearchCompletedAction(),
-          controllers,
+  const fetchStaticStateFactory: (
+    solutionType: SolutionType
+  ) => FetchStaticStateFunction = (solutionType: SolutionType) =>
+    composeFunction(
+      async (...params: FetchStaticStateParameters) => {
+        const buildResult = await buildFactory(solutionType)(...params);
+        const staticState = await fetchStaticStateFactory(
+          solutionType
+        ).fromBuildResult({
+          buildResult,
         });
+        return staticState;
       },
-    }
-  );
+      {
+        fromBuildResult: async (
+          ...params: FetchStaticStateFromBuildResultParameters
+        ) => {
+          const [
+            {
+              buildResult: {engine, controllers},
+            },
+          ] = params;
 
-  const hydrateStaticState: HydrateStaticStateFunction = composeFunction(
-    async (...params: HydrateStaticStateParameters) => {
-      // console.log('::::: hydrateStaticState', params);
-      const buildResult = await build(...(params as BuildParameters));
-      const staticState = await hydrateStaticState.fromBuildResult({
-        buildResult,
-        searchAction: params[0]!.searchAction,
-      });
-      return staticState;
-    },
-    {
-      fromBuildResult: async (
-        ...params: HydrateStaticStateFromBuildResultParameters
-      ) => {
-        const [
-          {
-            buildResult: {engine, controllers},
-            searchAction,
-          },
-        ] = params;
-        engine.dispatch(searchAction);
-        await engine.waitForSearchCompletedAction();
-        return {engine, controllers};
+          if (solutionType === SolutionType.Listing) {
+            buildProductListing(engine).executeFirstRequest();
+          } else {
+            buildSearch(engine).executeFirstSearch();
+          }
+
+          return createStaticState({
+            searchAction: await engine.waitForRequestCompletedAction(),
+            controllers,
+          });
+        },
+      }
+    );
+
+  const hydrateStaticStateFactory: (
+    solutionType: SolutionType
+  ) => HydrateStaticStateFunction = (solutionType: SolutionType) =>
+    composeFunction(
+      async (...params: HydrateStaticStateParameters) => {
+        const buildResult = await buildFactory(solutionType)(
+          ...(params as BuildParameters)
+        );
+        const staticState = await hydrateStaticStateFactory(
+          solutionType
+        ).fromBuildResult({
+          buildResult,
+          searchAction: params[0]!.searchAction,
+        });
+        return staticState;
       },
-    }
-  );
-
-  const setNavigatorContext = (
-    navigatorContextProvider: NavigatorContextProvider
-  ) => {
-    // opts.navigatorContextProvider = navigatorContextProvider;
-    // console.log('::::: setNavigatorContext');
-    engineOptions.navigatorContextProvider = navigatorContextProvider;
-  };
+      {
+        fromBuildResult: async (
+          ...params: HydrateStaticStateFromBuildResultParameters
+        ) => {
+          const [
+            {
+              buildResult: {engine, controllers},
+              searchAction,
+            },
+          ] = params;
+          engine.dispatch(searchAction);
+          await engine.waitForRequestCompletedAction();
+          return {engine, controllers};
+        },
+      }
+    );
 
   return {
-    build,
-    fetchStaticState,
-    hydrateStaticState,
-    setNavigatorContext,
+    ListingSSR: {
+      build: buildFactory(SolutionType.Listing),
+      fetchStaticState: fetchStaticStateFactory(SolutionType.Listing),
+      hydrateStaticState: hydrateStaticStateFactory(SolutionType.Listing),
+    },
+    SearchSSR: {
+      build: buildFactory(SolutionType.Search),
+      fetchStaticState: fetchStaticStateFactory(SolutionType.Search),
+      hydrateStaticState: hydrateStaticStateFactory(SolutionType.Search),
+    },
   };
 }

@@ -1,10 +1,14 @@
 import {CommerceEngine} from '../../../app/commerce-engine/commerce-engine';
-import {ControllerDefinitionWithoutProps} from '../../../app/ssr-engine/types/common';
+import {
+  ControllerDefinitionWithoutProps,
+  SolutionType,
+} from '../../../app/ssr-engine/types/common';
 import {
   FacetGenerator,
   FacetGeneratorState,
 } from '../core/facets/generator/headless-commerce-facet-generator';
 import {Summary} from '../core/summary/headless-core-summary';
+import {buildSearch} from '../search/headless-search';
 import {ProductListing, buildProductListing} from './headless-product-listing';
 import {ProductListingSummaryState} from './summary/headless-product-listing-summary';
 
@@ -35,18 +39,20 @@ export function defineProductListing(): ProductListingDefinition {
   };
 }
 
-export type {ProductListingSummaryState, Summary};
 export function defineQuerySummary(): SummaryDefinition {
   return {
-    build: (engine) => buildProductListing(engine).summary(),
+    build: (engine, solutionType) =>
+      solutionType === SolutionType.Listing
+        ? buildProductListing(engine).summary()
+        : buildSearch(engine).summary(),
   };
 }
-
 export type {FacetGeneratorState, FacetGenerator};
 export function defineFacets(): FacetGeneratorDefinition {
   return {
-    build: (engine) => buildProductListing(engine).facetGenerator(),
+    build: (engine, solutionType) =>
+      solutionType === SolutionType.Listing
+        ? buildProductListing(engine).facetGenerator()
+        : buildSearch(engine).facetGenerator(),
   };
 }
-
-// TODO: try to define sub controllers without haveing to create a function for each one of them

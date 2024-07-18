@@ -12,6 +12,7 @@ import {
   InferControllerPropsMapFromDefinitions,
   InferControllerStaticStateMapFromControllers,
   InferControllersMapFromDefinition,
+  SolutionType,
 } from './types/common';
 
 function buildControllerFromDefinition<
@@ -20,16 +21,18 @@ function buildControllerFromDefinition<
 >({
   definition,
   engine,
+  solutionType,
   props,
 }: {
   definition: TControllerDefinition;
   engine: TEngine;
+  solutionType: SolutionType;
   props?: InferControllerPropsFromDefinition<TControllerDefinition>;
 }): InferControllerFromDefinition<TControllerDefinition> {
   return (
     'build' in definition
-      ? definition.build(engine)
-      : definition.buildWithProps(engine, props)
+      ? definition.build(engine, solutionType)
+      : definition.buildWithProps(engine, props, solutionType)
   ) as InferControllerFromDefinition<TControllerDefinition>;
 }
 
@@ -42,16 +45,19 @@ export function buildControllerDefinitions<
 >({
   definitionsMap,
   engine,
+  solutionType,
   propsMap,
 }: {
   definitionsMap: TControllerDefinitionsMap;
   engine: TEngine;
+  solutionType: SolutionType;
   propsMap: InferControllerPropsMapFromDefinitions<TControllerDefinitionsMap>;
 }): InferControllersMapFromDefinition<TControllerDefinitionsMap> {
   return mapObject(definitionsMap, (definition, key) =>
     buildControllerFromDefinition({
       definition,
       engine,
+      solutionType,
       props: propsMap?.[key as keyof typeof propsMap],
     })
   ) as InferControllersMapFromDefinition<TControllerDefinitionsMap>;

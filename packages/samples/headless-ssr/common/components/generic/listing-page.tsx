@@ -6,9 +6,8 @@ import {useEffect, useState} from 'react';
 import {
   SearchStaticState,
   SearchHydratedState,
-  hydrateStaticState,
-  setNavigatorContext,
-} from '../../lib/generic/commerce-listing-engine';
+  ListingSSR,
+} from '../../lib/generic/commerce-engine';
 import {HydrationMetadata} from '../common/hydration-metadata';
 import {FacetGenerator} from './facet-generator';
 import {ProductList} from './product-list';
@@ -23,14 +22,13 @@ export default function ListingPage({
   navigatorContext: NavigatorContext;
 }) {
   console.log('::: navigatorContext', navigatorContext);
-  setNavigatorContext(() => navigatorContext);
   const [hydratedState, setHydratedState] = useState<
     SearchHydratedState | undefined
   >(undefined);
 
   useEffect(() => {
     const {context} = staticState.controllers;
-    hydrateStaticState({
+    ListingSSR.hydrateStaticState({
       searchAction: staticState.searchAction,
       controllers: {
         context: {

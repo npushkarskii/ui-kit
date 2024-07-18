@@ -1,5 +1,5 @@
 import SearchPage from '@/common/components/generic/search-page';
-import {fetchStaticState} from '@/common/lib/generic/commerce-search-engine';
+import {SearchSSR} from '@/common/lib/generic/commerce-engine';
 
 // import {buildSSRSearchParameterSerializer} from '@coveo/headless/commerce-ssr';
 
@@ -17,7 +17,7 @@ import {fetchStaticState} from '@/common/lib/generic/commerce-search-engine';
 // export default async function Search(url: {
 //   searchParams: {[key: string]: string | string[] | undefined};
 // }) {
-export default async function Listing(url: {
+export default async function Search(url: {
   searchParams: {[key: string]: string | string[] | undefined};
 }) {
   // const {toSearchParameters} = buildSSRSearchParameterSerializer();
@@ -25,7 +25,7 @@ export default async function Listing(url: {
   () => {
     url;
   };
-  const staticState = await fetchStaticState({
+  const staticState = await SearchSSR.fetchStaticState({
     controllers: {
       context: {
         // options: {

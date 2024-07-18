@@ -25,29 +25,15 @@ const configuration = {
   },
 };
 
-const commonControllers = {
-  context: defineContext(),
-  // searchParameterManager: defineCommerceSearchParameterManager(), // TODO: not sure
-};
-
-export const searchConfig = {
+export const masterEngineConfig = {
   configuration: configuration,
   controllers: {
-    ...commonControllers,
+    context: defineContext(),
     searchBox: defineSearchBox({options: {}}),
-    search: defineSearch(),
-    summary: defineQuerySummary(),
-    facets: defineFacets(),
-  },
-} satisfies CommerceEngineConfig;
-
-export const productListingConfig = {
-  configuration: configuration,
-  controllers: {
-    ...commonControllers,
-    searchBox: defineStandaloneSearchBox({
+    standaloneSearchBox: defineStandaloneSearchBox({
       options: {redirectionUrl: '/search'},
     }),
+    search: defineSearch(),
     productList: defineProductListing(), // TODO: also need to know how to configure a search page
     summary: defineQuerySummary(),
     facets: defineFacets(),

@@ -2,6 +2,12 @@ import {AnyAction} from '@reduxjs/toolkit';
 import type {Controller} from '../../../controllers/controller/headless-controller';
 import {CoreEngine, CoreEngineNext} from '../../engine';
 
+export enum SolutionType {
+  Search = 'search',
+  Listing = 'listing',
+  Recommendations = 'recommendations',
+}
+
 export type HasKeys<TObject> = TObject extends {}
   ? keyof TObject extends never
     ? false
@@ -53,7 +59,7 @@ export interface ControllerDefinitionWithoutProps<
    * @param engine - The search engine.
    * @returns The controller.
    */
-  build(engine: TEngine): TController;
+  build(engine: TEngine, solutionType: SolutionType): TController;
 }
 
 export interface ControllerDefinitionWithProps<
@@ -68,7 +74,11 @@ export interface ControllerDefinitionWithProps<
    * @param props - The controller properties.
    * @returns The controller.
    */
-  buildWithProps(engine: TEngine, props: TProps): TController;
+  buildWithProps(
+    engine: TEngine,
+    props: TProps,
+    solutionType: SolutionType
+  ): TController;
 }
 
 export type ControllerDefinition<

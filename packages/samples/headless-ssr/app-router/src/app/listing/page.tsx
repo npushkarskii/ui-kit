@@ -2,10 +2,7 @@
 
 import ListingPage from '@/common/components/generic/listing-page';
 import {CustomContextProvider} from '@/common/components/navigatorContext';
-import {
-  fetchStaticState,
-  setNavigatorContext,
-} from '@/common/lib/generic/commerce-listing-engine';
+import {ListingSSR} from '@/common/lib/generic/commerce-engine';
 import {headers} from 'next/headers';
 
 /**
@@ -24,9 +21,8 @@ import {headers} from 'next/headers';
 // }) {
 export default async function Listing() {
   const navigatorContext = () => new CustomContextProvider(headers()).marshal;
-  setNavigatorContext(navigatorContext);
 
-  const staticState = await fetchStaticState({
+  const staticState = await ListingSSR.fetchStaticState({
     controllers: {
       context: {
         // options: {

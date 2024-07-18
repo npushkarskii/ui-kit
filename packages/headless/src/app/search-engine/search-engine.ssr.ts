@@ -13,6 +13,7 @@ import {
 import {
   ControllerDefinitionsMap,
   InferControllerPropsMapFromDefinitions,
+  SolutionType,
 } from '../ssr-engine/types/common';
 import {
   EngineDefinition,
@@ -117,6 +118,7 @@ export function defineSearchEngine<
     const controllers = buildControllerDefinitions({
       definitionsMap: (controllerDefinitions ?? {}) as TControllerDefinitions,
       engine,
+      solutionType: SolutionType.Search, // TODO: Created dedicated types for commerce to not modify the non-commerce ssr package.
       propsMap: (buildOptions && 'controllers' in buildOptions
         ? buildOptions.controllers
         : {}) as InferControllerPropsMapFromDefinitions<TControllerDefinitions>,

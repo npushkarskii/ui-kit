@@ -29,15 +29,16 @@ export interface EngineDefinition<
   TEngine extends CoreEngine | CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
   TEngineOptions,
+  // TSolutionType extends SolutionType,
 > {
   /**
    * Fetches the static state on the server side using your engine definition.
    */
   fetchStaticState: FetchStaticState<
     TEngine,
-    InferControllersMapFromDefinition<TControllers>,
+    InferControllersMapFromDefinition<TControllers, 'listing'>,
     AnyAction,
-    InferControllerStaticStateMapFromDefinitions<TControllers>,
+    InferControllerStaticStateMapFromDefinitions<TControllers, 'listing'>,
     InferControllerPropsMapFromDefinitions<TControllers>
   >;
   /**
@@ -45,7 +46,7 @@ export interface EngineDefinition<
    */
   hydrateStaticState: HydrateStaticState<
     TEngine,
-    InferControllersMapFromDefinition<TControllers>,
+    InferControllersMapFromDefinition<TControllers, 'listing'>, // TODO: ICI qu'on doit avoir les bons controllers
     AnyAction,
     InferControllerPropsMapFromDefinitions<TControllers>
   >;
@@ -55,7 +56,7 @@ export interface EngineDefinition<
   build: Build<
     TEngine,
     TEngineOptions,
-    InferControllersMapFromDefinition<TControllers>,
+    InferControllersMapFromDefinition<TControllers, 'listing'>,
     InferControllerPropsMapFromDefinitions<TControllers>
   >;
 }

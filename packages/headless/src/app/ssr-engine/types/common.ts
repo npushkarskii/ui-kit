@@ -2,6 +2,20 @@ import {AnyAction} from '@reduxjs/toolkit';
 import type {Controller} from '../../../controllers/controller/headless-controller';
 import {CoreEngine, CoreEngineNext} from '../../engine';
 
+// export type SolutionType = 'search' | 'listing' | 'recommendation';
+// export type SolutionType = string;
+export type SolutionType = 'listing';
+// TODO: find a better name
+export type SingleValue = true;
+
+export type HasKey<T, K extends PropertyKey> = T extends unknown
+  ? K extends keyof T
+    ? T[K] extends never
+      ? never
+      : true
+    : never
+  : never;
+
 export type HasKeys<TObject> = TObject extends {}
   ? keyof TObject extends never
     ? false
@@ -42,6 +56,13 @@ export interface ControllerStaticState<TState> {
 export interface ControllerStaticStateMap {
   [customName: string]: ControllerStaticState<unknown>;
 }
+// TODO: find a better name
+export interface SolutionTypeMap {
+  // TODO: not sure that the conditional will work with these parameters marked as optional
+  listing?: SingleValue;
+  search?: SingleValue;
+  recommendation?: SingleValue;
+}
 
 export interface ControllerDefinitionWithoutProps<
   TEngine extends CoreEngine | CoreEngineNext,
@@ -53,7 +74,7 @@ export interface ControllerDefinitionWithoutProps<
    * @param engine - The search engine.
    * @returns The controller.
    */
-  build(engine: TEngine): TController;
+  build(engine: TEngine, solutionType?: SolutionType): TController;
 }
 
 export interface ControllerDefinitionWithProps<
@@ -68,7 +89,11 @@ export interface ControllerDefinitionWithProps<
    * @param props - The controller properties.
    * @returns The controller.
    */
-  buildWithProps(engine: TEngine, props: TProps): TController;
+  buildWithProps(
+    engine: TEngine,
+    props: TProps,
+    solutionType?: SolutionType
+  ): TController;
 }
 
 export type ControllerDefinition<
@@ -101,6 +126,7 @@ export interface EngineStaticState<
   controllers: TControllers;
 }
 
+// TODO: HERE!
 export interface HydratedState<
   TEngine extends CoreEngine | CoreEngineNext,
   TControllers extends ControllersMap,
@@ -153,7 +179,15 @@ export type InferControllersMapFromDefinition<
     CoreEngine | CoreEngineNext,
     Controller
   >,
-> = {[K in keyof TControllers]: InferControllerFromDefinition<TControllers[K]>};
+  TSolutionType extends SolutionType,
+> = {
+  [K in keyof TControllers as HasKey<
+    TControllers[K],
+    TSolutionType
+  > extends never
+    ? never
+    : K]: InferControllerFromDefinition<TControllers[K]>;
+};
 
 export type InferControllerStaticStateFromController<
   TController extends Controller,
@@ -164,8 +198,14 @@ export type InferControllerStaticStateMapFromDefinitions<
     CoreEngine | CoreEngineNext,
     Controller
   >,
+  TSolutionType extends SolutionType,
 > = {
-  [K in keyof TControllers]: InferControllerStaticStateFromController<
+  [K in keyof TControllers as HasKey<
+    TControllers[K],
+    TSolutionType
+  > extends never
+    ? never
+    : K]: InferControllerStaticStateFromController<
     InferControllerFromDefinition<TControllers[K]>
   >;
 };

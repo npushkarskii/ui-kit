@@ -1,3 +1,4 @@
+import {ensureAtLeastOneSolutionType} from '../../../../app/ssr-engine/common';
 import {
   ControllerDefinitionOption,
   SolutionType,
@@ -12,6 +13,7 @@ import {SearchSummaryState} from '../../search/summary/headless-search-summary';
 export function defineQuerySummary<
   TOptions extends ControllerDefinitionOption | undefined,
 >(options?: TOptions) {
+  ensureAtLeastOneSolutionType(options);
   return {
     ...options, // TODO: This is only used for type inference and conditional types, ideally, it should not be exposed to users
     build: (engine, solutionType: SolutionType) =>

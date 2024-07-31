@@ -1,5 +1,6 @@
 import {AnyAction} from '@reduxjs/toolkit';
 import type {Controller} from '../../../controllers/controller/headless-controller';
+import {InvalidControllerDefinition} from '../../../utils/errors';
 import {CommerceEngine} from '../../commerce-engine/commerce-engine';
 import {CoreEngine, CoreEngineNext} from '../../engine';
 
@@ -271,4 +272,4 @@ export type SolutionTypeControllerDefinition<
     ? ListingOnlyControllerDefinition<TController>
     : TDefinition extends {listing?: false; search?: true}
       ? SearchOnlyControllerDefinition<TController>
-      : never;
+      : InvalidControllerDefinition;

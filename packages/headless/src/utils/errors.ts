@@ -8,6 +8,16 @@ export class ExpiredTokenError extends Error {
   }
 }
 
+export class InvalidControllerDefinition extends Error {
+  constructor() {
+    super();
+    this.name = 'InvalidControllerDefinition';
+    // TODO: find a better message if the user defines a controller and opts out from every solution type
+    this.message =
+      'Need to define the controller for at least one solution type (search, listing, recommendation).';
+  }
+}
+
 export class DisconnectedError extends Error {
   public statusCode: number;
   constructor(url: string, statusCode?: number) {

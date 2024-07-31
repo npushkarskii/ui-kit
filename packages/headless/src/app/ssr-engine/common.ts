@@ -1,9 +1,11 @@
 import {AnyAction} from '@reduxjs/toolkit';
 import {Controller} from '../../controllers/controller/headless-controller';
+import {InvalidControllerDefinition} from '../../utils/errors';
 import {clone, mapObject} from '../../utils/utils';
 import {CoreEngine, CoreEngineNext} from '../engine';
 import {
   ControllerDefinition,
+  ControllerDefinitionOption,
   ControllerDefinitionsMap,
   ControllersMap,
   EngineStaticState,
@@ -106,4 +108,12 @@ export function composeFunction<
     (newFunction as unknown as Record<typeof key, typeof value>)[key] = value;
   }
   return newFunction;
+}
+
+export function ensureAtLeastOneSolutionType(
+  options?: ControllerDefinitionOption
+) {
+  if (!options?.listing && !options?.search) {
+    throw new InvalidControllerDefinition();
+  }
 }

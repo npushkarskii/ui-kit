@@ -227,17 +227,8 @@ export type EngineDefinitionControllersPropsOption<
 // TODO:PUT THIS TYPES IN A SEPARATE FILE DEDICATED FOR COMMERCE!!
 
 export interface ControllerDefinitionOption {
-  /**
-   * @internal
-   */
   listing?: boolean;
-  /**
-   * @internal
-   */
   search?: boolean;
-  /**
-   * @internal
-   */
   // recommendation?: boolean;
 }
 

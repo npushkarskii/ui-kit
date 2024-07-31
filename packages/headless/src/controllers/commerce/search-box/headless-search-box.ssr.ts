@@ -1,10 +1,10 @@
-import {SolutionTypeControllerDefinition} from '../../../app/ssr-engine/types/common';
+import {SharedControllerDefinition} from '../../../app/ssr-engine/types/common';
 import {SearchBox, SearchBoxProps, buildSearchBox} from './headless-search-box';
 
 export * from './headless-search-box';
 
 export interface SearchBoxDefinition
-  extends SolutionTypeControllerDefinition<SearchBox, undefined> {}
+  extends SharedControllerDefinition<SearchBox> {}
 
 /**
  * Defines a `SearchBox` controller instance.

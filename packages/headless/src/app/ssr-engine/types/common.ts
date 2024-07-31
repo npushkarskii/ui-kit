@@ -1,11 +1,10 @@
 import {AnyAction} from '@reduxjs/toolkit';
 import type {Controller} from '../../../controllers/controller/headless-controller';
+import {CommerceEngine} from '../../commerce-engine/commerce-engine';
 import {CoreEngine, CoreEngineNext} from '../../engine';
 
-// export type SolutionType = 'search' | 'listing' | 'recommendation';
-// export type SolutionType = string;
+// TODO: Ideally, SolutionType should include all possible values ('search' | 'listing' | 'recommendation'), but for now, we only have 'listing'
 export type SolutionType = 'listing';
-// TODO: find a better name
 export type SingleValue = true;
 
 export type HasKey<T, K extends PropertyKey> = T extends unknown
@@ -56,9 +55,8 @@ export interface ControllerStaticState<TState> {
 export interface ControllerStaticStateMap {
   [customName: string]: ControllerStaticState<unknown>;
 }
-// TODO: find a better name
+
 export interface SolutionTypeMap {
-  // TODO: not sure that the conditional will work with these parameters marked as optional
   listing?: SingleValue;
   search?: SingleValue;
   recommendation?: SingleValue;
@@ -126,7 +124,6 @@ export interface EngineStaticState<
   controllers: TControllers;
 }
 
-// TODO: HERE!
 export interface HydratedState<
   TEngine extends CoreEngine | CoreEngineNext,
   TControllers extends ControllersMap,
@@ -226,3 +223,50 @@ export type EngineDefinitionControllersPropsOption<
     : {
         controllers: TControllersPropsMap;
       };
+
+// TODO:PUT THIS TYPES IN A SEPARATE FILE DEDICATED FOR COMMERCE!!
+
+export interface ControllerDefinitionOption {
+  /**
+   * @internal
+   */
+  listing?: boolean;
+  /**
+   * @internal
+   */
+  search?: boolean;
+  /**
+   * @internal
+   */
+  // recommendation?: boolean;
+}
+
+export interface SearchOnlyControllerDefinition<TController extends Controller>
+  // TODO: also apply the same logic to controllers with props
+  extends ControllerDefinitionWithoutProps<CommerceEngine, TController> {}
+
+export interface ListingOnlyControllerDefinition<TController extends Controller>
+  // TODO: also apply the same logic to controllers with props
+  extends ControllerDefinitionWithoutProps<CommerceEngine, TController> {
+  /**
+   * @internal
+   */
+  listing: true;
+  /**
+   * @internal
+   */
+  search: false;
+}
+
+export interface SharedControllerDefinition<TController extends Controller>
+  // TODO: also apply the same logic to controllers with props
+  extends ControllerDefinitionWithoutProps<CommerceEngine, TController> {
+  /**
+   * @internal
+   */
+  listing: true;
+  /**
+   * @internal
+   */
+  search: true;
+}

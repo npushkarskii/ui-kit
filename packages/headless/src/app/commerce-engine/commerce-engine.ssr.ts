@@ -3,11 +3,9 @@
  */
 import {Action, AnyAction, UnknownAction} from '@reduxjs/toolkit';
 import {stateKey} from '../../app/state-key';
-import {
-  defineFacets,
-  defineQuerySummary,
-} from '../../controllers/commerce/core/sub-controller/headless-sub-controller.ssr';
+import {defineQuerySummary} from '../../controllers/commerce/core/sub-controller/headless-sub-controller.ssr';
 import {buildProductListing} from '../../controllers/commerce/product-listing/headless-product-listing';
+import {defineSearchBox} from '../../controllers/commerce/search-box/headless-search-box.ssr';
 import {buildSearch} from '../../controllers/commerce/search/headless-search';
 import type {Controller} from '../../controllers/controller/headless-controller';
 import {createWaitForActionMiddleware} from '../../utils/utils';
@@ -160,6 +158,7 @@ export function defineCommerceEngine<
       };
     };
 
+  // TODO: understand where the issue is
   const fetchStaticStateFactory: (
     solutionType: SolutionType
   ) => FetchStaticStateFunction = (solutionType: SolutionType) =>
@@ -238,46 +237,40 @@ export function defineCommerceEngine<
       hydrateStaticState: hydrateStaticStateFactory('listing'),
     },
     SearchSSR: {
+      // TODO: targer search solution types once the SolutionType is generic
       build: buildFactory('listing'),
       fetchStaticState: fetchStaticStateFactory('listing'),
       hydrateStaticState: hydrateStaticStateFactory('listing'),
-      //   build: buildFactory(SolutionType.Listing),
-      //   fetchStaticState: fetchStaticStateFactory(SolutionType.Listing),
-      //   hydrateStaticState: hydrateStaticStateFactory(SolutionType.Listing),
-      // },
-      // SearchSSR: {
-      //   build: buildFactory(SolutionType.Search),
-      //   fetchStaticState: fetchStaticStateFactory(SolutionType.Search),
-      //   hydrateStaticState: hydrateStaticStateFactory(SolutionType.Search),
     },
   };
 }
 
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////// D E M O /////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+// This playground's purposes is only to ensure the typing works correctly
+
+// Set the engine configuration
 const configuration = {
   ...getSampleCommerceEngineConfiguration(),
-  analytics: {
-    trackingId: 'sports',
-    enabled: false, // TODO: setup navigatorContext
-  },
 };
 
-type CommerceEngineConfig = CommerceEngineDefinitionOptions<
-  ControllerDefinitionsMap<CommerceEngine, Controller>
->;
-
-export const masterEngineConfig = {
+const engineDefinition = defineCommerceEngine({
   configuration: configuration,
   controllers: {
-    // standaloneSearchBox: defineStandaloneSearchBox(),
-    summary: defineQuerySummary(), // TODO: only case that does not work
-    facets: defineFacets(),
+    // Define your controllers here
+    summary: defineQuerySummary({listing: true}),
+    searchbox: defineSearchBox(),
   },
-} satisfies CommerceEngineConfig;
-const engineDefinition = defineCommerceEngine(masterEngineConfig);
+});
 
-export const {ListingSSR, SearchSSR} = engineDefinition;
+export const {ListingSSR} = engineDefinition;
 ListingSSR.hydrateStaticState({
   searchAction: 'null' as unknown as AnyAction,
 }).then((state) => {
-  state.controllers;
+  // You should be able to access the controller here if they are allowed in this solution type
+  state.controllers.summary;
+  state.controllers.searchbox;
 });

@@ -1,17 +1,21 @@
-import {SharedControllerDefinition} from '../../../app/ssr-engine/types/common';
-import {Controller} from '../../controller/headless-controller';
-import {buildSearchBox, SearchBox} from './headless-search-box';
+import {SolutionTypeControllerDefinition} from '../../../app/ssr-engine/types/common';
+import {SearchBox, SearchBoxProps, buildSearchBox} from './headless-search-box';
 
-type SolutionTypeControllerDefinition<TController extends Controller> =
-  SharedControllerDefinition<TController>;
+export * from './headless-search-box';
+
+export interface SearchBoxDefinition
+  extends SolutionTypeControllerDefinition<SearchBox, undefined> {}
 
 /**
- * @internal
+ * Defines a `SearchBox` controller instance.
+ *
+ * @param props - The configurable `SearchBox` properties.
+ * @returns The `SearchBox` controller definition.
  * */
-export function defineSearchBox(): SolutionTypeControllerDefinition<SearchBox> {
+export function defineSearchBox(props?: SearchBoxProps): SearchBoxDefinition {
   return {
     listing: true, // Again, if we can avoid having to set these boolean to ensure the type is inferred correctly, it would be better
     search: true,
-    build: (engine) => buildSearchBox(engine),
+    build: (engine) => buildSearchBox(engine, props),
   };
 }

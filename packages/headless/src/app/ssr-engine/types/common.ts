@@ -270,3 +270,14 @@ export interface SharedControllerDefinition<TController extends Controller>
    */
   search: true;
 }
+
+export type SolutionTypeControllerDefinition<
+  TController extends Controller,
+  TDefinition extends ControllerDefinitionOption | undefined,
+> = TDefinition extends {listing?: true; search?: true} | undefined
+  ? SharedControllerDefinition<TController>
+  : TDefinition extends {listing?: true; search?: false}
+    ? ListingOnlyControllerDefinition<TController>
+    : TDefinition extends {listing?: false; search?: true}
+      ? SearchOnlyControllerDefinition<TController>
+      : never;

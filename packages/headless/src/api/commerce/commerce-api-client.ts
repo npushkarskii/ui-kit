@@ -162,6 +162,7 @@ export class CommerceAPIClient implements CommerceFacetSearchAPIClient {
   private async query<T = CommerceSuccessResponse>(
     options: PlatformClientCallOptions
   ) {
+    options.logger.level = 'warn';
     const response = await PlatformClient.call(options);
 
     if (response instanceof Error) {

@@ -160,3 +160,23 @@ export function createWaitForActionMiddleware<TAction extends Action>(
 
   return {promise, middleware};
 }
+
+// TODO: merge with above function
+export function createWaitForActionMiddlewareWithCount<TAction extends Action>(
+  isDesiredAction: (action: unknown) => action is TAction,
+  count = 1
+): {promise: Promise<TAction>; middleware: Middleware} {
+  const {promise, resolve} = createDeferredPromise<TAction>();
+
+  const middleware: Middleware = () => (next) => (action) => {
+    next(action);
+    if (isDesiredAction(action)) {
+      count--;
+      if (count === 0) {
+        resolve(action);
+      }
+    }
+  };
+
+  return {promise, middleware};
+}

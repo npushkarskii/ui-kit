@@ -7,8 +7,11 @@ import engineConfig from './commerce-engine-config';
 
 const engineDefinition = defineCommerceEngine(engineConfig);
 
-export const {listingEngineDefinition, searchEngineDefinition} =
-  engineDefinition;
+export const {
+  listingEngineDefinition,
+  searchEngineDefinition,
+  recommendationEngineDefinition,
+} = engineDefinition;
 
 export type ListingStaticState = InferStaticState<
   typeof searchEngineDefinition
@@ -22,4 +25,11 @@ export type SearchStaticState = InferStaticState<
 >;
 export type SearchHydratedState = InferHydratedState<
   typeof listingEngineDefinition
+>;
+
+export type RecommendationStaticState = InferStaticState<
+  typeof recommendationEngineDefinition
+>;
+export type RecommendationHydratedState = InferHydratedState<
+  typeof recommendationEngineDefinition
 >;

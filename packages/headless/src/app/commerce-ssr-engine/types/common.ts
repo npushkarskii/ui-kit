@@ -16,7 +16,7 @@ export type {
 export enum SolutionType {
   search = 'search',
   listing = 'listing',
-  // Recommendation = 'recommendation',
+  recommendation = 'recommendation',
 }
 
 export interface ControllerDefinitionWithoutProps<
@@ -146,6 +146,12 @@ interface SearchOnlyController {
    * @internal
    */
   [SolutionType.search]: true;
+  /**
+   * @internal
+   */
+  // TODO: find a better name
+  // TODO: ensure this does not break the typing
+  isRecommendation?: boolean;
 }
 
 interface ListingOnlyController {
@@ -153,6 +159,10 @@ interface ListingOnlyController {
    * @internal
    */
   [SolutionType.listing]: true;
+  /**
+   * @internal
+   */
+  isRecommendation?: boolean;
 }
 
 interface SharedController {
@@ -164,6 +174,10 @@ interface SharedController {
    * @internal
    */
   [SolutionType.listing]: true;
+  /**
+   * @internal
+   */
+  isRecommendation?: boolean;
 }
 
 export type SearchOnlyControllerDefinitionWithoutProps<

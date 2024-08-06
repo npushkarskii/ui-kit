@@ -22,8 +22,11 @@ export function defineRecommendations(
   props: RecommendationsProps
 ): RecommendationsDefinition {
   return {
+    // TODO: rename to searchEnabled
     search: true,
+    // TODO: rename to listingEnabled
     listing: true,
+    isRecommendation: true,
     build: (engine) => buildRecommendations(engine, props),
   };
 }

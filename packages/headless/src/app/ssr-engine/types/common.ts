@@ -105,7 +105,7 @@ export interface EngineStaticState<
   TSearchAction extends AnyAction,
   TControllers extends ControllerStaticStateMap,
 > {
-  searchAction: TSearchAction;
+  searchActions: TSearchAction[];
   controllers: TControllers;
 }
 

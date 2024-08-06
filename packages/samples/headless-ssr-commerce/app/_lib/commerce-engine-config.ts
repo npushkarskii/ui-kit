@@ -35,6 +35,11 @@ export default {
         slotId: 'd73afbd2-8521-4ee6-a9b8-31f064721e73',
       },
     }),
+    // someRecs: defineRecommendations({
+    //   options: {
+    //     slotId: 'xxxx-xxxx-xxxx-xxx',
+    //   },
+    // }),
     popularBoughtRecs: defineRecommendations({
       options: {
         slotId: 'af4fb7ba-6641-4b67-9cf9-be67e9f30174',

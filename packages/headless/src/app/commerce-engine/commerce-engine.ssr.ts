@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * Utility functions to be used for Commerce Server Side Rendering.
  */
-import {Action, AnyAction, UnknownAction} from '@reduxjs/toolkit';
+import {Action, AnyAction, Middleware, UnknownAction} from '@reduxjs/toolkit';
 import {stateKey} from '../../app/state-key';
 import {buildProductListing} from '../../controllers/commerce/product-listing/headless-product-listing';
 import {buildSearch} from '../../controllers/commerce/search/headless-search';
 import type {Controller} from '../../controllers/controller/headless-controller';
-import {createWaitForActionMiddleware} from '../../utils/utils';
+import {
+  createWaitForActionMiddleware,
+  createWaitForActionMiddlewareWithCount,
+} from '../../utils/utils';
 import {buildControllerDefinitions} from '../commerce-ssr-engine/common';
 import {
   ControllerDefinitionsMap,
@@ -37,7 +42,8 @@ export interface SSRCommerceEngine extends CommerceEngine {
   /**
    * Waits for the search to be completed and returns a promise that resolves to a `SearchCompletedAction`.
    */
-  waitForRequestCompletedAction(): Promise<Action>;
+  // TODO: document: essentially a promise for the first search/request and a list of recommendation promises
+  waitForRequestCompletedActions(): Promise<Action[]>;
 }
 
 export type CommerceEngineDefinitionOptions<
@@ -56,30 +62,116 @@ function isSearchCompletedAction(action: unknown): action is Action {
   );
 }
 
+function isRecommendationCompletedAction(action: unknown): action is Action {
+  return /^commerce\/recommendations\/fetch\/(fulfilled|rejected)$/.test(
+    (action as UnknownAction).type
+  );
+}
+
+// TODO: rename
+function getRecommendationControllerCountFromDefinitions<
+  TControllerDefinitions extends ControllerDefinitionsMap<
+    SSRCommerceEngine,
+    Controller
+  >,
+>(definitionMap: TControllerDefinitions): number {
+  let slotIdCount = 0;
+  // TODO: remove any
+  Object.values(definitionMap as Record<string, any>).forEach((x) => {
+    if (x.isRecommendation) {
+      slotIdCount++;
+    }
+  });
+  return slotIdCount;
+}
+
+// TODO: rename
+function getRecommendationWaitForActionMiddleware<
+  TControllerDefinitions extends ControllerDefinitionsMap<
+    SSRCommerceEngine,
+    Controller
+  >,
+>(
+  definitionMap: TControllerDefinitions
+): {
+  promise: Promise<Action>;
+  middleware: Middleware;
+} {
+  let slotIdCount =
+    getRecommendationControllerCountFromDefinitions(definitionMap);
+
+  return createWaitForActionMiddlewareWithCount(
+    isRecommendationCompletedAction,
+    slotIdCount
+  );
+}
+
 function buildSSRCommerceEngine(
   solutionType: SolutionType,
-  options: CommerceEngineOptions
+  options: CommerceEngineOptions & {
+    recommendationOptions: {
+      // TODO: rename
+      promise: Promise<Action>;
+      middleware: Middleware;
+    };
+  }
 ): SSRCommerceEngine {
-  const {middleware, promise} = createWaitForActionMiddleware(
-    solutionType === SolutionType.listing
-      ? isListingFetchCompletedAction
-      : isSearchCompletedAction
-  );
-  const commerceEngine = buildCommerceEngine({
-    ...options,
-    middlewares: [...(options.middlewares ?? []), middleware],
-  });
-  return {
-    ...commerceEngine,
+  // TODO: put in function
 
-    get [stateKey]() {
-      return commerceEngine[stateKey];
-    },
+  // let waitAction;
+  // if (solutionType === SolutionType.recommendation) {
+  //   // in case of recommendation only (e.g. home page)
+  //   // TODO: clean that
+  //   const middleware: Middleware = () => (next) => (action) => {
+  //     next(action);
+  //   };
+  //   waitAction = {middleware, promise: Promise.resolve(null as unknown as Action)}; // TODO: get rid of that
+  // } else {
+  if (solutionType !== SolutionType.recommendation) {
+    const {middleware, promise} = createWaitForActionMiddleware(
+      solutionType === SolutionType.listing
+        ? isListingFetchCompletedAction
+        : isSearchCompletedAction
+    );
+    const commerceEngine = buildCommerceEngine({
+      ...options,
+      middlewares: [
+        ...(options.middlewares ?? []),
+        middleware,
+        options.recommendationOptions.middleware, // TODO: clean that
+      ],
+    });
+    return {
+      ...commerceEngine,
 
-    waitForRequestCompletedAction() {
-      return promise;
-    },
-  };
+      get [stateKey]() {
+        return commerceEngine[stateKey];
+      },
+
+      waitForRequestCompletedActions() {
+        return Promise.all([promise, options.recommendationOptions.promise]); // TODO: clean that
+      },
+    };
+  } else {
+    const commerceEngine = buildCommerceEngine({
+      ...options,
+      middlewares: [
+        ...(options.middlewares ?? []),
+        options.recommendationOptions.middleware, // TODO: clean that
+      ],
+    });
+    return {
+      ...commerceEngine,
+
+      get [stateKey]() {
+        return commerceEngine[stateKey];
+      },
+
+      waitForRequestCompletedActions() {
+        return Promise.all([options.recommendationOptions.promise]); // TODO: clean that
+      },
+    };
+  }
 }
 
 export interface CommerceEngineDefinition<
@@ -113,6 +205,10 @@ export function defineCommerceEngine<
   searchEngineDefinition: CommerceEngineDefinition<
     TControllerDefinitions,
     SolutionType.search
+  >;
+  recommendationEngineDefinition: CommerceEngineDefinition<
+    TControllerDefinitions,
+    SolutionType.recommendation
   >;
 } {
   const {controllers: controllerDefinitions, ...engineOptions} = options;
@@ -148,12 +244,16 @@ export function defineCommerceEngine<
   const buildFactory =
     <T extends SolutionType>(solutionType: T) =>
     async (...[buildOptions]: BuildParameters) => {
-      const engine = buildSSRCommerceEngine(
-        solutionType,
-        buildOptions?.extend
-          ? await buildOptions.extend(getOptions())
-          : getOptions()
+      // TODO: rename
+      const recommendationOptions = getRecommendationWaitForActionMiddleware(
+        controllerDefinitions ?? {}
       );
+      const engine = buildSSRCommerceEngine(solutionType, {
+        recommendationOptions,
+        ...(buildOptions?.extend
+          ? await buildOptions.extend(getOptions())
+          : getOptions()),
+      });
       const controllers = buildControllerDefinitions({
         definitionsMap: (controllerDefinitions ?? {}) as TControllerDefinitions,
         engine,
@@ -198,14 +298,33 @@ export function defineCommerceEngine<
             },
           ] = params;
 
+          // TODO: do not execute the first request if only rendering recommendation
           if (solutionType === SolutionType.listing) {
+            console.log('>> fetch listing products');
             buildProductListing(engine).executeFirstRequest();
-          } else {
+          }
+
+          if (solutionType === SolutionType.search) {
+            console.log('>> execute search');
             buildSearch(engine).executeFirstSearch();
           }
 
+          // Refreshing recommendation regardless of the solution type
+          console.log('*********************');
+          console.log(params[0].buildResult.controllers);
+          console.log('*********************');
+
+          Object.entries(controllerDefinitions as Record<string, any>).forEach(
+            ([key, value]) => {
+              if ((value as any).isRecommendation) {
+                console.log('refreshing', key);
+                key in controllers && (controllers as any)[key].refresh(); // TODO: remove any
+              }
+            }
+          );
+
           return createStaticState({
-            searchAction: await engine.waitForRequestCompletedAction(),
+            searchActions: await engine.waitForRequestCompletedActions(),
             controllers,
           }) as EngineStaticState<
             AnyAction,
@@ -236,7 +355,7 @@ export function defineCommerceEngine<
           solutionType
         ).fromBuildResult({
           buildResult,
-          searchAction: params[0]!.searchAction,
+          searchActions: params[0]!.searchActions,
         });
         return staticState;
       },
@@ -247,11 +366,14 @@ export function defineCommerceEngine<
           const [
             {
               buildResult: {engine, controllers},
-              searchAction,
+              searchActions,
             },
           ] = params;
-          engine.dispatch(searchAction);
-          await engine.waitForRequestCompletedAction();
+
+          searchActions.forEach((action) => {
+            engine.dispatch(action);
+          });
+          await engine.waitForRequestCompletedActions();
           return {engine, controllers};
         },
       }
@@ -269,5 +391,17 @@ export function defineCommerceEngine<
       hydrateStaticState: hydrateStaticStateFactory(SolutionType.search),
       setNavigatorContextProvider,
     } as CommerceEngineDefinition<TControllerDefinitions, SolutionType.search>,
+    recommendationEngineDefinition: {
+      //TODO: only used for pages with no search
+      build: buildFactory(SolutionType.recommendation),
+      fetchStaticState: fetchStaticStateFactory(SolutionType.recommendation),
+      hydrateStaticState: hydrateStaticStateFactory(
+        SolutionType.recommendation
+      ),
+      setNavigatorContextProvider,
+    } as CommerceEngineDefinition<
+      TControllerDefinitions,
+      SolutionType.recommendation
+    >,
   };
 }

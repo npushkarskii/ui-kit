@@ -165,7 +165,7 @@ export function defineSearchEngine<
         ] = params;
 
         engine.executeFirstSearch();
-        return createStaticState({
+        return (createStaticState as any)({ // TODO: fix typing
           searchAction: await engine.waitForSearchCompletedAction(),
           controllers,
         }) as EngineStaticState<
@@ -187,7 +187,7 @@ export function defineSearchEngine<
       const buildResult = await build(...(params as BuildParameters));
       const staticState = await hydrateStaticState.fromBuildResult({
         buildResult,
-        searchAction: params[0]!.searchAction,
+        searchActions: params[0]!.searchActions,
       });
       return staticState;
     },
@@ -198,10 +198,10 @@ export function defineSearchEngine<
         const [
           {
             buildResult: {engine, controllers},
-            searchAction,
+            searchActions: searchAction,
           },
         ] = params;
-        engine.dispatch(searchAction);
+        engine.dispatch(searchAction as any); // TODO fix
         await engine.waitForSearchCompletedAction();
         return {engine, controllers};
       },

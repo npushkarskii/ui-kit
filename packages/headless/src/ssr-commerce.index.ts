@@ -82,6 +82,13 @@ export type {
   Recommendations,
 } from './controllers/commerce/recommendations/headless-recommendations.ssr';
 export {defineRecommendations} from './controllers/commerce/recommendations/headless-recommendations.ssr';
+
+export type {
+  CartDefinition,
+  CartState,
+  Cart,
+} from './controllers/commerce/context/cart/headless-cart.ssr';
+export {defineCart} from './controllers/commerce/context/cart/headless-cart.ssr';
 // TODO: KIT-3391 - export other SSR commerce controllers
 
 //#endregion

@@ -1,17 +1,5 @@
-import Link from 'next/link';
+import Nav from './_components/nav';
 
 export default function Home() {
-  return (
-    <ul>
-      <li>
-        <Link href={'/recommendation'}>Recommendations</Link>
-      </li>
-      <li>
-        <Link href={'/listing'}>Surfboard Listing Page</Link>
-      </li>
-      <li>
-        <Link href={'/search'}>Search Page</Link>
-      </li>
-    </ul>
-  );
+  return Nav;
 }

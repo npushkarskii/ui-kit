@@ -1,5 +1,6 @@
 import {headers} from 'next/headers';
 import ListingPage from '../_components/listing-page';
+import Nav from '../_components/nav';
 import {listingEngineDefinition} from '../_lib/commerce-engine';
 import {NextJsNavigatorContext} from '../_lib/navigatorContextProvider';
 
@@ -16,16 +17,16 @@ export default async function Listing() {
   // Fetches the static state of the app with initial state (when applicable)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const staticState = await listingEngineDefinition.fetchStaticState();
-  console.log('*********************');
-  console.log(staticState.controllers);
-  console.log('*********************');
 
   return (
     // TODO: remove page suffix since it is a component!
-    <ListingPage
-      staticState={staticState}
-      navigatorContext={navigatorContext.marshal}
-    ></ListingPage>
+    <>
+      <Nav></Nav>
+      <ListingPage
+        staticState={staticState}
+        navigatorContext={navigatorContext.marshal}
+      ></ListingPage>
+    </>
   );
 }
 

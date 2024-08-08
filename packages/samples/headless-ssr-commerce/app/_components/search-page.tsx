@@ -3,47 +3,50 @@
 import {NavigatorContext} from '@coveo/headless/ssr-commerce';
 import {useEffect, useState} from 'react';
 import {
-  listingEngineDefinition,
-  ListingHydratedState,
-  ListingStaticState,
+  searchEngineDefinition,
+  SearchHydratedState,
+  SearchStaticState,
 } from '../_lib/commerce-engine';
 import {Cart} from './cart';
 import {ProductList} from './product-list';
 import {Summary} from './summary';
 
-export default function ListingPage({
+export default function SearchPage({
   staticState,
   navigatorContext,
 }: {
-  staticState: ListingStaticState;
+  staticState: SearchStaticState;
   navigatorContext: NavigatorContext;
 }) {
   const [hydratedState, setHydratedState] = useState<
-    ListingHydratedState | undefined
+    SearchHydratedState | undefined
   >(undefined);
 
   // Setting the navigator context provider also in client-side before hydrating the application
-  listingEngineDefinition.setNavigatorContextProvider(() => navigatorContext);
+  searchEngineDefinition.setNavigatorContextProvider(() => navigatorContext);
 
   useEffect(() => {
-    listingEngineDefinition
+    searchEngineDefinition
       .hydrateStaticState({
         searchAction: staticState.searchAction,
       })
       .then(({engine, controllers}) => {
+        console.log('*********************');
+        console.log(controllers);
+        console.log('*********************');
         setHydratedState({engine, controllers});
       });
   }, [staticState]);
 
   return (
     <>
-      <h1>Listing Page</h1>
+      <h1>Search Page</h1>
       {/* TODO: add UI component here */}
       <Cart
         staticState={staticState.controllers.cart.state}
         controller={hydratedState?.controllers.cart}
       ></Cart>
-      <h2>Product List</h2>
+      <h2>Search List</h2>
       <ProductList
         staticState={staticState.controllers.productList.state}
         controller={hydratedState?.controllers.productList}

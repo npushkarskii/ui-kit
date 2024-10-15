@@ -23,6 +23,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+        proxy: {server: 'http://localhost:8000'},
         viewport: DEFAULT_DESKTOP_VIEWPORT,
       },
     },

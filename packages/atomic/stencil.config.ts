@@ -110,10 +110,7 @@ export const config: Config = {
   outputTargets: [
     !isDevWatch &&
       react({
-        componentCorePackage: '@coveo/atomic',
-        proxiesFile:
-          '../atomic-react/src/components/stencil-generated/search/index.ts',
-        includeDefineCustomElements: true,
+        outDir: '../atomic-react/src/components/stencil-generated/search',
         excludeComponents: [
           'atomic-result-template',
           'atomic-recs-result-template',
@@ -124,10 +121,7 @@ export const config: Config = {
       }),
     !isDevWatch &&
       react({
-        componentCorePackage: '@coveo/atomic',
-        proxiesFile:
-          '../atomic-react/src/components/stencil-generated/commerce/index.ts',
-        includeDefineCustomElements: true,
+        outDir: '../atomic-react/src/components/stencil-generated/commerce',
         excludeComponents: [
           'atomic-product-template',
           'atomic-recs-result-template',
@@ -151,6 +145,7 @@ export const config: Config = {
     {
       type: 'dist-custom-elements',
       generateTypeDeclarations: false,
+      externalRuntime: false,
     },
     {
       type: 'dist',

@@ -17,6 +17,11 @@ export const navContent = {
     barcaUrl: `${barcaRoot}/browse/promotions/accessories/towels`,
   },
   Cart: {href: 'cart.html', label: 'Cart', barcaUrl: `${barcaRoot}/cart`},
+  Table: {
+    href: 'table.html',
+    label: 'Table',
+    barcaUrl: `${barcaRoot}/commerce-search-table`,
+  },
   Search: {
     href: 'search.html',
     label: 'Search',

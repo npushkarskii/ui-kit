@@ -298,9 +298,6 @@ export class AtomicCommerceProductList
   }
 
   private renderAsTable() {
-    if (this.productState.products.length > 0) {
-      return;
-    }
     const listClasses = this.computeListDisplayClasses();
     const firstItem = this.productState.products[0];
 

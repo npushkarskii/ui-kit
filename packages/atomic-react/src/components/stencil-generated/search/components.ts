@@ -7,7 +7,6 @@
 
 /* eslint-disable */
 
-import { type RedirectionPayload } from "@coveo/atomic";
 import { AtomicAriaLive as AtomicAriaLiveElement, defineCustomElement as defineAtomicAriaLive } from "@coveo/atomic/components/atomic-aria-live";
 import { AtomicAutomaticFacetGenerator as AtomicAutomaticFacetGeneratorElement, defineCustomElement as defineAtomicAutomaticFacetGenerator } from "@coveo/atomic/components/atomic-automatic-facet-generator";
 import { AtomicAutomaticFacet as AtomicAutomaticFacetElement, defineCustomElement as defineAtomicAutomaticFacet } from "@coveo/atomic/components/atomic-automatic-facet";
@@ -343,7 +342,7 @@ export const AtomicPager: StencilReactComponent<AtomicPagerElement, AtomicPagerE
     tagName: 'atomic-pager',
     elementClass: AtomicPagerElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop'},
+    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicPagerEvents,
     defineCustomElement: defineAtomicPager
       });
 
@@ -394,8 +393,10 @@ export const AtomicQuickviewModal: StencilReactComponent<AtomicQuickviewModalEle
     tagName: 'atomic-quickview-modal',
     elementClass: AtomicQuickviewModalElement,
     react: React,
-    events: { 'onAtomic/ quickview / next': 'atomic/quickview/next',
-    'onAtomic/ quickview / previous': 'atomic/quickview/previous'},
+    events: {
+        'onAtomic/ quickview / next': 'atomic/quickview/next',
+        'onAtomic/ quickview / previous': 'atomic/quickview/previous'
+    } as unknown as AtomicQuickviewModalEvents,
         defineCustomElement: defineAtomicQuickviewModal
       });
 
@@ -485,7 +486,7 @@ export const AtomicRelevanceInspector: StencilReactComponent<AtomicRelevanceInsp
     tagName: 'atomic-relevance-inspector',
     elementClass: AtomicRelevanceInspectorElement,
     react: React,
-    events: { 'onAtomic/ relevanceInspector / close': 'atomic/relevanceInspector/close'},
+    events: { 'onAtomic/ relevanceInspector / close': 'atomic/relevanceInspector/close' } as unknown as AtomicRelevanceInspectorEvents,
     defineCustomElement: defineAtomicRelevanceInspector
       });
 
@@ -765,11 +766,11 @@ export const AtomicResultsPerPage: StencilReactComponent<AtomicResultsPerPageEle
     tagName: 'atomic-results-per-page',
     elementClass: AtomicResultsPerPageElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop'},
+    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicResultsPerPageEvents,
     defineCustomElement: defineAtomicResultsPerPage
       });
 
-type AtomicSearchBoxEvents = { onRedirect: EventName<RedirectionPayload> };
+type AtomicSearchBoxEvents = { onRedirect: EventName<any> };
 
 export const AtomicSearchBox: StencilReactComponent<AtomicSearchBoxElement, AtomicSearchBoxEvents> = /*@__PURE__*/ createComponent<AtomicSearchBoxElement, AtomicSearchBoxEvents>({
     tagName: 'atomic-search-box',

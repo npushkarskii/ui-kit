@@ -94,7 +94,7 @@ const commonExternal = [
 
 /** @returns {import('rollup').OutputOptions} */
 const outputCJS = ({useCase}) => ({
-  file: `dist/cjs/${useCase}atomic-react.cjs`,
+  dir: `dist/cjs/${useCase}`,
   format: 'cjs',
 });
 
@@ -131,8 +131,6 @@ const plugins = [
     values: {
       'process.env.NODE_ENV': JSON.stringify('dev'),
       'util.TextEncoder();': 'TextEncoder();',
-      "import { defineCustomElements } from '@coveo/atomic/loader';": '',
-      'defineCustomElements();': '',
     },
   }),
 ];
@@ -148,8 +146,6 @@ const pluginsCJS = [
     values: {
       'process.env.NODE_ENV': JSON.stringify('dev'),
       'util.TextEncoder();': 'TextEncoder();',
-      "import { defineCustomElements } from '@coveo/atomic/loader';": '',
-      'defineCustomElements();': '',
     },
   }),
 ];

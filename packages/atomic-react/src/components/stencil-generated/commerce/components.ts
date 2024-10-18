@@ -7,7 +7,6 @@
 
 /* eslint-disable */
 
-import { type RedirectionPayload, type SelectChildProductEventArgs } from "@coveo/atomic";
 import { AtomicCommerceBreadbox as AtomicCommerceBreadboxElement, defineCustomElement as defineAtomicCommerceBreadbox } from "@coveo/atomic/components/atomic-commerce-breadbox";
 import { AtomicCommerceCategoryFacet as AtomicCommerceCategoryFacetElement, defineCustomElement as defineAtomicCommerceCategoryFacet } from "@coveo/atomic/components/atomic-commerce-category-facet";
 import { AtomicCommerceDidYouMean as AtomicCommerceDidYouMeanElement, defineCustomElement as defineAtomicCommerceDidYouMean } from "@coveo/atomic/components/atomic-commerce-did-you-mean";
@@ -109,7 +108,7 @@ export const AtomicCommerceFacetNumberInput: StencilReactComponent<AtomicCommerc
     tagName: 'atomic-commerce-facet-number-input',
     elementClass: AtomicCommerceFacetNumberInputElement,
     react: React,
-    events: { 'onAtomic/ numberInputApply': 'atomic/numberInputApply'},
+    events: { 'onAtomic/ numberInputApply': 'atomic/numberInputApply' } as unknown as AtomicCommerceFacetNumberInputEvents,
     defineCustomElement: defineAtomicCommerceFacetNumberInput
       });
 
@@ -179,7 +178,7 @@ export const AtomicCommercePager: StencilReactComponent<AtomicCommercePagerEleme
     tagName: 'atomic-commerce-pager',
     elementClass: AtomicCommercePagerElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop'},
+    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicCommercePagerEvents,
     defineCustomElement: defineAtomicCommercePager
       });
 
@@ -199,7 +198,7 @@ export const AtomicCommerceProductsPerPage: StencilReactComponent<AtomicCommerce
     tagName: 'atomic-commerce-products-per-page',
     elementClass: AtomicCommerceProductsPerPageElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop'},
+    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicCommerceProductsPerPageEvents,
     defineCustomElement: defineAtomicCommerceProductsPerPage
       });
 
@@ -263,7 +262,7 @@ export const AtomicCommerceRefineToggle: StencilReactComponent<AtomicCommerceRef
     defineCustomElement: defineAtomicCommerceRefineToggle
 });
 
-type AtomicCommerceSearchBoxEvents = { onRedirect: EventName<RedirectionPayload> };
+type AtomicCommerceSearchBoxEvents = { onRedirect: EventName<any> };
 
 export const AtomicCommerceSearchBox: StencilReactComponent<AtomicCommerceSearchBoxElement, AtomicCommerceSearchBoxEvents> = /*@__PURE__*/ createComponent<AtomicCommerceSearchBoxElement, AtomicCommerceSearchBoxEvents>({
     tagName: 'atomic-commerce-search-box',
@@ -373,13 +372,13 @@ export const AtomicProduct: StencilReactComponent<AtomicProductElement, AtomicPr
     defineCustomElement: defineAtomicProduct
 });
 
-type AtomicProductChildrenEvents = { 'onAtomic / selectChildProduct': EventName<SelectChildProductEventArgs> };
+type AtomicProductChildrenEvents = { 'onAtomic / selectChildProduct': EventName<any> };
 
 export const AtomicProductChildren: StencilReactComponent<AtomicProductChildrenElement, AtomicProductChildrenEvents> = /*@__PURE__*/ createComponent<AtomicProductChildrenElement, AtomicProductChildrenEvents>({
     tagName: 'atomic-product-children',
     elementClass: AtomicProductChildrenElement,
     react: React,
-    events: { 'onAtomic/ selectChildProduct': 'atomic/selectChildProduct'},
+    events: { 'onAtomic/ selectChildProduct': 'atomic/selectChildProduct' } as unknown as AtomicProductChildrenEvents,
     defineCustomElement: defineAtomicProductChildren
       });
 

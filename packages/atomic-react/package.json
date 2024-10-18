@@ -30,7 +30,8 @@
     "commerce/"
   ],
   "dependencies": {
-    "@coveo/atomic": "3.4.0"
+    "@coveo/atomic": "3.4.0",
+    "@stencil/react-output-target": "0.7.1"
   },
   "devDependencies": {
     "@coveo/release": "1.0.0",

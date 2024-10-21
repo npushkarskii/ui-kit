@@ -118,6 +118,8 @@ export const config: Config = {
         ].concat(
           filterComponentsByUseCaseForReactOutput('src/components/commerce')
         ),
+        stencilPackageName: '@coveo/atomic',
+        customElementsDir: 'components',
       }),
     !isDevWatch &&
       react({
@@ -132,6 +134,8 @@ export const config: Config = {
             'src/components/recommendations'
           )
         ),
+        stencilPackageName: '@coveo/atomic',
+        customElementsDir: 'components',
       }),
     angular({
       componentCorePackage: '@coveo/atomic',

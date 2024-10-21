@@ -7,91 +7,92 @@
 
 /* eslint-disable */
 
-import { AtomicAriaLive as AtomicAriaLiveElement, defineCustomElement as defineAtomicAriaLive } from "@coveo/atomic/components/atomic-aria-live";
-import { AtomicAutomaticFacetGenerator as AtomicAutomaticFacetGeneratorElement, defineCustomElement as defineAtomicAutomaticFacetGenerator } from "@coveo/atomic/components/atomic-automatic-facet-generator";
-import { AtomicAutomaticFacet as AtomicAutomaticFacetElement, defineCustomElement as defineAtomicAutomaticFacet } from "@coveo/atomic/components/atomic-automatic-facet";
-import { AtomicBreadbox as AtomicBreadboxElement, defineCustomElement as defineAtomicBreadbox } from "@coveo/atomic/components/atomic-breadbox";
-import { AtomicCategoryFacet as AtomicCategoryFacetElement, defineCustomElement as defineAtomicCategoryFacet } from "@coveo/atomic/components/atomic-category-facet";
-import { AtomicColorFacet as AtomicColorFacetElement, defineCustomElement as defineAtomicColorFacet } from "@coveo/atomic/components/atomic-color-facet";
-import { AtomicComponentError as AtomicComponentErrorElement, defineCustomElement as defineAtomicComponentError } from "@coveo/atomic/components/atomic-component-error";
-import { AtomicDidYouMean as AtomicDidYouMeanElement, defineCustomElement as defineAtomicDidYouMean } from "@coveo/atomic/components/atomic-did-you-mean";
-import { AtomicExternal as AtomicExternalElement, defineCustomElement as defineAtomicExternal } from "@coveo/atomic/components/atomic-external";
-import { AtomicFacetManager as AtomicFacetManagerElement, defineCustomElement as defineAtomicFacetManager } from "@coveo/atomic/components/atomic-facet-manager";
-import { AtomicFacet as AtomicFacetElement, defineCustomElement as defineAtomicFacet } from "@coveo/atomic/components/atomic-facet";
-import { AtomicFoldedResultList as AtomicFoldedResultListElement, defineCustomElement as defineAtomicFoldedResultList } from "@coveo/atomic/components/atomic-folded-result-list";
-import { AtomicFormatCurrency as AtomicFormatCurrencyElement, defineCustomElement as defineAtomicFormatCurrency } from "@coveo/atomic/components/atomic-format-currency";
-import { AtomicFormatNumber as AtomicFormatNumberElement, defineCustomElement as defineAtomicFormatNumber } from "@coveo/atomic/components/atomic-format-number";
-import { AtomicFormatUnit as AtomicFormatUnitElement, defineCustomElement as defineAtomicFormatUnit } from "@coveo/atomic/components/atomic-format-unit";
-import { AtomicGeneratedAnswer as AtomicGeneratedAnswerElement, defineCustomElement as defineAtomicGeneratedAnswer } from "@coveo/atomic/components/atomic-generated-answer";
-import { AtomicHtml as AtomicHtmlElement, defineCustomElement as defineAtomicHtml } from "@coveo/atomic/components/atomic-html";
-import { AtomicIcon as AtomicIconElement, defineCustomElement as defineAtomicIcon } from "@coveo/atomic/components/atomic-icon";
-import { AtomicLayoutSection as AtomicLayoutSectionElement, defineCustomElement as defineAtomicLayoutSection } from "@coveo/atomic/components/atomic-layout-section";
-import { AtomicLoadMoreResults as AtomicLoadMoreResultsElement, defineCustomElement as defineAtomicLoadMoreResults } from "@coveo/atomic/components/atomic-load-more-results";
-import { AtomicNoResults as AtomicNoResultsElement, defineCustomElement as defineAtomicNoResults } from "@coveo/atomic/components/atomic-no-results";
-import { AtomicNotifications as AtomicNotificationsElement, defineCustomElement as defineAtomicNotifications } from "@coveo/atomic/components/atomic-notifications";
-import { AtomicNumericFacet as AtomicNumericFacetElement, defineCustomElement as defineAtomicNumericFacet } from "@coveo/atomic/components/atomic-numeric-facet";
-import { AtomicNumericRange as AtomicNumericRangeElement, defineCustomElement as defineAtomicNumericRange } from "@coveo/atomic/components/atomic-numeric-range";
-import { AtomicPager as AtomicPagerElement, defineCustomElement as defineAtomicPager } from "@coveo/atomic/components/atomic-pager";
-import { AtomicPopover as AtomicPopoverElement, defineCustomElement as defineAtomicPopover } from "@coveo/atomic/components/atomic-popover";
-import { AtomicQueryError as AtomicQueryErrorElement, defineCustomElement as defineAtomicQueryError } from "@coveo/atomic/components/atomic-query-error";
-import { AtomicQuerySummary as AtomicQuerySummaryElement, defineCustomElement as defineAtomicQuerySummary } from "@coveo/atomic/components/atomic-query-summary";
-import { AtomicQuickviewModal as AtomicQuickviewModalElement, defineCustomElement as defineAtomicQuickviewModal } from "@coveo/atomic/components/atomic-quickview-modal";
-import { AtomicQuickview as AtomicQuickviewElement, defineCustomElement as defineAtomicQuickview } from "@coveo/atomic/components/atomic-quickview";
-import { AtomicRatingFacet as AtomicRatingFacetElement, defineCustomElement as defineAtomicRatingFacet } from "@coveo/atomic/components/atomic-rating-facet";
-import { AtomicRatingRangeFacet as AtomicRatingRangeFacetElement, defineCustomElement as defineAtomicRatingRangeFacet } from "@coveo/atomic/components/atomic-rating-range-facet";
-import { AtomicRecsError as AtomicRecsErrorElement, defineCustomElement as defineAtomicRecsError } from "@coveo/atomic/components/atomic-recs-error";
-import { AtomicRecsInterface as AtomicRecsInterfaceElement, defineCustomElement as defineAtomicRecsInterface } from "@coveo/atomic/components/atomic-recs-interface";
-import { AtomicRecsList as AtomicRecsListElement, defineCustomElement as defineAtomicRecsList } from "@coveo/atomic/components/atomic-recs-list";
-import { AtomicRecsResult as AtomicRecsResultElement, defineCustomElement as defineAtomicRecsResult } from "@coveo/atomic/components/atomic-recs-result";
-import { AtomicRefineModal as AtomicRefineModalElement, defineCustomElement as defineAtomicRefineModal } from "@coveo/atomic/components/atomic-refine-modal";
-import { AtomicRefineToggle as AtomicRefineToggleElement, defineCustomElement as defineAtomicRefineToggle } from "@coveo/atomic/components/atomic-refine-toggle";
-import { AtomicRelevanceInspector as AtomicRelevanceInspectorElement, defineCustomElement as defineAtomicRelevanceInspector } from "@coveo/atomic/components/atomic-relevance-inspector";
-import { AtomicResultBadge as AtomicResultBadgeElement, defineCustomElement as defineAtomicResultBadge } from "@coveo/atomic/components/atomic-result-badge";
-import { AtomicResultChildrenTemplate as AtomicResultChildrenTemplateElement, defineCustomElement as defineAtomicResultChildrenTemplate } from "@coveo/atomic/components/atomic-result-children-template";
-import { AtomicResultChildren as AtomicResultChildrenElement, defineCustomElement as defineAtomicResultChildren } from "@coveo/atomic/components/atomic-result-children";
-import { AtomicResultDate as AtomicResultDateElement, defineCustomElement as defineAtomicResultDate } from "@coveo/atomic/components/atomic-result-date";
-import { AtomicResultFieldsList as AtomicResultFieldsListElement, defineCustomElement as defineAtomicResultFieldsList } from "@coveo/atomic/components/atomic-result-fields-list";
-import { AtomicResultHtml as AtomicResultHtmlElement, defineCustomElement as defineAtomicResultHtml } from "@coveo/atomic/components/atomic-result-html";
-import { AtomicResultIcon as AtomicResultIconElement, defineCustomElement as defineAtomicResultIcon } from "@coveo/atomic/components/atomic-result-icon";
-import { AtomicResultImage as AtomicResultImageElement, defineCustomElement as defineAtomicResultImage } from "@coveo/atomic/components/atomic-result-image";
-import { AtomicResultLink as AtomicResultLinkElement, defineCustomElement as defineAtomicResultLink } from "@coveo/atomic/components/atomic-result-link";
-import { AtomicResultList as AtomicResultListElement, defineCustomElement as defineAtomicResultList } from "@coveo/atomic/components/atomic-result-list";
-import { AtomicResultLocalizedText as AtomicResultLocalizedTextElement, defineCustomElement as defineAtomicResultLocalizedText } from "@coveo/atomic/components/atomic-result-localized-text";
-import { AtomicResultMultiValueText as AtomicResultMultiValueTextElement, defineCustomElement as defineAtomicResultMultiValueText } from "@coveo/atomic/components/atomic-result-multi-value-text";
-import { AtomicResultNumber as AtomicResultNumberElement, defineCustomElement as defineAtomicResultNumber } from "@coveo/atomic/components/atomic-result-number";
-import { AtomicResultPrintableUri as AtomicResultPrintableUriElement, defineCustomElement as defineAtomicResultPrintableUri } from "@coveo/atomic/components/atomic-result-printable-uri";
-import { AtomicResultRating as AtomicResultRatingElement, defineCustomElement as defineAtomicResultRating } from "@coveo/atomic/components/atomic-result-rating";
-import { AtomicResultSectionActions as AtomicResultSectionActionsElement, defineCustomElement as defineAtomicResultSectionActions } from "@coveo/atomic/components/atomic-result-section-actions";
-import { AtomicResultSectionBadges as AtomicResultSectionBadgesElement, defineCustomElement as defineAtomicResultSectionBadges } from "@coveo/atomic/components/atomic-result-section-badges";
-import { AtomicResultSectionBottomMetadata as AtomicResultSectionBottomMetadataElement, defineCustomElement as defineAtomicResultSectionBottomMetadata } from "@coveo/atomic/components/atomic-result-section-bottom-metadata";
-import { AtomicResultSectionChildren as AtomicResultSectionChildrenElement, defineCustomElement as defineAtomicResultSectionChildren } from "@coveo/atomic/components/atomic-result-section-children";
-import { AtomicResultSectionEmphasized as AtomicResultSectionEmphasizedElement, defineCustomElement as defineAtomicResultSectionEmphasized } from "@coveo/atomic/components/atomic-result-section-emphasized";
-import { AtomicResultSectionExcerpt as AtomicResultSectionExcerptElement, defineCustomElement as defineAtomicResultSectionExcerpt } from "@coveo/atomic/components/atomic-result-section-excerpt";
-import { AtomicResultSectionTitleMetadata as AtomicResultSectionTitleMetadataElement, defineCustomElement as defineAtomicResultSectionTitleMetadata } from "@coveo/atomic/components/atomic-result-section-title-metadata";
-import { AtomicResultSectionTitle as AtomicResultSectionTitleElement, defineCustomElement as defineAtomicResultSectionTitle } from "@coveo/atomic/components/atomic-result-section-title";
-import { AtomicResultSectionVisual as AtomicResultSectionVisualElement, defineCustomElement as defineAtomicResultSectionVisual } from "@coveo/atomic/components/atomic-result-section-visual";
-import { AtomicResultText as AtomicResultTextElement, defineCustomElement as defineAtomicResultText } from "@coveo/atomic/components/atomic-result-text";
-import { AtomicResultTimespan as AtomicResultTimespanElement, defineCustomElement as defineAtomicResultTimespan } from "@coveo/atomic/components/atomic-result-timespan";
-import { AtomicResult as AtomicResultElement, defineCustomElement as defineAtomicResult } from "@coveo/atomic/components/atomic-result";
-import { AtomicResultsPerPage as AtomicResultsPerPageElement, defineCustomElement as defineAtomicResultsPerPage } from "@coveo/atomic/components/atomic-results-per-page";
-import { AtomicSearchBoxInstantResults as AtomicSearchBoxInstantResultsElement, defineCustomElement as defineAtomicSearchBoxInstantResults } from "@coveo/atomic/components/atomic-search-box-instant-results";
-import { AtomicSearchBoxQuerySuggestions as AtomicSearchBoxQuerySuggestionsElement, defineCustomElement as defineAtomicSearchBoxQuerySuggestions } from "@coveo/atomic/components/atomic-search-box-query-suggestions";
-import { AtomicSearchBoxRecentQueries as AtomicSearchBoxRecentQueriesElement, defineCustomElement as defineAtomicSearchBoxRecentQueries } from "@coveo/atomic/components/atomic-search-box-recent-queries";
-import { AtomicSearchBox as AtomicSearchBoxElement, defineCustomElement as defineAtomicSearchBox } from "@coveo/atomic/components/atomic-search-box";
-import { AtomicSearchInterface as AtomicSearchInterfaceElement, defineCustomElement as defineAtomicSearchInterface } from "@coveo/atomic/components/atomic-search-interface";
-import { AtomicSearchLayout as AtomicSearchLayoutElement, defineCustomElement as defineAtomicSearchLayout } from "@coveo/atomic/components/atomic-search-layout";
-import { AtomicSegmentedFacetScrollable as AtomicSegmentedFacetScrollableElement, defineCustomElement as defineAtomicSegmentedFacetScrollable } from "@coveo/atomic/components/atomic-segmented-facet-scrollable";
-import { AtomicSegmentedFacet as AtomicSegmentedFacetElement, defineCustomElement as defineAtomicSegmentedFacet } from "@coveo/atomic/components/atomic-segmented-facet";
-import { AtomicSmartSnippetFeedbackModal as AtomicSmartSnippetFeedbackModalElement, defineCustomElement as defineAtomicSmartSnippetFeedbackModal } from "@coveo/atomic/components/atomic-smart-snippet-feedback-modal";
-import { AtomicSmartSnippetSuggestions as AtomicSmartSnippetSuggestionsElement, defineCustomElement as defineAtomicSmartSnippetSuggestions } from "@coveo/atomic/components/atomic-smart-snippet-suggestions";
-import { AtomicSmartSnippet as AtomicSmartSnippetElement, defineCustomElement as defineAtomicSmartSnippet } from "@coveo/atomic/components/atomic-smart-snippet";
-import { AtomicSortDropdown as AtomicSortDropdownElement, defineCustomElement as defineAtomicSortDropdown } from "@coveo/atomic/components/atomic-sort-dropdown";
-import { AtomicSortExpression as AtomicSortExpressionElement, defineCustomElement as defineAtomicSortExpression } from "@coveo/atomic/components/atomic-sort-expression";
-import { AtomicTabManager as AtomicTabManagerElement, defineCustomElement as defineAtomicTabManager } from "@coveo/atomic/components/atomic-tab-manager";
-import { AtomicTableElement as AtomicTableElementElement, defineCustomElement as defineAtomicTableElement } from "@coveo/atomic/components/atomic-table-element";
-import { AtomicText as AtomicTextElement, defineCustomElement as defineAtomicText } from "@coveo/atomic/components/atomic-text";
-import { AtomicTimeframeFacet as AtomicTimeframeFacetElement, defineCustomElement as defineAtomicTimeframeFacet } from "@coveo/atomic/components/atomic-timeframe-facet";
-import { AtomicTimeframe as AtomicTimeframeElement, defineCustomElement as defineAtomicTimeframe } from "@coveo/atomic/components/atomic-timeframe";
+import { type AtomicSearchBoxCustomEvent, type RedirectionPayload } from "@coveo/atomic";
+import { AtomicAriaLive as AtomicAriaLiveElement, defineCustomElement as defineAtomicAriaLive } from "@coveo/atomic/components/atomic-aria-live.js";
+import { AtomicAutomaticFacetGenerator as AtomicAutomaticFacetGeneratorElement, defineCustomElement as defineAtomicAutomaticFacetGenerator } from "@coveo/atomic/components/atomic-automatic-facet-generator.js";
+import { AtomicAutomaticFacet as AtomicAutomaticFacetElement, defineCustomElement as defineAtomicAutomaticFacet } from "@coveo/atomic/components/atomic-automatic-facet.js";
+import { AtomicBreadbox as AtomicBreadboxElement, defineCustomElement as defineAtomicBreadbox } from "@coveo/atomic/components/atomic-breadbox.js";
+import { AtomicCategoryFacet as AtomicCategoryFacetElement, defineCustomElement as defineAtomicCategoryFacet } from "@coveo/atomic/components/atomic-category-facet.js";
+import { AtomicColorFacet as AtomicColorFacetElement, defineCustomElement as defineAtomicColorFacet } from "@coveo/atomic/components/atomic-color-facet.js";
+import { AtomicComponentError as AtomicComponentErrorElement, defineCustomElement as defineAtomicComponentError } from "@coveo/atomic/components/atomic-component-error.js";
+import { AtomicDidYouMean as AtomicDidYouMeanElement, defineCustomElement as defineAtomicDidYouMean } from "@coveo/atomic/components/atomic-did-you-mean.js";
+import { AtomicExternal as AtomicExternalElement, defineCustomElement as defineAtomicExternal } from "@coveo/atomic/components/atomic-external.js";
+import { AtomicFacetManager as AtomicFacetManagerElement, defineCustomElement as defineAtomicFacetManager } from "@coveo/atomic/components/atomic-facet-manager.js";
+import { AtomicFacet as AtomicFacetElement, defineCustomElement as defineAtomicFacet } from "@coveo/atomic/components/atomic-facet.js";
+import { AtomicFoldedResultList as AtomicFoldedResultListElement, defineCustomElement as defineAtomicFoldedResultList } from "@coveo/atomic/components/atomic-folded-result-list.js";
+import { AtomicFormatCurrency as AtomicFormatCurrencyElement, defineCustomElement as defineAtomicFormatCurrency } from "@coveo/atomic/components/atomic-format-currency.js";
+import { AtomicFormatNumber as AtomicFormatNumberElement, defineCustomElement as defineAtomicFormatNumber } from "@coveo/atomic/components/atomic-format-number.js";
+import { AtomicFormatUnit as AtomicFormatUnitElement, defineCustomElement as defineAtomicFormatUnit } from "@coveo/atomic/components/atomic-format-unit.js";
+import { AtomicGeneratedAnswer as AtomicGeneratedAnswerElement, defineCustomElement as defineAtomicGeneratedAnswer } from "@coveo/atomic/components/atomic-generated-answer.js";
+import { AtomicHtml as AtomicHtmlElement, defineCustomElement as defineAtomicHtml } from "@coveo/atomic/components/atomic-html.js";
+import { AtomicIcon as AtomicIconElement, defineCustomElement as defineAtomicIcon } from "@coveo/atomic/components/atomic-icon.js";
+import { AtomicLayoutSection as AtomicLayoutSectionElement, defineCustomElement as defineAtomicLayoutSection } from "@coveo/atomic/components/atomic-layout-section.js";
+import { AtomicLoadMoreResults as AtomicLoadMoreResultsElement, defineCustomElement as defineAtomicLoadMoreResults } from "@coveo/atomic/components/atomic-load-more-results.js";
+import { AtomicNoResults as AtomicNoResultsElement, defineCustomElement as defineAtomicNoResults } from "@coveo/atomic/components/atomic-no-results.js";
+import { AtomicNotifications as AtomicNotificationsElement, defineCustomElement as defineAtomicNotifications } from "@coveo/atomic/components/atomic-notifications.js";
+import { AtomicNumericFacet as AtomicNumericFacetElement, defineCustomElement as defineAtomicNumericFacet } from "@coveo/atomic/components/atomic-numeric-facet.js";
+import { AtomicNumericRange as AtomicNumericRangeElement, defineCustomElement as defineAtomicNumericRange } from "@coveo/atomic/components/atomic-numeric-range.js";
+import { AtomicPager as AtomicPagerElement, defineCustomElement as defineAtomicPager } from "@coveo/atomic/components/atomic-pager.js";
+import { AtomicPopover as AtomicPopoverElement, defineCustomElement as defineAtomicPopover } from "@coveo/atomic/components/atomic-popover.js";
+import { AtomicQueryError as AtomicQueryErrorElement, defineCustomElement as defineAtomicQueryError } from "@coveo/atomic/components/atomic-query-error.js";
+import { AtomicQuerySummary as AtomicQuerySummaryElement, defineCustomElement as defineAtomicQuerySummary } from "@coveo/atomic/components/atomic-query-summary.js";
+import { AtomicQuickviewModal as AtomicQuickviewModalElement, defineCustomElement as defineAtomicQuickviewModal } from "@coveo/atomic/components/atomic-quickview-modal.js";
+import { AtomicQuickview as AtomicQuickviewElement, defineCustomElement as defineAtomicQuickview } from "@coveo/atomic/components/atomic-quickview.js";
+import { AtomicRatingFacet as AtomicRatingFacetElement, defineCustomElement as defineAtomicRatingFacet } from "@coveo/atomic/components/atomic-rating-facet.js";
+import { AtomicRatingRangeFacet as AtomicRatingRangeFacetElement, defineCustomElement as defineAtomicRatingRangeFacet } from "@coveo/atomic/components/atomic-rating-range-facet.js";
+import { AtomicRecsError as AtomicRecsErrorElement, defineCustomElement as defineAtomicRecsError } from "@coveo/atomic/components/atomic-recs-error.js";
+import { AtomicRecsInterface as AtomicRecsInterfaceElement, defineCustomElement as defineAtomicRecsInterface } from "@coveo/atomic/components/atomic-recs-interface.js";
+import { AtomicRecsList as AtomicRecsListElement, defineCustomElement as defineAtomicRecsList } from "@coveo/atomic/components/atomic-recs-list.js";
+import { AtomicRecsResult as AtomicRecsResultElement, defineCustomElement as defineAtomicRecsResult } from "@coveo/atomic/components/atomic-recs-result.js";
+import { AtomicRefineModal as AtomicRefineModalElement, defineCustomElement as defineAtomicRefineModal } from "@coveo/atomic/components/atomic-refine-modal.js";
+import { AtomicRefineToggle as AtomicRefineToggleElement, defineCustomElement as defineAtomicRefineToggle } from "@coveo/atomic/components/atomic-refine-toggle.js";
+import { AtomicRelevanceInspector as AtomicRelevanceInspectorElement, defineCustomElement as defineAtomicRelevanceInspector } from "@coveo/atomic/components/atomic-relevance-inspector.js";
+import { AtomicResultBadge as AtomicResultBadgeElement, defineCustomElement as defineAtomicResultBadge } from "@coveo/atomic/components/atomic-result-badge.js";
+import { AtomicResultChildrenTemplate as AtomicResultChildrenTemplateElement, defineCustomElement as defineAtomicResultChildrenTemplate } from "@coveo/atomic/components/atomic-result-children-template.js";
+import { AtomicResultChildren as AtomicResultChildrenElement, defineCustomElement as defineAtomicResultChildren } from "@coveo/atomic/components/atomic-result-children.js";
+import { AtomicResultDate as AtomicResultDateElement, defineCustomElement as defineAtomicResultDate } from "@coveo/atomic/components/atomic-result-date.js";
+import { AtomicResultFieldsList as AtomicResultFieldsListElement, defineCustomElement as defineAtomicResultFieldsList } from "@coveo/atomic/components/atomic-result-fields-list.js";
+import { AtomicResultHtml as AtomicResultHtmlElement, defineCustomElement as defineAtomicResultHtml } from "@coveo/atomic/components/atomic-result-html.js";
+import { AtomicResultIcon as AtomicResultIconElement, defineCustomElement as defineAtomicResultIcon } from "@coveo/atomic/components/atomic-result-icon.js";
+import { AtomicResultImage as AtomicResultImageElement, defineCustomElement as defineAtomicResultImage } from "@coveo/atomic/components/atomic-result-image.js";
+import { AtomicResultLink as AtomicResultLinkElement, defineCustomElement as defineAtomicResultLink } from "@coveo/atomic/components/atomic-result-link.js";
+import { AtomicResultList as AtomicResultListElement, defineCustomElement as defineAtomicResultList } from "@coveo/atomic/components/atomic-result-list.js";
+import { AtomicResultLocalizedText as AtomicResultLocalizedTextElement, defineCustomElement as defineAtomicResultLocalizedText } from "@coveo/atomic/components/atomic-result-localized-text.js";
+import { AtomicResultMultiValueText as AtomicResultMultiValueTextElement, defineCustomElement as defineAtomicResultMultiValueText } from "@coveo/atomic/components/atomic-result-multi-value-text.js";
+import { AtomicResultNumber as AtomicResultNumberElement, defineCustomElement as defineAtomicResultNumber } from "@coveo/atomic/components/atomic-result-number.js";
+import { AtomicResultPrintableUri as AtomicResultPrintableUriElement, defineCustomElement as defineAtomicResultPrintableUri } from "@coveo/atomic/components/atomic-result-printable-uri.js";
+import { AtomicResultRating as AtomicResultRatingElement, defineCustomElement as defineAtomicResultRating } from "@coveo/atomic/components/atomic-result-rating.js";
+import { AtomicResultSectionActions as AtomicResultSectionActionsElement, defineCustomElement as defineAtomicResultSectionActions } from "@coveo/atomic/components/atomic-result-section-actions.js";
+import { AtomicResultSectionBadges as AtomicResultSectionBadgesElement, defineCustomElement as defineAtomicResultSectionBadges } from "@coveo/atomic/components/atomic-result-section-badges.js";
+import { AtomicResultSectionBottomMetadata as AtomicResultSectionBottomMetadataElement, defineCustomElement as defineAtomicResultSectionBottomMetadata } from "@coveo/atomic/components/atomic-result-section-bottom-metadata.js";
+import { AtomicResultSectionChildren as AtomicResultSectionChildrenElement, defineCustomElement as defineAtomicResultSectionChildren } from "@coveo/atomic/components/atomic-result-section-children.js";
+import { AtomicResultSectionEmphasized as AtomicResultSectionEmphasizedElement, defineCustomElement as defineAtomicResultSectionEmphasized } from "@coveo/atomic/components/atomic-result-section-emphasized.js";
+import { AtomicResultSectionExcerpt as AtomicResultSectionExcerptElement, defineCustomElement as defineAtomicResultSectionExcerpt } from "@coveo/atomic/components/atomic-result-section-excerpt.js";
+import { AtomicResultSectionTitleMetadata as AtomicResultSectionTitleMetadataElement, defineCustomElement as defineAtomicResultSectionTitleMetadata } from "@coveo/atomic/components/atomic-result-section-title-metadata.js";
+import { AtomicResultSectionTitle as AtomicResultSectionTitleElement, defineCustomElement as defineAtomicResultSectionTitle } from "@coveo/atomic/components/atomic-result-section-title.js";
+import { AtomicResultSectionVisual as AtomicResultSectionVisualElement, defineCustomElement as defineAtomicResultSectionVisual } from "@coveo/atomic/components/atomic-result-section-visual.js";
+import { AtomicResultText as AtomicResultTextElement, defineCustomElement as defineAtomicResultText } from "@coveo/atomic/components/atomic-result-text.js";
+import { AtomicResultTimespan as AtomicResultTimespanElement, defineCustomElement as defineAtomicResultTimespan } from "@coveo/atomic/components/atomic-result-timespan.js";
+import { AtomicResult as AtomicResultElement, defineCustomElement as defineAtomicResult } from "@coveo/atomic/components/atomic-result.js";
+import { AtomicResultsPerPage as AtomicResultsPerPageElement, defineCustomElement as defineAtomicResultsPerPage } from "@coveo/atomic/components/atomic-results-per-page.js";
+import { AtomicSearchBoxInstantResults as AtomicSearchBoxInstantResultsElement, defineCustomElement as defineAtomicSearchBoxInstantResults } from "@coveo/atomic/components/atomic-search-box-instant-results.js";
+import { AtomicSearchBoxQuerySuggestions as AtomicSearchBoxQuerySuggestionsElement, defineCustomElement as defineAtomicSearchBoxQuerySuggestions } from "@coveo/atomic/components/atomic-search-box-query-suggestions.js";
+import { AtomicSearchBoxRecentQueries as AtomicSearchBoxRecentQueriesElement, defineCustomElement as defineAtomicSearchBoxRecentQueries } from "@coveo/atomic/components/atomic-search-box-recent-queries.js";
+import { AtomicSearchBox as AtomicSearchBoxElement, defineCustomElement as defineAtomicSearchBox } from "@coveo/atomic/components/atomic-search-box.js";
+import { AtomicSearchInterface as AtomicSearchInterfaceElement, defineCustomElement as defineAtomicSearchInterface } from "@coveo/atomic/components/atomic-search-interface.js";
+import { AtomicSearchLayout as AtomicSearchLayoutElement, defineCustomElement as defineAtomicSearchLayout } from "@coveo/atomic/components/atomic-search-layout.js";
+import { AtomicSegmentedFacetScrollable as AtomicSegmentedFacetScrollableElement, defineCustomElement as defineAtomicSegmentedFacetScrollable } from "@coveo/atomic/components/atomic-segmented-facet-scrollable.js";
+import { AtomicSegmentedFacet as AtomicSegmentedFacetElement, defineCustomElement as defineAtomicSegmentedFacet } from "@coveo/atomic/components/atomic-segmented-facet.js";
+import { AtomicSmartSnippetFeedbackModal as AtomicSmartSnippetFeedbackModalElement, defineCustomElement as defineAtomicSmartSnippetFeedbackModal } from "@coveo/atomic/components/atomic-smart-snippet-feedback-modal.js";
+import { AtomicSmartSnippetSuggestions as AtomicSmartSnippetSuggestionsElement, defineCustomElement as defineAtomicSmartSnippetSuggestions } from "@coveo/atomic/components/atomic-smart-snippet-suggestions.js";
+import { AtomicSmartSnippet as AtomicSmartSnippetElement, defineCustomElement as defineAtomicSmartSnippet } from "@coveo/atomic/components/atomic-smart-snippet.js";
+import { AtomicSortDropdown as AtomicSortDropdownElement, defineCustomElement as defineAtomicSortDropdown } from "@coveo/atomic/components/atomic-sort-dropdown.js";
+import { AtomicSortExpression as AtomicSortExpressionElement, defineCustomElement as defineAtomicSortExpression } from "@coveo/atomic/components/atomic-sort-expression.js";
+import { AtomicTabManager as AtomicTabManagerElement, defineCustomElement as defineAtomicTabManager } from "@coveo/atomic/components/atomic-tab-manager.js";
+import { AtomicTableElement as AtomicTableElementElement, defineCustomElement as defineAtomicTableElement } from "@coveo/atomic/components/atomic-table-element.js";
+import { AtomicText as AtomicTextElement, defineCustomElement as defineAtomicText } from "@coveo/atomic/components/atomic-text.js";
+import { AtomicTimeframeFacet as AtomicTimeframeFacetElement, defineCustomElement as defineAtomicTimeframeFacet } from "@coveo/atomic/components/atomic-timeframe-facet.js";
+import { AtomicTimeframe as AtomicTimeframeElement, defineCustomElement as defineAtomicTimeframe } from "@coveo/atomic/components/atomic-timeframe.js";
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
@@ -336,15 +337,15 @@ export const AtomicNumericRange: StencilReactComponent<AtomicNumericRangeElement
     defineCustomElement: defineAtomicNumericRange
 });
 
-type AtomicPagerEvents = { 'onAtomic / scrollToTop': EventName<CustomEvent<any>> };
+type AtomicPagerEvents = { onAtomicScrollToTop: EventName<CustomEvent<any>> };
 
 export const AtomicPager: StencilReactComponent<AtomicPagerElement, AtomicPagerEvents> = /*@__PURE__*/ createComponent<AtomicPagerElement, AtomicPagerEvents>({
     tagName: 'atomic-pager',
     elementClass: AtomicPagerElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicPagerEvents,
+    events: { onAtomicScrollToTop: 'atomic/scrollToTop' } as AtomicPagerEvents,
     defineCustomElement: defineAtomicPager
-      });
+});
 
 type AtomicPopoverEvents = NonNullable<unknown>;
 
@@ -386,19 +387,21 @@ export const AtomicQuickview: StencilReactComponent<AtomicQuickviewElement, Atom
     defineCustomElement: defineAtomicQuickview
 });
 
-type AtomicQuickviewModalEvents = { 'onAtomic / quickview / next': EventName<CustomEvent<any>>,
-    'onAtomic / quickview / previous': EventName<CustomEvent<any>> };
+type AtomicQuickviewModalEvents = {
+    onAtomicQuickviewNext: EventName<CustomEvent<any>>,
+    onAtomicQuickviewPrevious: EventName<CustomEvent<any>>
+};
 
 export const AtomicQuickviewModal: StencilReactComponent<AtomicQuickviewModalElement, AtomicQuickviewModalEvents> = /*@__PURE__*/ createComponent<AtomicQuickviewModalElement, AtomicQuickviewModalEvents>({
     tagName: 'atomic-quickview-modal',
     elementClass: AtomicQuickviewModalElement,
     react: React,
     events: {
-        'onAtomic/ quickview / next': 'atomic/quickview/next',
-        'onAtomic/ quickview / previous': 'atomic/quickview/previous'
-    } as unknown as AtomicQuickviewModalEvents,
-        defineCustomElement: defineAtomicQuickviewModal
-      });
+        onAtomicQuickviewNext: 'atomic/quickview/next',
+        onAtomicQuickviewPrevious: 'atomic/quickview/previous'
+    } as AtomicQuickviewModalEvents,
+    defineCustomElement: defineAtomicQuickviewModal
+});
 
 type AtomicRatingFacetEvents = NonNullable<unknown>;
 
@@ -480,15 +483,15 @@ export const AtomicRefineToggle: StencilReactComponent<AtomicRefineToggleElement
     defineCustomElement: defineAtomicRefineToggle
 });
 
-type AtomicRelevanceInspectorEvents = { 'onAtomic / relevanceInspector / close': EventName<CustomEvent<any>> };
+type AtomicRelevanceInspectorEvents = { onAtomicRelevanceInspectorClose: EventName<CustomEvent<any>> };
 
 export const AtomicRelevanceInspector: StencilReactComponent<AtomicRelevanceInspectorElement, AtomicRelevanceInspectorEvents> = /*@__PURE__*/ createComponent<AtomicRelevanceInspectorElement, AtomicRelevanceInspectorEvents>({
     tagName: 'atomic-relevance-inspector',
     elementClass: AtomicRelevanceInspectorElement,
     react: React,
-    events: { 'onAtomic/ relevanceInspector / close': 'atomic/relevanceInspector/close' } as unknown as AtomicRelevanceInspectorEvents,
+    events: { onAtomicRelevanceInspectorClose: 'atomic/relevanceInspector/close' } as AtomicRelevanceInspectorEvents,
     defineCustomElement: defineAtomicRelevanceInspector
-      });
+});
 
 type AtomicResultEvents = NonNullable<unknown>;
 
@@ -760,17 +763,17 @@ export const AtomicResultTimespan: StencilReactComponent<AtomicResultTimespanEle
     defineCustomElement: defineAtomicResultTimespan
 });
 
-type AtomicResultsPerPageEvents = { 'onAtomic / scrollToTop': EventName<CustomEvent<any>> };
+type AtomicResultsPerPageEvents = { onAtomicScrollToTop: EventName<CustomEvent<any>> };
 
 export const AtomicResultsPerPage: StencilReactComponent<AtomicResultsPerPageElement, AtomicResultsPerPageEvents> = /*@__PURE__*/ createComponent<AtomicResultsPerPageElement, AtomicResultsPerPageEvents>({
     tagName: 'atomic-results-per-page',
     elementClass: AtomicResultsPerPageElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicResultsPerPageEvents,
+    events: { onAtomicScrollToTop: 'atomic/scrollToTop' } as AtomicResultsPerPageEvents,
     defineCustomElement: defineAtomicResultsPerPage
-      });
+});
 
-type AtomicSearchBoxEvents = { onRedirect: EventName<any> };
+type AtomicSearchBoxEvents = { onRedirect: EventName<AtomicSearchBoxCustomEvent<RedirectionPayload>> };
 
 export const AtomicSearchBox: StencilReactComponent<AtomicSearchBoxElement, AtomicSearchBoxEvents> = /*@__PURE__*/ createComponent<AtomicSearchBoxElement, AtomicSearchBoxEvents>({
     tagName: 'atomic-search-box',

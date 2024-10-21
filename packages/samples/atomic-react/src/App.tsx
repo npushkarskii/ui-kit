@@ -1,3 +1,4 @@
+import {defineCustomElement as defineAtomicSearchInterface} from '@coveo/atomic/components/atomic-search-interface.js';
 import React, {FunctionComponent, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {HeaderLink} from './components/HeaderLink';
@@ -8,6 +9,8 @@ import {RecsPage} from './pages/RecsPage';
 import {ResultListPage} from './pages/ResultListPage';
 import {TableResultListPage} from './pages/TableResultListPage';
 import './style.css';
+
+defineAtomicSearchInterface();
 
 const LIST_PAGE = 'Result list';
 const FOLDED_LIST_PAGE = 'Folded result list';

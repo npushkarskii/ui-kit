@@ -1,10 +1,13 @@
 import type {JSX, i18n} from '@coveo/atomic';
+import {defineCustomElement as defineAtomicSearchInterface} from '@coveo/atomic/components/atomic-search-interface.js';
 import {
   buildSearchEngine,
   getSampleSearchEngineConfiguration,
 } from '@coveo/headless';
 import React, {useEffect, useRef} from 'react';
-import {AtomicSearchInterface} from '../stencil-generated/search/components';
+import {AtomicSearchInterface} from '../stencil-generated/search/components.js';
+
+defineAtomicSearchInterface();
 
 type ExecuteSearch = HTMLAtomicSearchInterfaceElement['executeFirstSearch'];
 /**

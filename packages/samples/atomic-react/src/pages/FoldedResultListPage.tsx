@@ -51,7 +51,7 @@ function MyTemplate(result: FoldedResult) {
         }
       `}</style>
       <AtomicResultSectionBadges>
-        <AtomicResultBadge label="Salesforce" class="salesforce-badge" />
+        <AtomicResultBadge label="Salesforce" className="salesforce-badge" />
         {result.result.raw.language && (
           <AtomicResultBadge icon="https://raw.githubusercontent.com/Rush/Font-Awesome-SVG-PNG/master/black/svg/language.svg">
             <AtomicResultMultiValueText field="language" />

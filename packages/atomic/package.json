@@ -37,7 +37,7 @@
     },
     "./components/*": {
       "types": "./dist/components/*.d.ts",
-      "import": "./dist/components/*.js"
+      "import": "./dist/components/*"
     }
   },
   "files": [
@@ -104,7 +104,7 @@
     "@stencil-community/postcss": "2.2.0",
     "@stencil/angular-output-target": "0.8.4",
     "@stencil/core": "4.20.0",
-    "@stencil/react-output-target": "0.7.1",
+    "@stencil/react-output-target": "0.0.1-dev.11729028168.122837bc",
     "@storybook/addon-a11y": "8.1.11",
     "@storybook/addon-essentials": "8.1.11",
     "@storybook/addon-interactions": "8.1.11",

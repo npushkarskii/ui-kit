@@ -32,5 +32,5 @@ module.exports = {
       overlay: false,
     },
   },
-  mode: 'production',
+  mode: 'development',
 };

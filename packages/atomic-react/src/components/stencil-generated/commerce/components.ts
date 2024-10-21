@@ -7,57 +7,58 @@
 
 /* eslint-disable */
 
-import { AtomicCommerceBreadbox as AtomicCommerceBreadboxElement, defineCustomElement as defineAtomicCommerceBreadbox } from "@coveo/atomic/components/atomic-commerce-breadbox";
-import { AtomicCommerceCategoryFacet as AtomicCommerceCategoryFacetElement, defineCustomElement as defineAtomicCommerceCategoryFacet } from "@coveo/atomic/components/atomic-commerce-category-facet";
-import { AtomicCommerceDidYouMean as AtomicCommerceDidYouMeanElement, defineCustomElement as defineAtomicCommerceDidYouMean } from "@coveo/atomic/components/atomic-commerce-did-you-mean";
-import { AtomicCommerceFacetNumberInput as AtomicCommerceFacetNumberInputElement, defineCustomElement as defineAtomicCommerceFacetNumberInput } from "@coveo/atomic/components/atomic-commerce-facet-number-input";
-import { AtomicCommerceFacet as AtomicCommerceFacetElement, defineCustomElement as defineAtomicCommerceFacet } from "@coveo/atomic/components/atomic-commerce-facet";
-import { AtomicCommerceFacets as AtomicCommerceFacetsElement, defineCustomElement as defineAtomicCommerceFacets } from "@coveo/atomic/components/atomic-commerce-facets";
-import { AtomicCommerceInterface as AtomicCommerceInterfaceElement, defineCustomElement as defineAtomicCommerceInterface } from "@coveo/atomic/components/atomic-commerce-interface";
-import { AtomicCommerceLayout as AtomicCommerceLayoutElement, defineCustomElement as defineAtomicCommerceLayout } from "@coveo/atomic/components/atomic-commerce-layout";
-import { AtomicCommerceLoadMoreProducts as AtomicCommerceLoadMoreProductsElement, defineCustomElement as defineAtomicCommerceLoadMoreProducts } from "@coveo/atomic/components/atomic-commerce-load-more-products";
-import { AtomicCommerceNoProducts as AtomicCommerceNoProductsElement, defineCustomElement as defineAtomicCommerceNoProducts } from "@coveo/atomic/components/atomic-commerce-no-products";
-import { AtomicCommerceNumericFacet as AtomicCommerceNumericFacetElement, defineCustomElement as defineAtomicCommerceNumericFacet } from "@coveo/atomic/components/atomic-commerce-numeric-facet";
-import { AtomicCommercePager as AtomicCommercePagerElement, defineCustomElement as defineAtomicCommercePager } from "@coveo/atomic/components/atomic-commerce-pager";
-import { AtomicCommerceProductList as AtomicCommerceProductListElement, defineCustomElement as defineAtomicCommerceProductList } from "@coveo/atomic/components/atomic-commerce-product-list";
-import { AtomicCommerceProductsPerPage as AtomicCommerceProductsPerPageElement, defineCustomElement as defineAtomicCommerceProductsPerPage } from "@coveo/atomic/components/atomic-commerce-products-per-page";
-import { AtomicCommerceQueryError as AtomicCommerceQueryErrorElement, defineCustomElement as defineAtomicCommerceQueryError } from "@coveo/atomic/components/atomic-commerce-query-error";
-import { AtomicCommerceQuerySummary as AtomicCommerceQuerySummaryElement, defineCustomElement as defineAtomicCommerceQuerySummary } from "@coveo/atomic/components/atomic-commerce-query-summary";
-import { AtomicCommerceRecommendationInterface as AtomicCommerceRecommendationInterfaceElement, defineCustomElement as defineAtomicCommerceRecommendationInterface } from "@coveo/atomic/components/atomic-commerce-recommendation-interface";
-import { AtomicCommerceRecommendationList as AtomicCommerceRecommendationListElement, defineCustomElement as defineAtomicCommerceRecommendationList } from "@coveo/atomic/components/atomic-commerce-recommendation-list";
-import { AtomicCommerceRefineModal as AtomicCommerceRefineModalElement, defineCustomElement as defineAtomicCommerceRefineModal } from "@coveo/atomic/components/atomic-commerce-refine-modal";
-import { AtomicCommerceRefineToggle as AtomicCommerceRefineToggleElement, defineCustomElement as defineAtomicCommerceRefineToggle } from "@coveo/atomic/components/atomic-commerce-refine-toggle";
-import { AtomicCommerceSearchBoxInstantProducts as AtomicCommerceSearchBoxInstantProductsElement, defineCustomElement as defineAtomicCommerceSearchBoxInstantProducts } from "@coveo/atomic/components/atomic-commerce-search-box-instant-products";
-import { AtomicCommerceSearchBoxQuerySuggestions as AtomicCommerceSearchBoxQuerySuggestionsElement, defineCustomElement as defineAtomicCommerceSearchBoxQuerySuggestions } from "@coveo/atomic/components/atomic-commerce-search-box-query-suggestions";
-import { AtomicCommerceSearchBoxRecentQueries as AtomicCommerceSearchBoxRecentQueriesElement, defineCustomElement as defineAtomicCommerceSearchBoxRecentQueries } from "@coveo/atomic/components/atomic-commerce-search-box-recent-queries";
-import { AtomicCommerceSearchBox as AtomicCommerceSearchBoxElement, defineCustomElement as defineAtomicCommerceSearchBox } from "@coveo/atomic/components/atomic-commerce-search-box";
-import { AtomicCommerceSortDropdown as AtomicCommerceSortDropdownElement, defineCustomElement as defineAtomicCommerceSortDropdown } from "@coveo/atomic/components/atomic-commerce-sort-dropdown";
-import { AtomicCommerceText as AtomicCommerceTextElement, defineCustomElement as defineAtomicCommerceText } from "@coveo/atomic/components/atomic-commerce-text";
-import { AtomicCommerceTimeframeFacet as AtomicCommerceTimeframeFacetElement, defineCustomElement as defineAtomicCommerceTimeframeFacet } from "@coveo/atomic/components/atomic-commerce-timeframe-facet";
-import { AtomicIcon as AtomicIconElement, defineCustomElement as defineAtomicIcon } from "@coveo/atomic/components/atomic-icon";
-import { AtomicLayoutSection as AtomicLayoutSectionElement, defineCustomElement as defineAtomicLayoutSection } from "@coveo/atomic/components/atomic-layout-section";
-import { AtomicNumericRange as AtomicNumericRangeElement, defineCustomElement as defineAtomicNumericRange } from "@coveo/atomic/components/atomic-numeric-range";
-import { AtomicProductChildren as AtomicProductChildrenElement, defineCustomElement as defineAtomicProductChildren } from "@coveo/atomic/components/atomic-product-children";
-import { AtomicProductDescription as AtomicProductDescriptionElement, defineCustomElement as defineAtomicProductDescription } from "@coveo/atomic/components/atomic-product-description";
-import { AtomicProductFieldCondition as AtomicProductFieldConditionElement, defineCustomElement as defineAtomicProductFieldCondition } from "@coveo/atomic/components/atomic-product-field-condition";
-import { AtomicProductImage as AtomicProductImageElement, defineCustomElement as defineAtomicProductImage } from "@coveo/atomic/components/atomic-product-image";
-import { AtomicProductLink as AtomicProductLinkElement, defineCustomElement as defineAtomicProductLink } from "@coveo/atomic/components/atomic-product-link";
-import { AtomicProductNumericFieldValue as AtomicProductNumericFieldValueElement, defineCustomElement as defineAtomicProductNumericFieldValue } from "@coveo/atomic/components/atomic-product-numeric-field-value";
-import { AtomicProductPrice as AtomicProductPriceElement, defineCustomElement as defineAtomicProductPrice } from "@coveo/atomic/components/atomic-product-price";
-import { AtomicProductRating as AtomicProductRatingElement, defineCustomElement as defineAtomicProductRating } from "@coveo/atomic/components/atomic-product-rating";
-import { AtomicProductSectionActions as AtomicProductSectionActionsElement, defineCustomElement as defineAtomicProductSectionActions } from "@coveo/atomic/components/atomic-product-section-actions";
-import { AtomicProductSectionBadges as AtomicProductSectionBadgesElement, defineCustomElement as defineAtomicProductSectionBadges } from "@coveo/atomic/components/atomic-product-section-badges";
-import { AtomicProductSectionBottomMetadata as AtomicProductSectionBottomMetadataElement, defineCustomElement as defineAtomicProductSectionBottomMetadata } from "@coveo/atomic/components/atomic-product-section-bottom-metadata";
-import { AtomicProductSectionChildren as AtomicProductSectionChildrenElement, defineCustomElement as defineAtomicProductSectionChildren } from "@coveo/atomic/components/atomic-product-section-children";
-import { AtomicProductSectionDescription as AtomicProductSectionDescriptionElement, defineCustomElement as defineAtomicProductSectionDescription } from "@coveo/atomic/components/atomic-product-section-description";
-import { AtomicProductSectionEmphasized as AtomicProductSectionEmphasizedElement, defineCustomElement as defineAtomicProductSectionEmphasized } from "@coveo/atomic/components/atomic-product-section-emphasized";
-import { AtomicProductSectionMetadata as AtomicProductSectionMetadataElement, defineCustomElement as defineAtomicProductSectionMetadata } from "@coveo/atomic/components/atomic-product-section-metadata";
-import { AtomicProductSectionName as AtomicProductSectionNameElement, defineCustomElement as defineAtomicProductSectionName } from "@coveo/atomic/components/atomic-product-section-name";
-import { AtomicProductSectionVisual as AtomicProductSectionVisualElement, defineCustomElement as defineAtomicProductSectionVisual } from "@coveo/atomic/components/atomic-product-section-visual";
-import { AtomicProductText as AtomicProductTextElement, defineCustomElement as defineAtomicProductText } from "@coveo/atomic/components/atomic-product-text";
-import { AtomicProduct as AtomicProductElement, defineCustomElement as defineAtomicProduct } from "@coveo/atomic/components/atomic-product";
-import { AtomicResultLocalizedText as AtomicResultLocalizedTextElement, defineCustomElement as defineAtomicResultLocalizedText } from "@coveo/atomic/components/atomic-result-localized-text";
-import { AtomicTimeframe as AtomicTimeframeElement, defineCustomElement as defineAtomicTimeframe } from "@coveo/atomic/components/atomic-timeframe";
+import { type AtomicCommerceSearchBoxCustomEvent, type AtomicProductChildrenCustomEvent, type RedirectionPayload, type SelectChildProductEventArgs } from "@coveo/atomic";
+import { AtomicCommerceBreadbox as AtomicCommerceBreadboxElement, defineCustomElement as defineAtomicCommerceBreadbox } from "@coveo/atomic/components/atomic-commerce-breadbox.js";
+import { AtomicCommerceCategoryFacet as AtomicCommerceCategoryFacetElement, defineCustomElement as defineAtomicCommerceCategoryFacet } from "@coveo/atomic/components/atomic-commerce-category-facet.js";
+import { AtomicCommerceDidYouMean as AtomicCommerceDidYouMeanElement, defineCustomElement as defineAtomicCommerceDidYouMean } from "@coveo/atomic/components/atomic-commerce-did-you-mean.js";
+import { AtomicCommerceFacetNumberInput as AtomicCommerceFacetNumberInputElement, defineCustomElement as defineAtomicCommerceFacetNumberInput } from "@coveo/atomic/components/atomic-commerce-facet-number-input.js";
+import { AtomicCommerceFacet as AtomicCommerceFacetElement, defineCustomElement as defineAtomicCommerceFacet } from "@coveo/atomic/components/atomic-commerce-facet.js";
+import { AtomicCommerceFacets as AtomicCommerceFacetsElement, defineCustomElement as defineAtomicCommerceFacets } from "@coveo/atomic/components/atomic-commerce-facets.js";
+import { AtomicCommerceInterface as AtomicCommerceInterfaceElement, defineCustomElement as defineAtomicCommerceInterface } from "@coveo/atomic/components/atomic-commerce-interface.js";
+import { AtomicCommerceLayout as AtomicCommerceLayoutElement, defineCustomElement as defineAtomicCommerceLayout } from "@coveo/atomic/components/atomic-commerce-layout.js";
+import { AtomicCommerceLoadMoreProducts as AtomicCommerceLoadMoreProductsElement, defineCustomElement as defineAtomicCommerceLoadMoreProducts } from "@coveo/atomic/components/atomic-commerce-load-more-products.js";
+import { AtomicCommerceNoProducts as AtomicCommerceNoProductsElement, defineCustomElement as defineAtomicCommerceNoProducts } from "@coveo/atomic/components/atomic-commerce-no-products.js";
+import { AtomicCommerceNumericFacet as AtomicCommerceNumericFacetElement, defineCustomElement as defineAtomicCommerceNumericFacet } from "@coveo/atomic/components/atomic-commerce-numeric-facet.js";
+import { AtomicCommercePager as AtomicCommercePagerElement, defineCustomElement as defineAtomicCommercePager } from "@coveo/atomic/components/atomic-commerce-pager.js";
+import { AtomicCommerceProductList as AtomicCommerceProductListElement, defineCustomElement as defineAtomicCommerceProductList } from "@coveo/atomic/components/atomic-commerce-product-list.js";
+import { AtomicCommerceProductsPerPage as AtomicCommerceProductsPerPageElement, defineCustomElement as defineAtomicCommerceProductsPerPage } from "@coveo/atomic/components/atomic-commerce-products-per-page.js";
+import { AtomicCommerceQueryError as AtomicCommerceQueryErrorElement, defineCustomElement as defineAtomicCommerceQueryError } from "@coveo/atomic/components/atomic-commerce-query-error.js";
+import { AtomicCommerceQuerySummary as AtomicCommerceQuerySummaryElement, defineCustomElement as defineAtomicCommerceQuerySummary } from "@coveo/atomic/components/atomic-commerce-query-summary.js";
+import { AtomicCommerceRecommendationInterface as AtomicCommerceRecommendationInterfaceElement, defineCustomElement as defineAtomicCommerceRecommendationInterface } from "@coveo/atomic/components/atomic-commerce-recommendation-interface.js";
+import { AtomicCommerceRecommendationList as AtomicCommerceRecommendationListElement, defineCustomElement as defineAtomicCommerceRecommendationList } from "@coveo/atomic/components/atomic-commerce-recommendation-list.js";
+import { AtomicCommerceRefineModal as AtomicCommerceRefineModalElement, defineCustomElement as defineAtomicCommerceRefineModal } from "@coveo/atomic/components/atomic-commerce-refine-modal.js";
+import { AtomicCommerceRefineToggle as AtomicCommerceRefineToggleElement, defineCustomElement as defineAtomicCommerceRefineToggle } from "@coveo/atomic/components/atomic-commerce-refine-toggle.js";
+import { AtomicCommerceSearchBoxInstantProducts as AtomicCommerceSearchBoxInstantProductsElement, defineCustomElement as defineAtomicCommerceSearchBoxInstantProducts } from "@coveo/atomic/components/atomic-commerce-search-box-instant-products.js";
+import { AtomicCommerceSearchBoxQuerySuggestions as AtomicCommerceSearchBoxQuerySuggestionsElement, defineCustomElement as defineAtomicCommerceSearchBoxQuerySuggestions } from "@coveo/atomic/components/atomic-commerce-search-box-query-suggestions.js";
+import { AtomicCommerceSearchBoxRecentQueries as AtomicCommerceSearchBoxRecentQueriesElement, defineCustomElement as defineAtomicCommerceSearchBoxRecentQueries } from "@coveo/atomic/components/atomic-commerce-search-box-recent-queries.js";
+import { AtomicCommerceSearchBox as AtomicCommerceSearchBoxElement, defineCustomElement as defineAtomicCommerceSearchBox } from "@coveo/atomic/components/atomic-commerce-search-box.js";
+import { AtomicCommerceSortDropdown as AtomicCommerceSortDropdownElement, defineCustomElement as defineAtomicCommerceSortDropdown } from "@coveo/atomic/components/atomic-commerce-sort-dropdown.js";
+import { AtomicCommerceText as AtomicCommerceTextElement, defineCustomElement as defineAtomicCommerceText } from "@coveo/atomic/components/atomic-commerce-text.js";
+import { AtomicCommerceTimeframeFacet as AtomicCommerceTimeframeFacetElement, defineCustomElement as defineAtomicCommerceTimeframeFacet } from "@coveo/atomic/components/atomic-commerce-timeframe-facet.js";
+import { AtomicIcon as AtomicIconElement, defineCustomElement as defineAtomicIcon } from "@coveo/atomic/components/atomic-icon.js";
+import { AtomicLayoutSection as AtomicLayoutSectionElement, defineCustomElement as defineAtomicLayoutSection } from "@coveo/atomic/components/atomic-layout-section.js";
+import { AtomicNumericRange as AtomicNumericRangeElement, defineCustomElement as defineAtomicNumericRange } from "@coveo/atomic/components/atomic-numeric-range.js";
+import { AtomicProductChildren as AtomicProductChildrenElement, defineCustomElement as defineAtomicProductChildren } from "@coveo/atomic/components/atomic-product-children.js";
+import { AtomicProductDescription as AtomicProductDescriptionElement, defineCustomElement as defineAtomicProductDescription } from "@coveo/atomic/components/atomic-product-description.js";
+import { AtomicProductFieldCondition as AtomicProductFieldConditionElement, defineCustomElement as defineAtomicProductFieldCondition } from "@coveo/atomic/components/atomic-product-field-condition.js";
+import { AtomicProductImage as AtomicProductImageElement, defineCustomElement as defineAtomicProductImage } from "@coveo/atomic/components/atomic-product-image.js";
+import { AtomicProductLink as AtomicProductLinkElement, defineCustomElement as defineAtomicProductLink } from "@coveo/atomic/components/atomic-product-link.js";
+import { AtomicProductNumericFieldValue as AtomicProductNumericFieldValueElement, defineCustomElement as defineAtomicProductNumericFieldValue } from "@coveo/atomic/components/atomic-product-numeric-field-value.js";
+import { AtomicProductPrice as AtomicProductPriceElement, defineCustomElement as defineAtomicProductPrice } from "@coveo/atomic/components/atomic-product-price.js";
+import { AtomicProductRating as AtomicProductRatingElement, defineCustomElement as defineAtomicProductRating } from "@coveo/atomic/components/atomic-product-rating.js";
+import { AtomicProductSectionActions as AtomicProductSectionActionsElement, defineCustomElement as defineAtomicProductSectionActions } from "@coveo/atomic/components/atomic-product-section-actions.js";
+import { AtomicProductSectionBadges as AtomicProductSectionBadgesElement, defineCustomElement as defineAtomicProductSectionBadges } from "@coveo/atomic/components/atomic-product-section-badges.js";
+import { AtomicProductSectionBottomMetadata as AtomicProductSectionBottomMetadataElement, defineCustomElement as defineAtomicProductSectionBottomMetadata } from "@coveo/atomic/components/atomic-product-section-bottom-metadata.js";
+import { AtomicProductSectionChildren as AtomicProductSectionChildrenElement, defineCustomElement as defineAtomicProductSectionChildren } from "@coveo/atomic/components/atomic-product-section-children.js";
+import { AtomicProductSectionDescription as AtomicProductSectionDescriptionElement, defineCustomElement as defineAtomicProductSectionDescription } from "@coveo/atomic/components/atomic-product-section-description.js";
+import { AtomicProductSectionEmphasized as AtomicProductSectionEmphasizedElement, defineCustomElement as defineAtomicProductSectionEmphasized } from "@coveo/atomic/components/atomic-product-section-emphasized.js";
+import { AtomicProductSectionMetadata as AtomicProductSectionMetadataElement, defineCustomElement as defineAtomicProductSectionMetadata } from "@coveo/atomic/components/atomic-product-section-metadata.js";
+import { AtomicProductSectionName as AtomicProductSectionNameElement, defineCustomElement as defineAtomicProductSectionName } from "@coveo/atomic/components/atomic-product-section-name.js";
+import { AtomicProductSectionVisual as AtomicProductSectionVisualElement, defineCustomElement as defineAtomicProductSectionVisual } from "@coveo/atomic/components/atomic-product-section-visual.js";
+import { AtomicProductText as AtomicProductTextElement, defineCustomElement as defineAtomicProductText } from "@coveo/atomic/components/atomic-product-text.js";
+import { AtomicProduct as AtomicProductElement, defineCustomElement as defineAtomicProduct } from "@coveo/atomic/components/atomic-product.js";
+import { AtomicResultLocalizedText as AtomicResultLocalizedTextElement, defineCustomElement as defineAtomicResultLocalizedText } from "@coveo/atomic/components/atomic-result-localized-text.js";
+import { AtomicTimeframe as AtomicTimeframeElement, defineCustomElement as defineAtomicTimeframe } from "@coveo/atomic/components/atomic-timeframe.js";
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
@@ -102,15 +103,15 @@ export const AtomicCommerceFacet: StencilReactComponent<AtomicCommerceFacetEleme
     defineCustomElement: defineAtomicCommerceFacet
 });
 
-type AtomicCommerceFacetNumberInputEvents = { 'onAtomic / numberInputApply': EventName<CustomEvent<any>> };
+type AtomicCommerceFacetNumberInputEvents = { onAtomicNumberInputApply: EventName<CustomEvent<any>> };
 
 export const AtomicCommerceFacetNumberInput: StencilReactComponent<AtomicCommerceFacetNumberInputElement, AtomicCommerceFacetNumberInputEvents> = /*@__PURE__*/ createComponent<AtomicCommerceFacetNumberInputElement, AtomicCommerceFacetNumberInputEvents>({
     tagName: 'atomic-commerce-facet-number-input',
     elementClass: AtomicCommerceFacetNumberInputElement,
     react: React,
-    events: { 'onAtomic/ numberInputApply': 'atomic/numberInputApply' } as unknown as AtomicCommerceFacetNumberInputEvents,
+    events: { onAtomicNumberInputApply: 'atomic/numberInputApply' } as AtomicCommerceFacetNumberInputEvents,
     defineCustomElement: defineAtomicCommerceFacetNumberInput
-      });
+});
 
 type AtomicCommerceFacetsEvents = NonNullable<unknown>;
 
@@ -172,15 +173,15 @@ export const AtomicCommerceNumericFacet: StencilReactComponent<AtomicCommerceNum
     defineCustomElement: defineAtomicCommerceNumericFacet
 });
 
-type AtomicCommercePagerEvents = { 'onAtomic / scrollToTop': EventName<CustomEvent<any>> };
+type AtomicCommercePagerEvents = { onAtomicScrollToTop: EventName<CustomEvent<any>> };
 
 export const AtomicCommercePager: StencilReactComponent<AtomicCommercePagerElement, AtomicCommercePagerEvents> = /*@__PURE__*/ createComponent<AtomicCommercePagerElement, AtomicCommercePagerEvents>({
     tagName: 'atomic-commerce-pager',
     elementClass: AtomicCommercePagerElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicCommercePagerEvents,
+    events: { onAtomicScrollToTop: 'atomic/scrollToTop' } as AtomicCommercePagerEvents,
     defineCustomElement: defineAtomicCommercePager
-      });
+});
 
 type AtomicCommerceProductListEvents = NonNullable<unknown>;
 
@@ -192,15 +193,15 @@ export const AtomicCommerceProductList: StencilReactComponent<AtomicCommerceProd
     defineCustomElement: defineAtomicCommerceProductList
 });
 
-type AtomicCommerceProductsPerPageEvents = { 'onAtomic / scrollToTop': EventName<CustomEvent<any>> };
+type AtomicCommerceProductsPerPageEvents = { onAtomicScrollToTop: EventName<CustomEvent<any>> };
 
 export const AtomicCommerceProductsPerPage: StencilReactComponent<AtomicCommerceProductsPerPageElement, AtomicCommerceProductsPerPageEvents> = /*@__PURE__*/ createComponent<AtomicCommerceProductsPerPageElement, AtomicCommerceProductsPerPageEvents>({
     tagName: 'atomic-commerce-products-per-page',
     elementClass: AtomicCommerceProductsPerPageElement,
     react: React,
-    events: { 'onAtomic/ scrollToTop': 'atomic/scrollToTop' } as unknown as AtomicCommerceProductsPerPageEvents,
+    events: { onAtomicScrollToTop: 'atomic/scrollToTop' } as AtomicCommerceProductsPerPageEvents,
     defineCustomElement: defineAtomicCommerceProductsPerPage
-      });
+});
 
 type AtomicCommerceQueryErrorEvents = NonNullable<unknown>;
 
@@ -262,7 +263,7 @@ export const AtomicCommerceRefineToggle: StencilReactComponent<AtomicCommerceRef
     defineCustomElement: defineAtomicCommerceRefineToggle
 });
 
-type AtomicCommerceSearchBoxEvents = { onRedirect: EventName<any> };
+type AtomicCommerceSearchBoxEvents = { onRedirect: EventName<AtomicCommerceSearchBoxCustomEvent<RedirectionPayload>> };
 
 export const AtomicCommerceSearchBox: StencilReactComponent<AtomicCommerceSearchBoxElement, AtomicCommerceSearchBoxEvents> = /*@__PURE__*/ createComponent<AtomicCommerceSearchBoxElement, AtomicCommerceSearchBoxEvents>({
     tagName: 'atomic-commerce-search-box',
@@ -372,15 +373,15 @@ export const AtomicProduct: StencilReactComponent<AtomicProductElement, AtomicPr
     defineCustomElement: defineAtomicProduct
 });
 
-type AtomicProductChildrenEvents = { 'onAtomic / selectChildProduct': EventName<any> };
+type AtomicProductChildrenEvents = { onAtomicSelectChildProduct: EventName<AtomicProductChildrenCustomEvent<SelectChildProductEventArgs>> };
 
 export const AtomicProductChildren: StencilReactComponent<AtomicProductChildrenElement, AtomicProductChildrenEvents> = /*@__PURE__*/ createComponent<AtomicProductChildrenElement, AtomicProductChildrenEvents>({
     tagName: 'atomic-product-children',
     elementClass: AtomicProductChildrenElement,
     react: React,
-    events: { 'onAtomic/ selectChildProduct': 'atomic/selectChildProduct' } as unknown as AtomicProductChildrenEvents,
+    events: { onAtomicSelectChildProduct: 'atomic/selectChildProduct' } as AtomicProductChildrenEvents,
     defineCustomElement: defineAtomicProductChildren
-      });
+});
 
 type AtomicProductDescriptionEvents = NonNullable<unknown>;
 

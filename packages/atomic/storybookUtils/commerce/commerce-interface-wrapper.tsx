@@ -32,10 +32,17 @@ export const wrapInCommerceInterface = ({
         'root-interface'
       );
     await step('Render the Search Interface', async () => {
-      await searchInterface!.initialize({
+      const config = {
         ...getSampleCommerceEngineConfiguration(),
         ...engineConfig,
-      });
+      };
+      const proxyUrl = new URL(
+        searchInterface.ownerDocument.location.href
+      ).searchParams.get('searchProxyUrl');
+      if (proxyUrl) {
+        config.proxyBaseUrl = decodeURIComponent(proxyUrl);
+      }
+      await searchInterface!.initialize(config);
     });
     if (skipFirstSearch) {
       return;

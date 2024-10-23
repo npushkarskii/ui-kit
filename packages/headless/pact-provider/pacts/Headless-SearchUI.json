@@ -4,6 +4,282 @@
   },
   "interactions": [
     {
+      "description": "a request for commerce query suggestions",
+      "providerStates": [
+        {
+          "name": "There are commerce project suggestions"
+        }
+      ],
+      "request": {
+        "body": {
+          "clientId": "58bb4b98-1daa-4767-8c15-90a0ea67645c",
+          "context": {
+            "capture": true,
+            "cart": [],
+            "source": ["@coveo/headless@2.61.0"],
+            "user": {
+              "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+            },
+            "view": {
+              "referrer": "some string",
+              "url": "some string"
+            }
+          },
+          "country": "some string",
+          "currency": "USD",
+          "language": "en",
+          "query": "some string",
+          "trackingId": "acmecorporation_ca"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.clientId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                },
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context.capture": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context.cart": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.context.source": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.context.source[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context.user": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context.user.userAgent": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context.view": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "eachKey",
+                  "rules": [
+                    {
+                      "match": "regex",
+                      "regex": "url|referrer"
+                    }
+                  ],
+                  "value": "{\"referrer\":{\"pact:matcher:type\":\"type\",\"value\":\"some string\"},\"url\":{\"pact:matcher:type\":\"type\",\"value\":\"some string\"}}"
+                }
+              ]
+            },
+            "$.context.view.referrer": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.context.view.url": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.country": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.currency": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.language": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.query": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.trackingId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/search/querySuggest"
+      },
+      "response": {
+        "body": {
+          "completions": [
+            {
+              "executableConfidence": 12.34,
+              "expression": "suede",
+              "highlighted": "[suede]",
+              "objectId": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+              "score": 1
+            }
+          ],
+          "responseId": "e2490de5-5bd3-43d5-b7c4-526e33f71304"
+        },
+        "generators": {
+          "body": {
+            "$.completions[*].executableConfidence": {
+              "digits": 10,
+              "type": "RandomDecimal"
+            },
+            "$.completions[*].objectId": {
+              "type": "Uuid"
+            },
+            "$.responseId": {
+              "type": "Uuid"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.completions": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "max": 8
+                }
+              ]
+            },
+            "$.completions[*].executableConfidence": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.completions[*].expression": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.completions[*].highlighted": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.completions[*].objectId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$.completions[*].score": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.responseId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
       "description": "a request for query suggestions",
       "providerStates": [
         {
@@ -256,6 +532,2898 @@
                 {
                   "match": "regex",
                   "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for search results",
+      "request": {
+        "body": {
+          "clientId": "58bb4b98-1daa-4767-8c15-90a0ea67645c",
+          "debug": false,
+          "facets": [],
+          "perPage": 101
+        },
+        "generators": {
+          "body": {
+            "$.perPage": {
+              "max": 10,
+              "min": 0,
+              "type": "RandomInt"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "eachKey",
+                  "rules": [
+                    {
+                      "match": "regex",
+                      "regex": "query|context|country|currency|language|organizationId|trackingId|url|clientId|facets|page|perPage|sort"
+                    }
+                  ],
+                  "value": "{\"clientId\":{\"pact:matcher:type\":\"type\",\"value\":\"58bb4b98-1daa-4767-8c15-90a0ea67645c\"},\"debug\":{\"pact:matcher:type\":\"type\",\"value\":false},\"facets\":{\"min\":0,\"pact:matcher:type\":\"type\",\"value\":[]},\"perPage\":{\"pact:generator:type\":\"RandomInt\",\"pact:matcher:type\":\"integer\",\"value\":101}}"
+                }
+              ]
+            },
+            "$.clientId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.debug": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.facets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.perPage": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/search"
+      },
+      "response": {
+        "body": {
+          "executionReport": "MAYBE",
+          "facets": [],
+          "pagination": {
+            "page": 0,
+            "perPage": 48,
+            "totalEntries": 632,
+            "totalPages": 14
+          },
+          "products": [
+            {
+              "additionalFields": {
+                "material": "cotton",
+                "size": "M"
+              },
+              "children": [
+                {
+                  "additionalFields": {
+                    "material": "cotton",
+                    "size": "M"
+                  },
+                  "clickUri": "https://example.com/product/0000003035-45",
+                  "ec_brand": "ACME",
+                  "ec_category": "T-Shirts",
+                  "ec_color": "Blue",
+                  "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+                  "ec_gender": "M",
+                  "ec_images": ["https://example.com/image1.jpg"],
+                  "ec_in_stock": true,
+                  "ec_item_group_id": "0000003035",
+                  "ec_listing": "T-Shirt",
+                  "ec_name": "ACME Corp Summer Trends",
+                  "ec_price": 19.99,
+                  "ec_product_id": "0000003035-45",
+                  "ec_promo_price": 14.99,
+                  "ec_rating": 4.5,
+                  "ec_shortdesc": "A very nice T-Shirt.",
+                  "ec_thumbnails": ["https://example.com/thumbnail1.jpg"],
+                  "excerpt": "The T-Shirt is very nice",
+                  "excerptHighlights": [
+                    {
+                      "length": 4,
+                      "offset": 15
+                    }
+                  ],
+                  "nameHighlights": ["ACME"],
+                  "permanentid": "0000003035-45"
+                }
+              ],
+              "clickUri": "https://example.com/product/0000003035-45",
+              "ec_brand": "ACME",
+              "ec_category": "T-Shirts",
+              "ec_color": "Blue",
+              "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+              "ec_gender": "M",
+              "ec_images": ["https://example.com/image1.jpg"],
+              "ec_in_stock": true,
+              "ec_item_group_id": "0000003035",
+              "ec_listing": "T-Shirt",
+              "ec_name": "ACME Corp Summer Trends",
+              "ec_price": 19.99,
+              "ec_product_id": "0000003035-45",
+              "ec_promo_price": 14.99,
+              "ec_rating": 4.5,
+              "ec_shortdesc": "A very nice T-Shirt.",
+              "ec_thumbnails": ["https://example.com/thumbnail1.jpg"],
+              "excerpt": "The T-Shirt is very nice",
+              "excerptHighlights": [
+                {
+                  "length": 4,
+                  "offset": 15
+                }
+              ],
+              "nameHighlights": ["ACME"],
+              "permanentid": "0000003035-45"
+            }
+          ],
+          "queryCorrection": {
+            "correctedQuery": "some string",
+            "corrections": [
+              {
+                "correctedQuery": "some string",
+                "wordCorrections": [
+                  {
+                    "correctedWord": "some string",
+                    "length": 8,
+                    "offset": 15,
+                    "originalWord": "some string"
+                  }
+                ]
+              }
+            ],
+            "originalQuery": "some string"
+          },
+          "responseId": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+          "sort": {
+            "appliedSort": {
+              "direction": "asc",
+              "displayName": "Brand",
+              "field": "ec_brand",
+              "type": "fields"
+            },
+            "availableSorts": [
+              {
+                "direction": "desc",
+                "displayName": "Price",
+                "field": "ec_price",
+                "type": "relevance"
+              }
+            ]
+          },
+          "triggers": ["redirect"]
+        },
+        "generators": {
+          "body": {
+            "$.pagination.page": {
+              "expression": "${page}",
+              "type": "ProviderState"
+            },
+            "$.responseId": {
+              "type": "Uuid"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.executionReport": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.facets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.pagination": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pagination.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pagination.perPage": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.pagination.totalEntries": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.pagination.totalPages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].additionalFields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].additionalFields.material": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].additionalFields.size": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "max": 2
+                }
+              ]
+            },
+            "$.products[*].children[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields.material": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields.size": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].clickUri": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_brand": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_category": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_color": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_gender": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_images": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_in_stock": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_item_group_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_listing": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_product_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_promo_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_rating": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_shortdesc": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_thumbnails": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].excerpt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].nameHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].permanentid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].clickUri": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_brand": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_category": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_color": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_gender": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_images": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].ec_images[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_in_stock": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_item_group_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_listing": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_product_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_promo_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_rating": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_shortdesc": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_thumbnails": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].ec_thumbnails[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].excerpt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products[*].nameHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].nameHighlights[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].permanentid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.correctedQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].correctedQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].correctedWord": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].originalWord": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.originalQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.responseId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$.sort": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.field": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].field": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.triggers": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.triggers[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for search results",
+      "providerStates": [
+        {
+          "name": "Sorting results by fields",
+          "params": {
+            "pagination": {
+              "page": 3
+            }
+          }
+        }
+      ],
+      "request": {
+        "body": {
+          "clientId": "58bb4b98-1daa-4767-8c15-90a0ea67645c",
+          "debug": false,
+          "facets": [],
+          "perPage": 101,
+          "sort": {
+            "fields": [
+              {
+                "direction": "asc"
+              }
+            ],
+            "sortCriteria": "fields"
+          }
+        },
+        "generators": {
+          "body": {
+            "$.perPage": {
+              "max": 10,
+              "min": 0,
+              "type": "RandomInt"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "eachKey",
+                  "rules": [
+                    {
+                      "match": "regex",
+                      "regex": "query|context|country|currency|language|organizationId|trackingId|url|clientId|facets|page|perPage|sort"
+                    }
+                  ],
+                  "value": "{\"clientId\":{\"pact:matcher:type\":\"type\",\"value\":\"58bb4b98-1daa-4767-8c15-90a0ea67645c\"},\"debug\":{\"pact:matcher:type\":\"type\",\"value\":false},\"facets\":{\"min\":0,\"pact:matcher:type\":\"type\",\"value\":[]},\"perPage\":{\"pact:generator:type\":\"RandomInt\",\"pact:matcher:type\":\"integer\",\"value\":101},\"sort\":{\"fields\":{\"min\":1,\"pact:matcher:type\":\"type\",\"value\":[{\"field\":{\"pact:matcher:type\":\"type\",\"value\":\"price\"},\"pact:matcher:type\":\"eachKey\",\"rules\":[{\"pact:matcher:type\":\"regex\",\"regex\":\"field|direction\",\"value\":\"asc\"}],\"value\":{\"direction\":{\"pact:matcher:type\":\"regex\",\"regex\":\"asc|desc\",\"value\":\"asc\"}}}]},\"sortCriteria\":{\"pact:matcher:type\":\"equality\",\"value\":\"fields\"}}}"
+                }
+              ]
+            },
+            "$.clientId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.debug": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.facets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.perPage": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.sort.fields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.sort.fields[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "eachKey",
+                  "rules": [
+                    {
+                      "match": "regex",
+                      "regex": "field|direction"
+                    }
+                  ],
+                  "value": "{\"direction\":{\"pact:matcher:type\":\"regex\",\"regex\":\"asc|desc\",\"value\":\"asc\"}}"
+                }
+              ]
+            },
+            "$.sort.fields[*].direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "asc|desc"
+                }
+              ]
+            },
+            "$.sort.sortCriteria": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "equality"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/search"
+      },
+      "response": {
+        "body": {
+          "executionReport": "MAYBE",
+          "facets": [],
+          "pagination": {
+            "page": 0,
+            "perPage": 48,
+            "totalEntries": 632,
+            "totalPages": 14
+          },
+          "products": [
+            {
+              "additionalFields": {
+                "material": "cotton",
+                "size": "M"
+              },
+              "children": [
+                {
+                  "additionalFields": {
+                    "material": "cotton",
+                    "size": "M"
+                  },
+                  "clickUri": "https://example.com/product/0000003035-45",
+                  "ec_brand": "ACME",
+                  "ec_category": "T-Shirts",
+                  "ec_color": "Blue",
+                  "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+                  "ec_gender": "M",
+                  "ec_images": ["https://example.com/image1.jpg"],
+                  "ec_in_stock": true,
+                  "ec_item_group_id": "0000003035",
+                  "ec_listing": "T-Shirt",
+                  "ec_name": "ACME Corp Summer Trends",
+                  "ec_price": 19.99,
+                  "ec_product_id": "0000003035-45",
+                  "ec_promo_price": 14.99,
+                  "ec_rating": 4.5,
+                  "ec_shortdesc": "A very nice T-Shirt.",
+                  "ec_thumbnails": ["https://example.com/thumbnail1.jpg"],
+                  "excerpt": "The T-Shirt is very nice",
+                  "excerptHighlights": [
+                    {
+                      "length": 4,
+                      "offset": 15
+                    }
+                  ],
+                  "nameHighlights": ["ACME"],
+                  "permanentid": "0000003035-45"
+                }
+              ],
+              "clickUri": "https://example.com/product/0000003035-45",
+              "ec_brand": "ACME",
+              "ec_category": "T-Shirts",
+              "ec_color": "Blue",
+              "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+              "ec_gender": "M",
+              "ec_images": ["https://example.com/image1.jpg"],
+              "ec_in_stock": true,
+              "ec_item_group_id": "0000003035",
+              "ec_listing": "T-Shirt",
+              "ec_name": "ACME Corp Summer Trends",
+              "ec_price": 19.99,
+              "ec_product_id": "0000003035-45",
+              "ec_promo_price": 14.99,
+              "ec_rating": 4.5,
+              "ec_shortdesc": "A very nice T-Shirt.",
+              "ec_thumbnails": ["https://example.com/thumbnail1.jpg"],
+              "excerpt": "The T-Shirt is very nice",
+              "excerptHighlights": [
+                {
+                  "length": 4,
+                  "offset": 15
+                }
+              ],
+              "nameHighlights": ["ACME"],
+              "permanentid": "0000003035-45"
+            }
+          ],
+          "queryCorrection": {
+            "correctedQuery": "some string",
+            "corrections": [
+              {
+                "correctedQuery": "some string",
+                "wordCorrections": [
+                  {
+                    "correctedWord": "some string",
+                    "length": 8,
+                    "offset": 15,
+                    "originalWord": "some string"
+                  }
+                ]
+              }
+            ],
+            "originalQuery": "some string"
+          },
+          "responseId": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+          "sort": {
+            "appliedSort": {
+              "direction": "asc",
+              "displayName": "Brand",
+              "field": "ec_brand",
+              "type": "fields"
+            },
+            "availableSorts": [
+              {
+                "direction": "desc",
+                "displayName": "Price",
+                "field": "ec_price",
+                "type": "relevance"
+              }
+            ]
+          },
+          "triggers": ["redirect"]
+        },
+        "generators": {
+          "body": {
+            "$.pagination.page": {
+              "expression": "${page}",
+              "type": "ProviderState"
+            },
+            "$.responseId": {
+              "type": "Uuid"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.executionReport": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.facets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.pagination": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pagination.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pagination.perPage": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.pagination.totalEntries": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.pagination.totalPages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].additionalFields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].additionalFields.material": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].additionalFields.size": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "max": 2
+                }
+              ]
+            },
+            "$.products[*].children[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields.material": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields.size": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].clickUri": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_brand": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_category": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_color": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_gender": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_images": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_in_stock": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_item_group_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_listing": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_product_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_promo_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_rating": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_shortdesc": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_thumbnails": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].excerpt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].nameHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].permanentid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].clickUri": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_brand": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_category": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_color": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_gender": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_images": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].ec_images[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_in_stock": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_item_group_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_listing": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_product_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_promo_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_rating": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_shortdesc": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_thumbnails": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].ec_thumbnails[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].excerpt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products[*].nameHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].nameHighlights[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].permanentid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.correctedQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].correctedQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].correctedWord": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].originalWord": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.originalQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.responseId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$.sort": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.field": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].field": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.triggers": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.triggers[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for search results",
+      "providerStates": [
+        {
+          "name": "There are search results",
+          "params": {
+            "pagination": {
+              "page": 3
+            }
+          }
+        }
+      ],
+      "request": {
+        "body": {
+          "clientId": "58bb4b98-1daa-4767-8c15-90a0ea67645c",
+          "debug": false,
+          "facets": [],
+          "perPage": 101
+        },
+        "generators": {
+          "body": {
+            "$.perPage": {
+              "max": 10,
+              "min": 0,
+              "type": "RandomInt"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "eachKey",
+                  "rules": [
+                    {
+                      "match": "regex",
+                      "regex": "query|context|country|currency|language|organizationId|trackingId|url|clientId|facets|page|perPage|sort"
+                    }
+                  ],
+                  "value": "{\"clientId\":{\"pact:matcher:type\":\"type\",\"value\":\"58bb4b98-1daa-4767-8c15-90a0ea67645c\"},\"debug\":{\"pact:matcher:type\":\"type\",\"value\":false},\"facets\":{\"min\":0,\"pact:matcher:type\":\"type\",\"value\":[]},\"perPage\":{\"pact:generator:type\":\"RandomInt\",\"pact:matcher:type\":\"integer\",\"value\":101}}"
+                }
+              ]
+            },
+            "$.clientId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.debug": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.facets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.perPage": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/search"
+      },
+      "response": {
+        "body": {
+          "executionReport": "MAYBE",
+          "facets": [],
+          "pagination": {
+            "page": 0,
+            "perPage": 48,
+            "totalEntries": 632,
+            "totalPages": 14
+          },
+          "products": [
+            {
+              "additionalFields": {
+                "material": "cotton",
+                "size": "M"
+              },
+              "children": [
+                {
+                  "additionalFields": {
+                    "material": "cotton",
+                    "size": "M"
+                  },
+                  "clickUri": "https://example.com/product/0000003035-45",
+                  "ec_brand": "ACME",
+                  "ec_category": "T-Shirts",
+                  "ec_color": "Blue",
+                  "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+                  "ec_gender": "M",
+                  "ec_images": ["https://example.com/image1.jpg"],
+                  "ec_in_stock": true,
+                  "ec_item_group_id": "0000003035",
+                  "ec_listing": "T-Shirt",
+                  "ec_name": "ACME Corp Summer Trends",
+                  "ec_price": 19.99,
+                  "ec_product_id": "0000003035-45",
+                  "ec_promo_price": 14.99,
+                  "ec_rating": 4.5,
+                  "ec_shortdesc": "A very nice T-Shirt.",
+                  "ec_thumbnails": ["https://example.com/thumbnail1.jpg"],
+                  "excerpt": "The T-Shirt is very nice",
+                  "excerptHighlights": [
+                    {
+                      "length": 4,
+                      "offset": 15
+                    }
+                  ],
+                  "nameHighlights": ["ACME"],
+                  "permanentid": "0000003035-45"
+                }
+              ],
+              "clickUri": "https://example.com/product/0000003035-45",
+              "ec_brand": "ACME",
+              "ec_category": "T-Shirts",
+              "ec_color": "Blue",
+              "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+              "ec_gender": "M",
+              "ec_images": ["https://example.com/image1.jpg"],
+              "ec_in_stock": true,
+              "ec_item_group_id": "0000003035",
+              "ec_listing": "T-Shirt",
+              "ec_name": "ACME Corp Summer Trends",
+              "ec_price": 19.99,
+              "ec_product_id": "0000003035-45",
+              "ec_promo_price": 14.99,
+              "ec_rating": 4.5,
+              "ec_shortdesc": "A very nice T-Shirt.",
+              "ec_thumbnails": ["https://example.com/thumbnail1.jpg"],
+              "excerpt": "The T-Shirt is very nice",
+              "excerptHighlights": [
+                {
+                  "length": 4,
+                  "offset": 15
+                }
+              ],
+              "nameHighlights": ["ACME"],
+              "permanentid": "0000003035-45"
+            }
+          ],
+          "queryCorrection": {
+            "correctedQuery": "some string",
+            "corrections": [
+              {
+                "correctedQuery": "some string",
+                "wordCorrections": [
+                  {
+                    "correctedWord": "some string",
+                    "length": 8,
+                    "offset": 15,
+                    "originalWord": "some string"
+                  }
+                ]
+              }
+            ],
+            "originalQuery": "some string"
+          },
+          "responseId": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+          "sort": {
+            "appliedSort": {
+              "direction": "asc",
+              "displayName": "Brand",
+              "field": "ec_brand",
+              "type": "fields"
+            },
+            "availableSorts": [
+              {
+                "direction": "desc",
+                "displayName": "Price",
+                "field": "ec_price",
+                "type": "relevance"
+              }
+            ]
+          },
+          "triggers": ["redirect"]
+        },
+        "generators": {
+          "body": {
+            "$.pagination.page": {
+              "expression": "${page}",
+              "type": "ProviderState"
+            },
+            "$.responseId": {
+              "type": "Uuid"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.executionReport": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.facets": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ]
+            },
+            "$.pagination": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pagination.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.pagination.perPage": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.pagination.totalEntries": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.pagination.totalPages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].additionalFields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].additionalFields.material": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].additionalFields.size": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "max": 2
+                }
+              ]
+            },
+            "$.products[*].children[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields.material": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].additionalFields.size": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].clickUri": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_brand": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_category": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_color": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_gender": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_images": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_in_stock": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_item_group_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_listing": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_product_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_promo_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_rating": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_shortdesc": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].ec_thumbnails": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].excerpt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].excerptHighlights[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].children[*].nameHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].children[*].permanentid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].clickUri": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_brand": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_category": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_color": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_gender": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_images": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].ec_images[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_in_stock": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_item_group_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_listing": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_product_id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_promo_price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_rating": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.products[*].ec_shortdesc": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].ec_thumbnails": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].ec_thumbnails[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].excerpt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products[*].excerptHighlights[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.products[*].nameHighlights": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.products[*].nameHighlights[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.products[*].permanentid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.correctedQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].correctedQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].correctedWord": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].length": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].offset": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.queryCorrection.corrections[*].wordCorrections[*].originalWord": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.queryCorrection.originalQuery": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.responseId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$.sort": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.field": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.appliedSort.type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].direction": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].displayName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].field": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.sort.availableSorts[*].type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.triggers": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.triggers[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
                 }
               ]
             }

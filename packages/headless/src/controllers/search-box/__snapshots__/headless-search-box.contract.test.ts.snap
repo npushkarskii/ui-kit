@@ -1,5 +1,113 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`SearchBox > when sorting by fields > should return search results 1`] = `
+{
+  "appliedSort": {
+    "by": "fields",
+    "fields": [],
+  },
+  "availableSorts": [
+    {
+      "by": "fields",
+      "fields": [],
+    },
+  ],
+}
+`;
+
+exports[`SearchBox > when there are more products available > should return search results 1`] = `
+{
+  "page": 0,
+  "pageSize": 48,
+  "totalEntries": 632,
+  "totalPages": 14,
+}
+`;
+
+exports[`SearchBox > when there are search results available > should return search results 1`] = `
+[
+  {
+    "additionalFields": {
+      "material": "cotton",
+      "size": "M",
+    },
+    "children": [
+      {
+        "additionalFields": {
+          "material": "cotton",
+          "size": "M",
+        },
+        "clickUri": "https://example.com/product/0000003035-45",
+        "ec_brand": "ACME",
+        "ec_category": "T-Shirts",
+        "ec_color": "Blue",
+        "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+        "ec_gender": "M",
+        "ec_images": [
+          "https://example.com/image1.jpg",
+        ],
+        "ec_in_stock": true,
+        "ec_item_group_id": "0000003035",
+        "ec_listing": "T-Shirt",
+        "ec_name": "ACME Corp Summer Trends",
+        "ec_price": 19.99,
+        "ec_product_id": "0000003035-45",
+        "ec_promo_price": 14.99,
+        "ec_rating": 4.5,
+        "ec_shortdesc": "A very nice T-Shirt.",
+        "ec_thumbnails": [
+          "https://example.com/thumbnail1.jpg",
+        ],
+        "excerpt": "The T-Shirt is very nice",
+        "excerptHighlights": [
+          {
+            "length": 4,
+            "offset": 15,
+          },
+        ],
+        "nameHighlights": [
+          "ACME",
+        ],
+        "permanentid": "0000003035-45",
+      },
+    ],
+    "clickUri": "https://example.com/product/0000003035-45",
+    "ec_brand": "ACME",
+    "ec_category": "T-Shirts",
+    "ec_color": "Blue",
+    "ec_description": "A very nice T-Shirt. Comes in blue and green colors.",
+    "ec_gender": "M",
+    "ec_images": [
+      "https://example.com/image1.jpg",
+    ],
+    "ec_in_stock": true,
+    "ec_item_group_id": "0000003035",
+    "ec_listing": "T-Shirt",
+    "ec_name": "ACME Corp Summer Trends",
+    "ec_price": 19.99,
+    "ec_product_id": "0000003035-45",
+    "ec_promo_price": 14.99,
+    "ec_rating": 4.5,
+    "ec_shortdesc": "A very nice T-Shirt.",
+    "ec_thumbnails": [
+      "https://example.com/thumbnail1.jpg",
+    ],
+    "excerpt": "The T-Shirt is very nice",
+    "excerptHighlights": [
+      {
+        "length": 4,
+        "offset": 15,
+      },
+    ],
+    "nameHighlights": [
+      "ACME",
+    ],
+    "permanentid": "0000003035-45",
+    "position": 1,
+  },
+]
+`;
+
 exports[`SearchBox > when there are suggestions available > should return suggestions 1`] = `
 {
   "isLoading": false,

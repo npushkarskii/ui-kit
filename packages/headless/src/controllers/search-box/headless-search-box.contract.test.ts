@@ -1,14 +1,26 @@
 import {PactV3} from '@pact-foundation/pact';
 import {describe, it, expect} from 'vitest';
+import {sortByFieldsMatcher} from '../../../pact-provider/commons/commerceContextMatcher.js';
 import {
   providerFactory,
   addSuggestionInteraction,
+  addCommerceSearchInteraction,
+  addCommerceSuggestionInteraction,
 } from '../../../pact-provider/provider.js';
+import {getSampleCommerceEngineConfiguration} from '../../app/commerce-engine/commerce-engine-configuration.js';
+import {buildCommerceEngine} from '../../app/commerce-engine/commerce-engine.js';
 import {
   buildSearchEngine,
   getSampleSearchEngineConfiguration,
 } from '../../app/search-engine/search-engine.js';
-import {buildSearchBox, SearchBox} from './headless-search-box.js';
+import {
+  buildFieldsSortCriterion,
+  SortDirection,
+} from '../../features/sort/sort.js';
+import {buildSearchBox as buildCommerceSearchBox} from '../commerce/search-box/headless-search-box.js';
+import {buildSearch} from '../commerce/search/headless-search.js';
+import {Controller} from '../controller/headless-controller.js';
+import {buildSearchBox} from './headless-search-box.js';
 
 const getSearchBoxController = (url: string) => {
   const configuration = getSampleSearchEngineConfiguration();
@@ -23,6 +35,28 @@ const getSearchBoxController = (url: string) => {
     }),
   });
   return buildSearchBox(engine);
+};
+
+const getCommerceControllers = (url: string) => {
+  const configuration = getSampleCommerceEngineConfiguration();
+  configuration.proxyBaseUrl = url;
+  const engine = buildCommerceEngine({
+    configuration,
+    navigatorContextProvider: () => ({
+      clientId: crypto.randomUUID(),
+      location: 'some location',
+      referrer: 'some referrer',
+      userAgent: 'some user agent',
+    }),
+  });
+  const search = buildSearch(engine);
+
+  return {
+    products: search,
+    searchBox: buildCommerceSearchBox(engine),
+    pagination: search.pagination(),
+    sort: search.sort(),
+  };
 };
 
 describe('SearchBox', () => {
@@ -50,15 +84,83 @@ describe('SearchBox', () => {
       });
     });
   });
+
+  // TODO: move this to commerce contract testing
+  describe('when there are search results available', () => {
+    beforeEach(() => {
+      provider = addCommerceSuggestionInteraction(provider);
+      provider = addCommerceSearchInteraction(provider);
+    });
+
+    it('should return search results', async () => {
+      await provider.executeTest(async (mockServer) => {
+        const {searchBox, products} = getCommerceControllers(mockServer.url);
+        searchBox.updateText('blue shoes');
+        await waitForNSubscribeCallback(searchBox, 2);
+        searchBox.submit();
+        await waitForNSubscribeCallback(searchBox, 2);
+        expect(products.state.products).toMatchSnapshot();
+      });
+    });
+    // TODO: test with pager and sort criteria
+  });
+
+  // TODO: put in loadmore contract testing
+  describe('when sorting by fields', () => {
+    beforeEach(() => {
+      provider = addCommerceSearchInteraction(
+        provider,
+        'Sorting results by fields',
+        {
+          sort: sortByFieldsMatcher,
+        }
+      );
+    });
+
+    it('should return search results', async () => {
+      await provider.executeTest(async (mockServer) => {
+        const {sort, products} = getCommerceControllers(mockServer.url);
+        sort.sortBy(
+          buildFieldsSortCriterion([
+            {name: 'custom_field', direction: SortDirection.Ascending},
+          ])
+        );
+        await waitForNSubscribeCallback(products, 2);
+        expect(sort.state).toMatchSnapshot();
+      });
+    });
+    // TODO: test with pager and sort criteria
+  });
+
+  describe('when there are more products available', () => {
+    beforeEach(() => {
+      provider = addCommerceSearchInteraction(
+        provider
+        // 'There are search results with pagination',
+        // commercePagerMatcher
+      );
+    });
+
+    it('should return search results', async () => {
+      await provider.executeTest(async (mockServer) => {
+        const {pagination, products} = getCommerceControllers(mockServer.url);
+        pagination.setPageSize(48); // Mock the pageSize returned by the API
+        pagination.nextPage();
+        await waitForNSubscribeCallback(products, 2);
+        expect(pagination.state).toMatchSnapshot();
+      });
+    });
+    // TODO: test with pager and sort criteria
+  });
 });
 
 async function waitForNSubscribeCallback(
-  searchBox: SearchBox,
+  controller: Controller,
   subscribeThreshold: number
 ) {
   await new Promise<void>((resolve) => {
     let subscribeCount = 0;
-    searchBox.subscribe(() => {
+    controller.subscribe(() => {
       if (++subscribeCount < subscribeThreshold) {
         return;
       }

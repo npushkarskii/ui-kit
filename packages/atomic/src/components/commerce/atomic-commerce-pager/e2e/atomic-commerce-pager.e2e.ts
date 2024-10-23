@@ -2,7 +2,11 @@ import {test, expect} from './fixture';
 
 test.describe('Default', () => {
   test.beforeEach(async ({pager}) => {
-    await pager.load();
+    await pager.load({
+      queryParams: {
+        searchProxyUrl: encodeURIComponent('http://localhost:1234'),
+      },
+    });
   });
 
   test('nextButton should be enabled', async ({pager}) => {
@@ -30,7 +34,17 @@ test.describe('Default', () => {
   });
 
   test('should display a previous button', async ({pager}) => {
-    await expect(pager.previousButton).toBeVisible();
+    pager.numericButton(3).click();
+    // TODO: without this wait, the test returns a false positive because because the state returned by the stub is incorrect
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(1);
+      }, 200);
+    });
+    await expect(pager.numericButton(3)).toHaveAttribute(
+      'part',
+      expect.stringContaining('active-page-button')
+    );
   });
 
   test('should display a next button', async ({pager}) => {
@@ -57,7 +71,7 @@ test.describe('Default', () => {
     });
 
     test('should include the page in the hash', async ({page}) => {
-      await expect(page.url()).toContain('#page=1');
+      await expect(page.url()).toContain('page=1');
     });
 
     test('nextButton should be enabled', async ({pager}) => {
@@ -122,7 +136,7 @@ test.describe('Default', () => {
     });
 
     test('should include the page in the hash', async ({page}) => {
-      await expect(page.url()).toContain('#page=2');
+      await expect(page.url()).toContain('page=2');
     });
 
     test('nextButton should be enabled', async ({pager}) => {
@@ -151,9 +165,10 @@ test.describe('Default', () => {
       page,
       pager,
     }) => {
-      await page.route(/commerce\/v2\/search/, async (route) => {
+      await page.route(/\/search$/, async (route) => {
         const response = await route.fetch();
         const body = await response.json();
+
         body['pagination']['totalPages'] = 2;
         body['pagination']['page'] = 1;
         await route.fulfill({

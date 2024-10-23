@@ -2,7 +2,7 @@ import {MatchersV3} from '@pact-foundation/pact';
 import {actionsHistoryMatchers} from '../commons/actionHistoryMatcher.js';
 import {analyticsMatcher} from '../commons/analyticsMatcher.js';
 
-export const queryMatcherFactory = () => ({
+export const querySuggestMatcherFactory = () => ({
   method: 'POST',
   path: '/querySuggest',
   query: {
@@ -20,7 +20,7 @@ export const queryMatcherFactory = () => ({
   },
 });
 
-export const responseMatcherFactory = () => ({
+export const querySuggestResponseMatcherFactory = () => ({
   status: 200,
   headers: {'Content-Type': 'application/json'},
   body: {

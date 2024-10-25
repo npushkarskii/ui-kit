@@ -137,6 +137,7 @@ function getManualNumericFacets(
     .map(([facetId, manualNumericFacet]) => ({
       facetId,
       field: facetId,
+      domain: state.commerceFacetSet?.[facetId].request.domain,
       numberOfValues: 1,
       isFieldExpanded: false,
       preventAutoSelect: true,

@@ -20,10 +20,6 @@ export type {
   AnalyticsRuntimeEnvironment,
 } from './app/engine-configuration.js';
 export {SolutionType} from './app/commerce-ssr-engine/types/common.js';
-// TODO: understand what should be moved to commerce-ssr-engine folder
-export * from './app/ssr-engine/types/common.js';
-export * from './app/ssr-engine/types/hydrate-static-state.js';
-export * from './app/ssr-engine/types/fetch-static-state.js';
 export type {
   ControllerDefinitionsMap,
   InferControllerFromDefinition,
@@ -31,6 +27,7 @@ export type {
   InferControllerStaticStateFromController,
   InferControllerStaticStateMapFromControllers,
   InferControllerStaticStateMapFromDefinitionsWithSolutionType,
+  InferControllerPropsMapFromDefinitions,
 } from './app/commerce-ssr-engine/types/common.js';
 export type {Build} from './app/ssr-engine/types/build.js';
 export type {
@@ -38,6 +35,8 @@ export type {
   InferStaticState,
   InferHydratedState,
   InferBuildResult,
+  HydrateStaticState,
+  FetchStaticState,
 } from './app/commerce-ssr-engine/types/core-engine.js';
 export type {LoggerOptions} from './app/logger.js';
 export type {NavigatorContext} from './app/navigatorContextProvider.js';

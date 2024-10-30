@@ -8,7 +8,7 @@ import {
   ListingStaticState,
 } from '../../_lib/commerce-engine';
 
-interface ListinPageProps {
+interface ListingPageProps {
   staticState: ListingStaticState;
   navigatorContext: NavigatorContext;
 }
@@ -17,7 +17,7 @@ export default function ListingPage({
   staticState,
   navigatorContext,
   children,
-}: PropsWithChildren<ListinPageProps>) {
+}: PropsWithChildren<ListingPageProps>) {
   const [hydratedState, setHydratedState] = useState<
     ListingHydratedState | undefined
   >(undefined);
@@ -41,6 +41,7 @@ export default function ListingPage({
   if (hydratedState) {
     return (
       <listingEngineDefinition.HydratedStateProvider
+        // engine={hydratedState.engine} // TODO: understand why the engine is not accepted here
         controllers={hydratedState.controllers}
       >
         <>{children}</>

@@ -68,6 +68,6 @@ export default {
     productView: defineProductView(),
     didYouMean: defineDidYouMean(), // TODO KIT-3463: implement did you mean in sample
     //parameterManager: defineParameterManager(), // TODO KIT-3462: implement parameter manager in sample
-    facetGenerator: defineFacetGenerator({listing: false}),
+    facetGenerator: defineFacetGenerator(),
   },
 } satisfies CommerceEngineConfig;

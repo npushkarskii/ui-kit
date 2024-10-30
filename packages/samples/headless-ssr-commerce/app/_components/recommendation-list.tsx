@@ -8,6 +8,7 @@ import {usePopularBoughtRecs} from '../_lib/commerce-engine';
 export const Recommendations: FunctionComponent = () => {
   // TODO: find a way to make the recommendation generic
   const {state, methods: controller} = usePopularBoughtRecs();
+  // TODO: recommendation are not refreshed server-side FIXME:
 
   const router = useRouter();
 

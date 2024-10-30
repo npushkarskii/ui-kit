@@ -70,28 +70,17 @@ export function defineCommerceEngine<
   TControllers extends ControllerDefinitionsMap<CommerceEngine, Controller>,
 >(options: CommerceEngineDefinitionOptions<TControllers>) {
   const singletonContext = createSingletonContext<TControllers>();
-  // TODO: find a way to fix this casting hack
-  type ListingContext = SingletonGetter<
+
+  type ContextStateType<TSolutionType extends SolutionType> = SingletonGetter<
     React.Context<ContextState<
       CommerceEngine,
       TControllers,
-      SolutionType.listing
+      TSolutionType
     > | null>
   >;
-  type SearchContext = SingletonGetter<
-    React.Context<ContextState<
-      CommerceEngine,
-      TControllers,
-      SolutionType.search
-    > | null>
-  >;
-  type StandaloneContext = SingletonGetter<
-    React.Context<ContextState<
-      CommerceEngine,
-      TControllers,
-      SolutionType.standalone
-    > | null>
-  >;
+  type ListingContext = ContextStateType<SolutionType.listing>;
+  type SearchContext = ContextStateType<SolutionType.search>;
+  type StandaloneContext = ContextStateType<SolutionType.standalone>;
 
   const {
     listingEngineDefinition,
@@ -131,49 +120,3 @@ export function defineCommerceEngine<
     },
   };
 }
-
-// *********************************************************************
-// *********************************************************************
-//                        S  A  N  D  B  O  X
-// *********************************************************************
-// *********************************************************************
-/*
-const engineDefinition = defineCommerceEngine({
-  configuration: {...getSampleCommerceEngineConfiguration()},
-  controllers: {
-    summary: defineSummary(),
-    productList: defineProductList(),
-    popularViewedRecs: defineRecommendations({
-      options: {
-        slotId: 'd73afbd2-8521-4ee6-a9b8-31f064721e73',
-      },
-    }),
-    popularBoughtRecs: defineRecommendations({
-      options: {
-        slotId: 'af4fb7ba-6641-4b67-9cf9-be67e9f30174',
-      },
-    }),
-    cart: defineCart(),
-    searchBox: defineSearchBox(),
-    context: defineContext(),
-    recentQueriesList: defineRecentQueriesList(),
-    notifyTrigger: defineNotifyTrigger(),
-    queryTrigger: defineQueryTrigger(),
-    redirectionTrigger: defineRedirectionTrigger(),
-    standaloneSearchBox: defineStandaloneSearchBox({
-      options: {redirectionUrl: '/search'},
-    }),
-    instantProducts: defineInstantProducts({options: {}}),
-    pagination: definePagination({options: {pageSize: 9}}),
-    sort: defineSort(),
-    productView: defineProductView(),
-    didYouMean: defineDidYouMean(), // TODO KIT-3463: implement did you mean in sample
-    facetGenerator: defineFacetGenerator({search: false}),
-  },
-});
-
-export const a = engineDefinition.listingEngineDefinition;
-
-export const {useFacetGenerator} = engineDefinition.controllers;
-
-// */

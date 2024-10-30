@@ -6,7 +6,6 @@ import {
   InferControllerStaticStateMapFromDefinitionsWithSolutionType,
   InferControllersMapFromDefinition,
   SolutionType,
-  Unsubscribe,
 } from '@coveo/headless/ssr-commerce';
 import {
   useContext,
@@ -62,12 +61,12 @@ function buildControllerHook<
       (listener: () => void) =>
         isHydratedStateContext(ctx)
           ? // TODO: fix this type
-            (ctx.controllers[
+            ctx.controllers[
               key as unknown as keyof InferControllersMapFromDefinition<
                 TControllers,
                 TSolutionType
               >
-            ].subscribe(listener) as Unsubscribe) // TODO: not sure about the cast
+            ].subscribe(listener)
           : () => {},
       [ctx]
     );
@@ -87,11 +86,8 @@ function buildControllerHook<
           >
         ];
       const {state: _, subscribe: __, ...remainder} = controller;
-      return mapObject(
-        remainder,
-        (member) =>
-          typeof member === 'function' ? member.bind(controller) : member
-        // TODO: remove this cast
+      return mapObject(remainder, (member) =>
+        typeof member === 'function' ? member.bind(controller) : member
       ) as Omit<
         InferControllerFromDefinition<TControllers[TKey]>,
         'state' | 'subscribe'
@@ -101,7 +97,6 @@ function buildControllerHook<
   };
 }
 
-// TODO: refactor this method to be useController<C extends Controller>(controller: C);
 export function buildControllerHooks<
   TEngine extends CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
@@ -112,7 +107,6 @@ export function buildControllerHooks<
   >,
   controllersMap?: TControllers
 ) {
-  // TODO: print a nice error if the user tries to use a controller that was not built.
   return (
     controllersMap
       ? Object.fromEntries(
@@ -166,8 +160,7 @@ function buildStaticStateProvider<
   };
 }
 
-// TODO: find a way to simplify these methods
-
+// TODO: remove code duplication
 export function buildStaticStateListingProvider<
   TEngine extends CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,

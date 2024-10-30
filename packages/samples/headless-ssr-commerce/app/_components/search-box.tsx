@@ -10,9 +10,9 @@ import InstantProducts from './instant-product';
 import RecentQueries from './recent-queries';
 
 export default function SearchBox() {
-  const {state, methods: controller} = useSearchBox();
+  const {state, controller} = useSearchBox();
   const {state: recentQueriesState} = useRecentQueriesList();
-  const {state: instantProductsState, methods: instantProductsController} =
+  const {state: instantProductsState, controller: instantProductsController} =
     useInstantProducts();
 
   const [isInputFocused, setIsInputFocused] = useState(false);

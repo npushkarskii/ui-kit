@@ -5,7 +5,7 @@ import {useInstantProducts} from '../_lib/commerce-engine';
 export default function InstantProducts() {
   const router = useRouter();
 
-  const {state, methods: controller} = useInstantProducts();
+  const {state, controller} = useInstantProducts();
 
   const clickProduct = (product: Product) => {
     controller?.interactiveProduct({options: {product}}).select();

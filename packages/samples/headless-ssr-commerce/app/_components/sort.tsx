@@ -4,7 +4,7 @@
 import {useSort} from '../_lib/commerce-engine';
 
 export default function Sort() {
-  const {state, methods: controller} = useSort();
+  const {state, controller} = useSort();
 
   if (state.availableSorts.length === 0) {
     return null;

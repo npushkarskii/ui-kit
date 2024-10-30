@@ -3,7 +3,7 @@
 import {usePagination, useSummary} from '../_lib/commerce-engine';
 
 export default function ShowMore() {
-  const {state, methods: controller} = usePagination();
+  const {state, controller} = usePagination();
   const {state: summaryState} = useSummary();
 
   const handleFetchMore = () => {

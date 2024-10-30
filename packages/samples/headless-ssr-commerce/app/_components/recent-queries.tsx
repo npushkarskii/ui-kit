@@ -4,8 +4,8 @@ import {
 } from '../_lib/commerce-engine';
 
 export default function RecentQueries() {
-  const {state, methods: controller} = useRecentQueriesList();
-  const {methods: instantProductsController} = useInstantProducts();
+  const {state, controller} = useRecentQueriesList();
+  const {controller: instantProductsController} = useInstantProducts();
 
   return (
     <div>

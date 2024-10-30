@@ -5,7 +5,7 @@ import {useCart, useContext} from '../_lib/commerce-engine';
 import {formatCurrency} from '../_utils/format-currency';
 
 export default function Cart() {
-  const {state, methods: controller} = useCart();
+  const {state, controller} = useCart();
   const {state: contextState} = useContext();
 
   const adjustQuantity = (item: CartItem, delta: number) => {

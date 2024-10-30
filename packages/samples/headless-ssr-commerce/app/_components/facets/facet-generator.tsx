@@ -7,7 +7,7 @@ import NumericFacet from './numeric-facet';
 import RegularFacet from './regular-facet';
 
 export default function FacetGenerator() {
-  const {state, methods: controller} = useFacetGenerator();
+  const {state, controller} = useFacetGenerator();
 
   return (
     <nav className="Facets">

@@ -6,12 +6,12 @@ import {useProductList} from '../_lib/commerce-engine';
 
 export default function ProductList() {
   // const [state, setState] = useState(staticState);
-  const {state, methods} = useProductList();
+  const {state, controller} = useProductList();
 
   const router = useRouter();
 
   const onProductClick = (product: Product) => {
-    methods?.interactiveProduct({options: {product}}).select();
+    controller?.interactiveProduct({options: {product}}).select();
     router.push(
       `/products/${product.ec_product_id}?name=${product.ec_name}&price=${product.ec_price}`
     );
@@ -21,7 +21,10 @@ export default function ProductList() {
     <ul>
       {state.products.map((product) => (
         <li key={product.ec_product_id}>
-          <button disabled={!methods} onClick={() => onProductClick(product)}>
+          <button
+            disabled={!controller}
+            onClick={() => onProductClick(product)}
+          >
             {product.ec_name}
           </button>
         </li>

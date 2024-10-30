@@ -3,7 +3,7 @@
 import {usePagination} from '../_lib/commerce-engine';
 
 export default function Pagination() {
-  const {state, methods: controller} = usePagination();
+  const {state, controller} = usePagination();
 
   const renderPageRadioButtons = () => {
     return Array.from({length: state.totalPages}, (_, i) => {

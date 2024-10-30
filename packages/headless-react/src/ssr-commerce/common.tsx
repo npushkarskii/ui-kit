@@ -73,7 +73,7 @@ function buildControllerHook<
     const getStaticState = useCallback(() => ctx.controllers[key].state, [ctx]);
     const state = useSyncMemoizedStore(subscribe, getStaticState);
     // TODO: rename methods to controller in both react packages
-    const methods = useMemo(() => {
+    const controller = useMemo(() => {
       if (!isHydratedStateContext(ctx)) {
         return undefined;
       }
@@ -93,7 +93,7 @@ function buildControllerHook<
         'state' | 'subscribe'
       >;
     }, [ctx, key]);
-    return {state, methods};
+    return {state, controller};
   };
 }
 

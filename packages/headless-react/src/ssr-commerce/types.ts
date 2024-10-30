@@ -40,7 +40,7 @@ export type ContextState<
 
 export type ControllerHook<TController extends Controller> = () => {
   state: TController['state'];
-  methods?: Omit<TController, 'state' | 'subscribe'>;
+  controller?: Omit<TController, 'state' | 'subscribe'>;
 };
 
 export type InferControllerHooksMapFromDefinition<

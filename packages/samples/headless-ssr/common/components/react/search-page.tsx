@@ -17,7 +17,7 @@ interface SearchPageProviderProps {
   navigatorContext: NavigatorContext;
 }
 
-export function SearchPageProvider({
+export function FullPage({
   staticState,
   navigatorContext,
   children,

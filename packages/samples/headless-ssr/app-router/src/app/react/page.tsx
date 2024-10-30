@@ -1,7 +1,7 @@
 import {AuthorFacet} from '@/common/components/react/facets';
 import ResultList from '@/common/components/react/result-list';
 import SearchBox from '@/common/components/react/search-box';
-import {SearchPageProvider} from '@/common/components/react/search-page';
+import {FullPage} from '@/common/components/react/search-page';
 import SearchParameterManager from '@/common/components/react/search-parameter-manager';
 import TabManager from '@/common/components/react/tab-manager';
 import {
@@ -57,7 +57,7 @@ export default async function Search(url: {
   });
 
   return (
-    <SearchPageProvider
+    <FullPage
       staticState={staticState}
       navigatorContext={navigatorContext.marshal}
     >
@@ -66,7 +66,7 @@ export default async function Search(url: {
       <TabManager />
       <ResultList />
       <AuthorFacet />
-    </SearchPageProvider>
+    </FullPage>
   );
 }
 

@@ -21,7 +21,7 @@ import {
   getSampleCommerceEngineConfiguration,
   defineDidYouMean,
   defineRecommendations, //defineParameterManager,
-} from '@coveo/headless/ssr-commerce';
+} from '@coveo/headless-react/ssr-commerce';
 
 type CommerceEngineConfig = CommerceEngineDefinitionOptions<
   ControllerDefinitionsMap<CommerceEngine, Controller>

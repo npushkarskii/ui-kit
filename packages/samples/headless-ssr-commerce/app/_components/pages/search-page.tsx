@@ -1,6 +1,6 @@
 'use client';
 
-import {NavigatorContext} from '@coveo/headless/ssr-commerce';
+import {NavigatorContext} from '@coveo/headless-react/ssr-commerce';
 import {useEffect, useState} from 'react';
 import {
   SearchHydratedState,
@@ -59,51 +59,22 @@ export default function SearchPage({
             notifyStaticState={staticState.controllers.notifyTrigger.state}
             notifyController={hydratedState?.controllers.notifyTrigger}
           />
-          <SearchBox
-            staticState={staticState.controllers.searchBox.state}
-            controller={hydratedState?.controllers.searchBox}
-            staticStateRecentQueries={
-              staticState.controllers.recentQueriesList.state
-            }
-            recentQueriesController={
-              hydratedState?.controllers.recentQueriesList
-            }
-            staticStateInstantProducts={
-              staticState.controllers.instantProducts.state
-            }
-            instantProductsController={
-              hydratedState?.controllers.instantProducts
-            }
-          />
-          <FacetGenerator
-            staticState={staticState.controllers.facetGenerator.state}
-            controller={hydratedState?.controllers.facetGenerator}
-          />
-          <Summary
-            staticState={staticState.controllers.summary.state}
-            controller={hydratedState?.controllers.summary}
-          />
-          <ProductList
-            staticState={staticState.controllers.productList.state}
-            controller={hydratedState?.controllers.productList}
-          />
+          <SearchBox />
+          <FacetGenerator />
+          <Summary />
+          <ProductList />
           {/* The ShowMore and Pagination components showcase two frequent ways to implement pagination. */}
           {/* <Pagination
           staticState={staticState.controllers.pagination.state}
           controller={hydratedState?.controllers.pagination}
         ></Pagination> */}
-          <ShowMore
-            staticState={staticState.controllers.pagination.state}
-            controller={hydratedState?.controllers.pagination}
-            summaryController={hydratedState?.controllers.summary}
-          />
+          <ShowMore />
         </div>
 
         <div style={{flex: 1}}>
-          <Recommendations
-            staticState={staticState.controllers.popularBoughtRecs.state}
-            controller={hydratedState?.controllers.popularBoughtRecs}
-          />
+          {/* popularBoughtRecs */}
+          {/* TODO: need to find a better way to target a recommendation slot id */}
+          <Recommendations />
         </div>
       </div>
     </>

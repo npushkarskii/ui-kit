@@ -20,6 +20,7 @@ export type {
   AnalyticsRuntimeEnvironment,
 } from './app/engine-configuration.js';
 export type {
+  SolutionType,
   ControllerDefinitionsMap,
   InferControllerFromDefinition,
   InferControllersMapFromDefinition,

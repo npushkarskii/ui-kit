@@ -26,14 +26,15 @@ import {
 } from '@coveo/headless/ssr-commerce';
 // Workaround to prevent Next.js erroring about importing CSR only hooks
 import React from 'react';
-import {singleton} from '../utils.js';
+import {singleton, SingletonGetter} from '../utils.js';
 import {
   buildControllerHooks,
   buildEngineHook,
-  buildHydratedStateProvider,
-  buildHydratedListingStateProvider,
-  buildStaticStateProvider,
-  buildStaticListingStateProvider,
+  buildHydratedStateSearchProvider,
+  buildHydratedStateStandaloneProvider,
+  buildStaticStateListingProvider,
+  buildStaticStateSearchProvider,
+  buildStaticStateStandaloneProvider,
 } from './common.js';
 import {ContextState, ReactEngineDefinition} from './types.js';
 
@@ -50,7 +51,7 @@ export type ReactCommerceEngineDefinition<
 // Wrapper to workaround the limitation that `createContext()` cannot be called directly during SSR in next.js
 export function createSingletonContext<
   TControllers extends ControllerDefinitionsMap<CommerceEngine, Controller>,
-  TSolutionType extends SolutionType,
+  TSolutionType extends SolutionType = SolutionType,
 >() {
   return singleton(() =>
     React.createContext<ContextState<
@@ -67,28 +68,67 @@ export function createSingletonContext<
  */
 export function defineCommerceEngine<
   TControllers extends ControllerDefinitionsMap<CommerceEngine, Controller>,
-  // TSolutionType extends SolutionType,
->(
-  options: CommerceEngineDefinitionOptions<TControllers>
-  // ): ReactCommerceEngineDefinition<TControllers, TSolutionType> {
-) {
-  const singletonContext = createSingletonContext<
-    TControllers,
-    SolutionType.listing // TODO: find a way to get other solution types as well
-  >();
+>(options: CommerceEngineDefinitionOptions<TControllers>) {
+  const singletonContext = createSingletonContext<TControllers>();
+  // TODO: find a way to fix this casting hack
+  type ListingContext = SingletonGetter<
+    React.Context<ContextState<
+      CommerceEngine,
+      TControllers,
+      SolutionType.listing
+    > | null>
+  >;
+  type SearchContext = SingletonGetter<
+    React.Context<ContextState<
+      CommerceEngine,
+      TControllers,
+      SolutionType.search
+    > | null>
+  >;
+  type StandaloneContext = SingletonGetter<
+    React.Context<ContextState<
+      CommerceEngine,
+      TControllers,
+      SolutionType.standalone
+    > | null>
+  >;
+
+  const {
+    listingEngineDefinition,
+    searchEngineDefinition,
+    standaloneEngineDefinition,
+  } = defineBaseCommerceEngine({...options});
   return {
-    ...defineBaseCommerceEngine({...options}),
     useEngine: buildEngineHook(singletonContext),
     controllers: buildControllerHooks(singletonContext, options.controllers),
-    StaticStateProvider: buildStaticStateProvider(singletonContext),
-    HydratedStateProvider: buildHydratedStateProvider(singletonContext),
-    // TODO: encapsulate this in namespaces
-    StaticListingStateProvider:
-      buildStaticListingStateProvider(singletonContext),
-    HydratedListingStateProvider:
-      buildHydratedListingStateProvider(singletonContext),
-    // HydratedSearchStateProvider:
-    //   buildHydratedSearchStateProvider(singletonContext),
+    listingEngineDefinition: {
+      ...listingEngineDefinition,
+      StaticStateProvider: buildStaticStateListingProvider(
+        singletonContext as ListingContext
+      ),
+
+      HydratedStateProvider: buildStaticStateListingProvider(
+        singletonContext as ListingContext
+      ),
+    },
+    searchEngineDefinition: {
+      ...searchEngineDefinition,
+      StaticStateProvider: buildStaticStateSearchProvider(
+        singletonContext as SearchContext
+      ),
+      HydratedStateProvider: buildHydratedStateSearchProvider(
+        singletonContext as SearchContext
+      ),
+    },
+    standaloneEngineDefinition: {
+      ...standaloneEngineDefinition,
+      StaticStateProvider: buildStaticStateStandaloneProvider(
+        singletonContext as StandaloneContext
+      ),
+      HydratedStateProvider: buildHydratedStateStandaloneProvider(
+        singletonContext as StandaloneContext
+      ),
+    },
   };
 }
 

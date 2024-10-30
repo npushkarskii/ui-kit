@@ -3,11 +3,9 @@
 import {NavigatorContext} from '@coveo/headless-react/ssr-commerce';
 import {PropsWithChildren, useEffect, useState} from 'react';
 import {
-  HydratedStateProvider,
   listingEngineDefinition,
   ListingHydratedState,
   ListingStaticState,
-  StaticListingStateProvider,
 } from '../../_lib/commerce-engine';
 
 interface ListinPageProps {
@@ -42,20 +40,21 @@ export default function ListingPage({
 
   if (hydratedState) {
     return (
-      <HydratedStateProvider
-        engine={hydratedState.engine}
+      <listingEngineDefinition.HydratedStateProvider
         controllers={hydratedState.controllers}
       >
         <>{children}</>
-      </HydratedStateProvider>
+      </listingEngineDefinition.HydratedStateProvider>
     );
   } else {
     return (
-      <StaticListingStateProvider controllers={staticState.controllers}>
+      <listingEngineDefinition.StaticStateProvider
+        controllers={staticState.controllers}
+      >
         {/* // TODO: FIXME:  Type 'React.ReactNode' is not assignable to type 'import(".../node_modules/@types/react/index").ReactNode'.
   Type 'bigint' is not assignable to type 'ReactNode'.*/}
         <>{children}</>
-      </StaticListingStateProvider>
+      </listingEngineDefinition.StaticStateProvider>
     );
   }
 }

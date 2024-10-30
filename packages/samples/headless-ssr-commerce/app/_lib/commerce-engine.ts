@@ -5,25 +5,16 @@ import {
 } from '@coveo/headless-react/ssr-commerce';
 import engineConfig from './commerce-engine-config';
 
-const engineDefinition = defineCommerceEngine(engineConfig);
+export const engineDefinition = defineCommerceEngine(engineConfig);
 
-export const {
-  listingEngineDefinition,
-  searchEngineDefinition,
-  standaloneEngineDefinition,
-  HydratedStateProvider,
-  HydratedListingStateProvider,
-  StaticListingStateProvider,
-  StaticStateProvider,
-  useEngine,
-} = engineDefinition;
+export const {listingEngineDefinition, searchEngineDefinition, useEngine} =
+  engineDefinition;
 
 export const {
   useCart,
   useContext,
   useProductList,
   useDidYouMean,
-  useFacetGenerator,
   useInstantProducts,
   useNotifyTrigger,
   usePagination,
@@ -37,6 +28,7 @@ export const {
   useSort,
   useStandaloneSearchBox,
   useSummary,
+  useFacetGenerator,
 } = engineDefinition.controllers;
 
 export type ListingStaticState = InferStaticState<
@@ -51,9 +43,10 @@ export type SearchHydratedState = InferHydratedState<
   typeof searchEngineDefinition
 >;
 
-export type StandaloneStaticState = InferStaticState<
-  typeof standaloneEngineDefinition
->;
-export type StandaloneHydratedState = InferHydratedState<
-  typeof standaloneEngineDefinition
->;
+// TODO: add missing types
+// export type StandaloneStaticState = InferStaticState<
+//   typeof standaloneEngineDefinition
+// >;
+// export type StandaloneHydratedState = InferHydratedState<
+//   typeof standaloneEngineDefinition
+// >;

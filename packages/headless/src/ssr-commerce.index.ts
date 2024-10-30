@@ -19,8 +19,12 @@ export type {
   AnalyticsConfiguration,
   AnalyticsRuntimeEnvironment,
 } from './app/engine-configuration.js';
+export {SolutionType} from './app/commerce-ssr-engine/types/common.js';
+// TODO: understand what should be moved to commerce-ssr-engine folder
+export * from './app/ssr-engine/types/common.js';
+export * from './app/ssr-engine/types/hydrate-static-state.js';
+export * from './app/ssr-engine/types/fetch-static-state.js';
 export type {
-  SolutionType,
   ControllerDefinitionsMap,
   InferControllerFromDefinition,
   InferControllersMapFromDefinition,

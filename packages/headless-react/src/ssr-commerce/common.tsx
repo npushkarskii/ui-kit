@@ -112,6 +112,7 @@ export function buildControllerHooks<
   >,
   controllersMap?: TControllers
 ) {
+  // TODO: print a nice error if the user tries to use a controller that was not built.
   return (
     controllersMap
       ? Object.fromEntries(
@@ -142,7 +143,7 @@ export function buildEngineHook<
   };
 }
 
-export function buildStaticStateProvider<
+function buildStaticStateProvider<
   TEngine extends CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
   TSolutionType extends SolutionType,
@@ -165,7 +166,9 @@ export function buildStaticStateProvider<
   };
 }
 
-export function buildStaticListingStateProvider<
+// TODO: find a way to simplify these methods
+
+export function buildStaticStateListingProvider<
   TEngine extends CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
 >(
@@ -173,43 +176,32 @@ export function buildStaticListingStateProvider<
     Context<ContextState<TEngine, TControllers, SolutionType.listing> | null>
   >
 ) {
-  return ({
-    controllers,
-    children,
-  }: PropsWithChildren<{
-    controllers: InferControllerStaticStateMapFromDefinitionsWithSolutionType<
-      TControllers,
-      SolutionType.listing
-    >; // TODO: make solution type dynamic
-  }>) => {
-    const {Provider} = singletonContext.get();
-    return <Provider value={{controllers}}>{children}</Provider>;
-  };
+  return buildStaticStateProvider(singletonContext);
 }
 
-export function buildHydratedStateProvider<
+export function buildStaticStateSearchProvider<
   TEngine extends CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
-  TSolutionType extends SolutionType,
 >(
   singletonContext: SingletonGetter<
-    Context<ContextState<TEngine, TControllers, TSolutionType> | null>
+    Context<ContextState<TEngine, TControllers, SolutionType.search> | null>
   >
 ) {
-  return ({
-    engine,
-    controllers,
-    children,
-  }: PropsWithChildren<{
-    engine: TEngine;
-    controllers: InferControllersMapFromDefinition<TControllers, TSolutionType>;
-  }>) => {
-    const {Provider} = singletonContext.get();
-    return <Provider value={{engine, controllers}}>{children}</Provider>;
-  };
+  return buildStaticStateProvider(singletonContext);
 }
 
-export function buildHydratedListingStateProvider<
+export function buildStaticStateStandaloneProvider<
+  TEngine extends CoreEngineNext,
+  TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
+>(
+  singletonContext: SingletonGetter<
+    Context<ContextState<TEngine, TControllers, SolutionType.standalone> | null>
+  >
+) {
+  return buildStaticStateProvider(singletonContext);
+}
+
+export function buildHydratedStateListingProvider<
   TEngine extends CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
 >(
@@ -226,6 +218,56 @@ export function buildHydratedListingStateProvider<
     controllers: InferControllersMapFromDefinition<
       TControllers,
       SolutionType.listing
+    >;
+  }>) => {
+    const {Provider} = singletonContext.get();
+    return <Provider value={{engine, controllers}}>{children}</Provider>;
+  };
+}
+
+// TODO: remove code duplication
+export function buildHydratedStateSearchProvider<
+  TEngine extends CoreEngineNext,
+  TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
+>(
+  singletonContext: SingletonGetter<
+    Context<ContextState<TEngine, TControllers, SolutionType.search> | null>
+  >
+) {
+  return ({
+    engine,
+    controllers,
+    children,
+  }: PropsWithChildren<{
+    engine: TEngine;
+    controllers: InferControllersMapFromDefinition<
+      TControllers,
+      SolutionType.search
+    >;
+  }>) => {
+    const {Provider} = singletonContext.get();
+    return <Provider value={{engine, controllers}}>{children}</Provider>;
+  };
+}
+
+// TODO: remove code duplication
+export function buildHydratedStateStandaloneProvider<
+  TEngine extends CoreEngineNext,
+  TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
+>(
+  singletonContext: SingletonGetter<
+    Context<ContextState<TEngine, TControllers, SolutionType.standalone> | null>
+  >
+) {
+  return ({
+    engine,
+    controllers,
+    children,
+  }: PropsWithChildren<{
+    engine: TEngine;
+    controllers: InferControllersMapFromDefinition<
+      TControllers,
+      SolutionType.standalone
     >;
   }>) => {
     const {Provider} = singletonContext.get();

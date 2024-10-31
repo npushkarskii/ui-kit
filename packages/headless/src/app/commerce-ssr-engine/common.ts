@@ -1,7 +1,7 @@
 import {Controller} from '../../controllers/controller/headless-controller.js';
 import {InvalidControllerDefinition} from '../../utils/errors.js';
 import {filterObject, mapObject} from '../../utils/utils.js';
-import {CoreEngineNext} from '../engine.js';
+import {CoreEngine, CoreEngineNext} from '../engine.js';
 import {InferControllerPropsMapFromDefinitions} from '../ssr-engine/types/common.js';
 import {
   ControllerDefinition,
@@ -15,7 +15,7 @@ import {
 
 function buildControllerFromDefinition<
   TControllerDefinition extends ControllerDefinition<TEngine, Controller>,
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
 >({
   definition,
   engine,
@@ -36,10 +36,10 @@ function buildControllerFromDefinition<
 
 export function buildControllerDefinitions<
   TControllerDefinitionsMap extends ControllerDefinitionsMap<
-    CoreEngineNext,
+    CoreEngine | CoreEngineNext,
     Controller
   >,
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
   TSolutionType extends SolutionType,
 >({
   definitionsMap,

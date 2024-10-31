@@ -1,7 +1,7 @@
 import type {Controller} from '../../../controllers/controller/headless-controller.js';
 import type {InvalidControllerDefinition} from '../../../utils/errors.js';
 import type {CommerceEngine} from '../../commerce-engine/commerce-engine.js';
-import type {CoreEngineNext} from '../../engine.js';
+import type {CoreEngine, CoreEngineNext} from '../../engine.js';
 import type {
   HasKey,
   InferControllerStaticStateMapFromControllers,
@@ -21,7 +21,7 @@ export enum SolutionType {
 }
 
 export interface ControllerDefinitionWithoutProps<
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
   TController extends Controller,
 > {
   /**
@@ -35,7 +35,7 @@ export interface ControllerDefinitionWithoutProps<
 }
 
 export interface ControllerDefinitionWithProps<
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
   TController extends Controller,
   TProps,
 > {
@@ -55,21 +55,24 @@ export interface ControllerDefinitionWithProps<
 }
 
 export type ControllerDefinition<
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
   TController extends Controller,
 > =
   | ControllerDefinitionWithoutProps<TEngine, TController>
   | ControllerDefinitionWithProps<TEngine, TController, unknown>;
 
 export interface ControllerDefinitionsMap<
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
   TController extends Controller,
 > {
   [customName: string]: ControllerDefinition<TEngine, TController>;
 }
 
 export type InferControllerPropsFromDefinition<
-  TController extends ControllerDefinition<CoreEngineNext, Controller>,
+  TController extends ControllerDefinition<
+    CoreEngine | CoreEngineNext,
+    Controller
+  >,
 > =
   TController extends ControllerDefinitionWithProps<
     CoreEngineNext,
@@ -85,14 +88,20 @@ export type InferControllerPropsFromDefinition<
       : unknown;
 
 export type InferControllerFromDefinition<
-  TDefinition extends ControllerDefinition<CoreEngineNext, Controller>,
+  TDefinition extends ControllerDefinition<
+    CoreEngine | CoreEngineNext,
+    Controller
+  >,
 > =
   TDefinition extends ControllerDefinition<infer _, infer TController>
     ? TController
     : never;
 
 export type InferControllersMapFromDefinition<
-  TControllers extends ControllerDefinitionsMap<CoreEngineNext, Controller>,
+  TControllers extends ControllerDefinitionsMap<
+    CoreEngine | CoreEngineNext,
+    Controller
+  >,
   TSolutionType extends SolutionType,
 > = {
   [K in keyof TControllers as HasKey<
@@ -104,7 +113,10 @@ export type InferControllersMapFromDefinition<
 };
 
 export type InferControllerStaticStateMapFromDefinitionsWithSolutionType<
-  TControllers extends ControllerDefinitionsMap<CoreEngineNext, Controller>,
+  TControllers extends ControllerDefinitionsMap<
+    CoreEngine | CoreEngineNext,
+    Controller
+  >,
   TSolutionType extends SolutionType,
 > = {
   [K in keyof TControllers as HasKey<

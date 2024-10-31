@@ -1,7 +1,7 @@
 import {UnknownAction} from '@reduxjs/toolkit';
 import type {Controller} from '../../../controllers/controller/headless-controller.js';
 import {EngineConfiguration} from '../../engine-configuration.js';
-import {CoreEngineNext} from '../../engine.js';
+import {CoreEngine, CoreEngineNext} from '../../engine.js';
 import {NavigatorContextProvider} from '../../navigatorContextProvider.js';
 import {Build} from '../../ssr-engine/types/build.js';
 import {InferControllerPropsMapFromDefinitions} from '../../ssr-engine/types/common.js';
@@ -17,7 +17,10 @@ import {
 export type {HydrateStaticState, FetchStaticState};
 export type EngineDefinitionOptions<
   TOptions extends {configuration: EngineConfiguration},
-  TControllers extends ControllerDefinitionsMap<CoreEngineNext, Controller>,
+  TControllers extends ControllerDefinitionsMap<
+    CoreEngine | CoreEngineNext,
+    Controller
+  >,
 > = TOptions & {
   /**
    * The controllers to initialize with the commerce engine.
@@ -26,7 +29,7 @@ export type EngineDefinitionOptions<
 };
 
 export interface EngineDefinition<
-  TEngine extends CoreEngineNext,
+  TEngine extends CoreEngine | CoreEngineNext,
   TControllers extends ControllerDefinitionsMap<TEngine, Controller>,
   TEngineOptions,
   TSolutionType extends SolutionType,

@@ -42,7 +42,7 @@ export default function SearchPage({
   if (hydratedState) {
     return (
       <searchEngineDefinition.HydratedStateProvider
-        engine={hydratedState.engine} // TODO: understand why the engine IS accepted here
+        engine={hydratedState.engine}
         controllers={hydratedState.controllers}
       >
         <>{children}</>

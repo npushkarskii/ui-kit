@@ -41,7 +41,7 @@ export default function ListingPage({
   if (hydratedState) {
     return (
       <listingEngineDefinition.HydratedStateProvider
-        // engine={hydratedState.engine} // TODO: understand why the engine is not accepted here
+        engine={hydratedState.engine}
         controllers={hydratedState.controllers}
       >
         <>{children}</>

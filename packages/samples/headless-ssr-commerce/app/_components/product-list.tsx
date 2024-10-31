@@ -5,7 +5,6 @@ import {useRouter} from 'next/navigation';
 import {useProductList} from '../_lib/commerce-engine';
 
 export default function ProductList() {
-  // const [state, setState] = useState(staticState);
   const {state, controller} = useProductList();
 
   const router = useRouter();

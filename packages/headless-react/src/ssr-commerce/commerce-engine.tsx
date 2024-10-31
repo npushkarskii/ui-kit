@@ -13,6 +13,7 @@ import {singleton, SingletonGetter} from '../utils.js';
 import {
   buildControllerHooks,
   buildEngineHook,
+  buildHydratedStateListingProvider,
   buildHydratedStateSearchProvider,
   buildHydratedStateStandaloneProvider,
   buildStaticStateListingProvider,
@@ -79,7 +80,7 @@ export function defineCommerceEngine<
         singletonContext as ListingContext
       ),
 
-      HydratedStateProvider: buildStaticStateListingProvider(
+      HydratedStateProvider: buildHydratedStateListingProvider(
         singletonContext as ListingContext
       ),
     },

@@ -57,34 +57,23 @@ function buildControllerHook<
     if (ctx === null) {
       throw new MissingEngineProviderError();
     }
+
+    // TODO: KIT-????: Temporary workaround to ensure that 'key' can be used as an index for 'ctx.controllers'. A more robust solution is needed.
+    type ControllerKey = Exclude<keyof typeof ctx.controllers, symbol>;
     const subscribe = useCallback(
       (listener: () => void) =>
         isHydratedStateContext(ctx)
-          ? // TODO: fix this type
-            ctx.controllers[
-              key as unknown as keyof InferControllersMapFromDefinition<
-                TControllers,
-                TSolutionType
-              >
-            ].subscribe(listener)
+          ? ctx.controllers[key as ControllerKey].subscribe(listener)
           : () => {},
       [ctx]
     );
     const getStaticState = useCallback(() => ctx.controllers[key].state, [ctx]);
     const state = useSyncMemoizedStore(subscribe, getStaticState);
-    // TODO: rename methods to controller in both react packages
     const controller = useMemo(() => {
       if (!isHydratedStateContext(ctx)) {
         return undefined;
       }
-      const controller =
-        ctx.controllers[
-          // TODO: remove this cast
-          key as unknown as keyof InferControllersMapFromDefinition<
-            TControllers,
-            TSolutionType
-          >
-        ];
+      const controller = ctx.controllers[key as ControllerKey];
       const {state: _, subscribe: __, ...remainder} = controller;
       return mapObject(remainder, (member) =>
         typeof member === 'function' ? member.bind(controller) : member
@@ -153,7 +142,7 @@ export function buildStaticStateProvider<
     controllers: InferControllerStaticStateMapFromDefinitionsWithSolutionType<
       TControllers,
       TSolutionType
-    >; // TODO: make solution type dynamic
+    >;
   }>) => {
     const {Provider} = singletonContext.get();
     return <Provider value={{controllers}}>{children}</Provider>;

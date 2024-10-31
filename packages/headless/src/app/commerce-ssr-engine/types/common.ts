@@ -75,13 +75,13 @@ export type InferControllerPropsFromDefinition<
   >,
 > =
   TController extends ControllerDefinitionWithProps<
-    CoreEngineNext,
+    CoreEngine | CoreEngineNext,
     Controller,
     infer Props
   >
     ? Props
     : TController extends ControllerDefinitionWithoutProps<
-          CoreEngineNext,
+          CoreEngine | CoreEngineNext,
           Controller
         >
       ? {}

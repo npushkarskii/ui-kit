@@ -13,12 +13,8 @@ import {singleton, SingletonGetter} from '../utils.js';
 import {
   buildControllerHooks,
   buildEngineHook,
-  buildHydratedStateListingProvider,
-  buildHydratedStateSearchProvider,
-  buildHydratedStateStandaloneProvider,
-  buildStaticStateListingProvider,
-  buildStaticStateSearchProvider,
-  buildStaticStateStandaloneProvider,
+  buildHydratedStateProvider,
+  buildStaticStateProvider,
 } from './common.js';
 import {ContextState, ReactEngineDefinition} from './types.js';
 
@@ -76,29 +72,29 @@ export function defineCommerceEngine<
     controllers: buildControllerHooks(singletonContext, options.controllers),
     listingEngineDefinition: {
       ...listingEngineDefinition,
-      StaticStateProvider: buildStaticStateListingProvider(
+      StaticStateProvider: buildStaticStateProvider(
         singletonContext as ListingContext
       ),
 
-      HydratedStateProvider: buildHydratedStateListingProvider(
+      HydratedStateProvider: buildHydratedStateProvider(
         singletonContext as ListingContext
       ),
     },
     searchEngineDefinition: {
       ...searchEngineDefinition,
-      StaticStateProvider: buildStaticStateSearchProvider(
+      StaticStateProvider: buildStaticStateProvider(
         singletonContext as SearchContext
       ),
-      HydratedStateProvider: buildHydratedStateSearchProvider(
+      HydratedStateProvider: buildHydratedStateProvider(
         singletonContext as SearchContext
       ),
     },
     standaloneEngineDefinition: {
       ...standaloneEngineDefinition,
-      StaticStateProvider: buildStaticStateStandaloneProvider(
+      StaticStateProvider: buildStaticStateProvider(
         singletonContext as StandaloneContext
       ),
-      HydratedStateProvider: buildHydratedStateStandaloneProvider(
+      HydratedStateProvider: buildHydratedStateProvider(
         singletonContext as StandaloneContext
       ),
     },

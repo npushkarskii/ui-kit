@@ -1,4 +1,5 @@
 import type {UnknownAction} from '@reduxjs/toolkit';
+import type {Controller} from '../../../controllers/controller/headless-controller.js';
 import type {CoreEngine, CoreEngineNext} from '../../engine.js';
 import type {
   ControllersMap,
@@ -7,6 +8,7 @@ import type {
   OptionsTuple,
 } from '../../ssr-engine/types/common.js';
 import {
+  ControllerDefinitionsMap,
   EngineDefinitionControllersPropsOption,
   SolutionType,
 } from './common.js';
@@ -21,6 +23,10 @@ export type HydrateStaticState<
   TControllers extends ControllersMap,
   TSearchAction extends UnknownAction,
   TControllersProps extends ControllersPropsMap,
+  TControllersDefinitionsMap extends ControllerDefinitionsMap<
+    TEngine,
+    Controller
+  >,
   TSolutionType extends SolutionType,
 > = TSolutionType extends SolutionType.recommendation
   ? {
@@ -49,7 +55,11 @@ export type HydrateStaticState<
       (
         ...params: OptionsTuple<
           HydrateStaticStateOptions<TSearchAction> &
-            EngineDefinitionControllersPropsOption<TControllersProps>
+            EngineDefinitionControllersPropsOption<
+              TControllersDefinitionsMap,
+              TControllersProps,
+              TSolutionType
+            >
         >
       ): Promise<HydratedState<TEngine, TControllers>>;
 

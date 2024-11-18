@@ -65,6 +65,7 @@ export interface EngineDefinition<
       TSolutionType
     >,
     InferControllerPropsMapFromDefinitions<TControllers>,
+    TControllers,
     TSolutionType
   >;
   /**
@@ -75,6 +76,7 @@ export interface EngineDefinition<
     InferControllersMapFromDefinition<TControllers, TSolutionType>,
     UnknownAction,
     InferControllerPropsMapFromDefinitions<TControllers>,
+    TControllers,
     TSolutionType
   >;
   /**
@@ -85,6 +87,7 @@ export interface EngineDefinition<
     TEngineOptions,
     InferControllersMapFromDefinition<TControllers, TSolutionType>,
     InferControllerPropsMapFromDefinitions<TControllers>,
+    TControllers,
     TSolutionType
   >;
 

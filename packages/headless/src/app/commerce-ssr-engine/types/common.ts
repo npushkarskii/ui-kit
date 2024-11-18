@@ -162,11 +162,9 @@ export type EngineDefinitionControllersPropsOption<
     TSolutionType
   > extends never
     ? never
-    : K]: HasKeys<TControllersPropsMap> extends false
-    ? {}
-    : {
-        controllers: TControllersPropsMap;
-      };
+    : HasKeys<TControllersPropsMap> extends false
+      ? never
+      : 'controllers']: TControllersPropsMap;
 };
 
 export interface ControllerDefinitionOption {

@@ -121,7 +121,6 @@ export function buildCommerceNumericFacet(
   return {
     ...coreController,
 
-    // Only one range stored, so last will override the previous ones
     setRanges(ranges: NumericRangeRequest[]) {
       ranges.forEach((range) => {
         dispatch(updateManualNumericFacetRange({facetId, ...range}));

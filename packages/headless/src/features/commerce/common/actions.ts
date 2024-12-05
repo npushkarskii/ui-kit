@@ -19,6 +19,7 @@ import {
   VersionSection,
 } from '../../../state/state-sections.js';
 import {getProductsFromCartState} from '../context/cart/cart-state.js';
+import {AnyFacetRequest} from '../facets/facet-set/interfaces/request.js';
 import {SortBy, SortCriterion} from '../sort/sort.js';
 
 export type StateNeededByQueryCommerceAPI = CommerceConfigurationSection &
@@ -46,7 +47,7 @@ export const buildCommerceAPIRequest = (
 ): CommerceAPIRequest => {
   return {
     ...buildBaseCommerceAPIRequest(state, navigatorContext),
-    facets: [...getFacets(state)],
+    facets: [...getFacets(state), ...getManualNumericFacets(state)],
     ...(state.commerceSort && {
       sort: getSort(state.commerceSort.appliedSort),
     }),
@@ -118,21 +119,31 @@ function getFacets(state: ListingAndSearchStateNeededByQueryCommerceAPI) {
 
   return state.facetOrder
     .filter((facetId) => state.commerceFacetSet?.[facetId])
-    .map((facetId) => {
-      return state.manualNumericFacetSet?.[facetId]?.manualRange
-        ? {
-            facetId,
-            field: facetId,
-            numberOfValues: 1,
-            isFieldExpanded: false,
-            preventAutoSelect: true,
-            type: 'numericalRange' as const,
-            values: [state.manualNumericFacetSet[facetId].manualRange!],
-            initialNumberOfValues: 1,
-          }
-        : state.commerceFacetSet![facetId].request;
-    })
+    .map((facetId) => state.commerceFacetSet![facetId].request)
     .filter((facet) => facet && facet.values.length > 0);
+}
+
+function getManualNumericFacets(
+  state: ListingAndSearchStateNeededByQueryCommerceAPI
+): AnyFacetRequest[] {
+  if (!state.manualNumericFacetSet) {
+    return [];
+  }
+
+  return Object.entries(state.manualNumericFacetSet!)
+    .filter(
+      ([_, manualNumericFacet]) => manualNumericFacet.manualRange !== undefined
+    )
+    .map(([facetId, manualNumericFacet]) => ({
+      facetId,
+      field: facetId,
+      numberOfValues: 1,
+      isFieldExpanded: false,
+      preventAutoSelect: true,
+      type: 'numericalRange' as const,
+      values: [manualNumericFacet.manualRange!],
+      initialNumberOfValues: 1,
+    }));
 }
 
 function getSort(appliedSort: SortCriterion): SortParam['sort'] | undefined {

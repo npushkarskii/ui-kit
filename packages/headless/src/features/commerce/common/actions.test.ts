@@ -314,7 +314,7 @@ describe('commerce common actions', () => {
         facet1 = buildMockCommerceFacetSlice({
           request: {
             ...buildMockCommerceFacetRequest({
-              facetId: 'facet_id_1',
+              facetId: 'facet_1_id',
               values: [buildMockCommerceRegularFacetValue()],
             }),
           },

@@ -161,10 +161,7 @@ function getManualNumericFacet(section?: ManualNumericFacetSetState) {
 
   const manualNumericFacets = Object.entries(section)
     .map(([facetId, manualFacetRange]) => {
-      if (
-        manualFacetRange.manualRange === undefined ||
-        manualFacetRange.manualRange.state === 'idle'
-      ) {
+      if (manualFacetRange.manualRange === undefined) {
         return;
       }
       return {[facetId]: [manualFacetRange.manualRange]};
@@ -187,12 +184,6 @@ function facetIsOfType(
   type: FacetType
 ) {
   return (facetId: string) => {
-    if (
-      type === 'numericalRange' &&
-      state.commerceFacetSet![facetId].request.interval === 'continuous'
-    ) {
-      return false;
-    }
     return state.commerceFacetSet![facetId].request.type === type;
   };
 }

@@ -7,11 +7,6 @@ import {StepLogger, StepsRunner} from './util/log';
 import * as sfdx from './util/sfdx-commands';
 import {SfdxJWTAuth, authorizeOrg} from './util/sfdx-commands';
 import dotenv from 'dotenv';
-import {
-  getLockerServiceNext,
-  getOrgNameFromScratchDefFile,
-  getScratchOrgDefPath,
-} from './util/scratchOrgDefUtils';
 dotenv.config({path: path.resolve(__dirname, '.env')});
 
 interface Options {
@@ -143,9 +138,8 @@ async function writeDefinitionFile(
   });
 }
 
-async function buildOptions(scratchOrgDefPath): Promise<Options> {
+async function buildOptions(): Promise<Options> {
   const ci = isCi();
-  const orgName = getOrgNameFromScratchDefFile(scratchOrgDefPath);
 
   if (ci) {
     ensureEnvVariables();
@@ -159,9 +153,9 @@ async function buildOptions(scratchOrgDefPath): Promise<Options> {
       template: 'Build Your Own',
     },
     scratchOrg: {
-      alias: orgName,
+      alias: 'LWC',
       defFile: await prepareScratchOrgDefinitionFile(
-        path.resolve(scratchOrgDefPath)
+        path.resolve('config/project-scratch-def.json')
       ),
       duration: ci ? 1 : 7,
     },
@@ -317,11 +311,11 @@ async function updateCommunityConfigFile(
   log('Configuration file updated.');
 }
 
-async function setCommunityBaseUrlAsEnvVariable(log, communityUrl, orgName) {
+async function setCommunityBaseUrlAsEnvVariable(log, communityUrl) {
   const pathSegments = [__dirname, '..', '..', '.env'];
   const envFilePath = path.join(...pathSegments);
   const newEnvVariables = {
-    [`${orgName}_URL`]: communityUrl,
+    BASE_URL: communityUrl,
   };
 
   updateEnvFile(envFilePath, newEnvVariables);
@@ -361,11 +355,7 @@ async function deleteScratchOrg(
 }
 
 (async function () {
-  const scratchOrgDefPath = getScratchOrgDefPath(process.argv);
-  const orgName = getOrgNameFromScratchDefFile(scratchOrgDefPath);
-  const lockerServiceNext = getLockerServiceNext(scratchOrgDefPath);
-
-  const options = await buildOptions(scratchOrgDefPath);
+  const options = await buildOptions();
 
   let scratchOrgCreated = false;
   const runner = new StepsRunner();
@@ -392,16 +382,11 @@ async function deleteScratchOrg(
         communityUrl = await publishCommunity(log, options);
       })
       .add(
-        // Update the community configuration file with the examples URL (used only in Cypress tests)
-        async (log) => {
-          if (lockerServiceNext) {
-            await updateCommunityConfigFile(log, options, communityUrl);
-          }
-        }
+        async (log) =>
+          await updateCommunityConfigFile(log, options, communityUrl)
       )
       .add(
-        async (log) =>
-          await setCommunityBaseUrlAsEnvVariable(log, communityUrl, orgName)
+        async (log) => await setCommunityBaseUrlAsEnvVariable(log, communityUrl)
       )
       .add(async (log) => await waitForCommunity(log, communityUrl));
 

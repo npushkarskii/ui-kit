@@ -3,9 +3,8 @@ import replacePlugin from '@rollup/plugin-replace';
 import {postcss} from '@stencil-community/postcss';
 import {angularOutputTarget as angular} from '@stencil/angular-output-target';
 import {Config} from '@stencil/core';
-import {reactOutputTarget as react} from '@stencil/react-output-target';
 import autoprefixer from 'autoprefixer';
-import {readFileSync, readdirSync} from 'fs';
+import {readFileSync} from 'fs';
 import focusVisible from 'postcss-focus-visible';
 import atImport from 'postcss-import';
 import postcssMap from 'postcss-map';
@@ -31,14 +30,14 @@ function generateAliasEntries() {
   }));
 }
 
-function filterComponentsByUseCaseForReactOutput(useCasePath: string) {
-  return readdirSync(useCasePath, {
-    recursive: true,
-  })
-    .map((fileName) => /(atomic-[a-z-]+)\.tsx$/.exec(fileName.toString()))
-    .filter((m) => m !== null)
-    .flatMap((m) => m![1]);
-}
+// function filterComponentsByUseCaseForReactOutput(useCasePath: string) {
+//   return readdirSync(useCasePath, {
+//     recursive: true,
+//   })
+//     .map((fileName) => /(atomic-[a-z-]+)\.tsx$/.exec(fileName.toString()))
+//     .filter((m) => m !== null)
+//     .flatMap((m) => m![1]);
+// }
 function getPackageVersion(): string {
   return JSON.parse(readFileSync('package.json', 'utf-8')).version;
 }
@@ -108,37 +107,37 @@ export const config: Config = {
   taskQueue: 'async',
   sourceMap: true,
   outputTargets: [
-    !isDevWatch &&
-      react({
-        componentCorePackage: '@coveo/atomic',
-        proxiesFile:
-          '../atomic-react/src/components/stencil-generated/search/index.ts',
-        includeDefineCustomElements: true,
-        excludeComponents: [
-          'atomic-result-template',
-          'atomic-recs-result-template',
-          'atomic-field-condition',
-        ].concat(
-          filterComponentsByUseCaseForReactOutput('src/components/commerce')
-        ),
-      }),
-    !isDevWatch &&
-      react({
-        componentCorePackage: '@coveo/atomic',
-        proxiesFile:
-          '../atomic-react/src/components/stencil-generated/commerce/index.ts',
-        includeDefineCustomElements: true,
-        excludeComponents: [
-          'atomic-product-template',
-          'atomic-recs-result-template',
-          'atomic-field-condition',
-        ].concat(
-          filterComponentsByUseCaseForReactOutput('src/components/search'),
-          filterComponentsByUseCaseForReactOutput(
-            'src/components/recommendations'
-          )
-        ),
-      }),
+    // !isDevWatch &&
+    //   react({
+    //     componentCorePackage: '@coveo/atomic',
+    //     proxiesFile:
+    //       '../atomic-react/src/components/stencil-generated/search/index.ts',
+    //     includeDefineCustomElements: true,
+    //     excludeComponents: [
+    //       'atomic-result-template',
+    //       'atomic-recs-result-template',
+    //       'atomic-field-condition',
+    //     ].concat(
+    //       filterComponentsByUseCaseForReactOutput('src/components/commerce')
+    //     ),
+    //   }),
+    // !isDevWatch &&
+    //   react({
+    //     componentCorePackage: '@coveo/atomic',
+    //     proxiesFile:
+    //       '../atomic-react/src/components/stencil-generated/commerce/index.ts',
+    //     includeDefineCustomElements: true,
+    //     excludeComponents: [
+    //       'atomic-product-template',
+    //       'atomic-recs-result-template',
+    //       'atomic-field-condition',
+    //     ].concat(
+    //       filterComponentsByUseCaseForReactOutput('src/components/search'),
+    //       filterComponentsByUseCaseForReactOutput(
+    //         'src/components/recommendations'
+    //       )
+    //     ),
+    //   }),
     angular({
       componentCorePackage: '@coveo/atomic',
       directivesProxyFile:

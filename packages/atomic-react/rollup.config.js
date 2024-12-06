@@ -112,14 +112,15 @@ const cdnExternal = [
 
 /** @returns {import('rollup').OutputOptions} */
 const outputCJS = ({useCase}) => ({
-  file: `dist/cjs/${useCase}atomic-react.cjs`,
+  dir: `dist/cjs/${useCase}`,
+  // file: `dist/cjs/${useCase}atomic-react.cjs`,
   format: 'cjs',
   sourcemap: true,
 });
 
 /** @returns {import('rollup').OutputOptions} */
 const outputESM = ({useCase}) => ({
-  file: `dist/esm/${useCase}atomic-react.mjs`,
+  dir: `dist/esm/${useCase}`,
   format: 'esm',
   sourcemap: true,
 });
@@ -134,14 +135,14 @@ const plugins = [
 
 export default defineConfig([
   {
-    input: 'src/index.ts',
-    output: [outputCJS({useCase: ''})],
+    input: 'src/search.index.ts',
+    output: [outputCJS({useCase: 'search'})],
     external: isCDN ? cdnExternal : commonExternal,
     plugins: plugins,
   },
   {
-    input: 'src/index.ts',
-    output: [outputESM({useCase: ''})],
+    input: 'src/search.index.ts',
+    output: [outputESM({useCase: 'search'})],
     external: isCDN ? cdnExternal : commonExternal,
     plugins: plugins,
   },

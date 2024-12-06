@@ -34,7 +34,12 @@
     "./lang/*": {
       "import": "./dist/atomic/lang/*",
       "require": "./dist/atomic/lang/*"
-    }
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js"
+    },
+    "./custom-element-manifest": "./custom-elements.json"
   },
   "files": [
     "dist/",

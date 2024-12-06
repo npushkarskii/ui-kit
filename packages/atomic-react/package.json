@@ -30,7 +30,8 @@
     "commerce/"
   ],
   "dependencies": {
-    "@coveo/atomic": "3.11.1"
+    "@coveo/atomic": "3.11.1",
+    "@lit/react": "1.0.6"
   },
   "devDependencies": {
     "@coveo/release": "1.0.0",
@@ -58,19 +59,19 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/atomic-react.mjs",
-      "require": "./dist/cjs/atomic-react.cjs"
+      "types": "./dist/types/search.index.d.ts",
+      "import": "./dist/esm/search/search.index.js",
+      "require": "./dist/cjs/search/search.index.cjs"
     },
     "./commerce": {
       "types": "./dist/types/commerce.index.d.ts",
-      "import": "./dist/esm/commerce/atomic-react.mjs",
-      "require": "./dist/cjs/commerce/atomic-react.cjs"
+      "import": "./dist/esm/commerce/commerce.index.js",
+      "require": "./dist/cjs/commerce/commerce.index.cjs"
     },
     "./recommendation": {
       "types": "./dist/types/recommendation.index.d.ts",
-      "import": "./dist/esm/recommendation/atomic-react.mjs",
-      "require": "./dist/cjs/recommendation/atomic-react.cjs"
+      "import": "./dist/esm/recommendation/recommendation.index.js",
+      "require": "./dist/cjs/recommendation/recommendation.index.js"
     }
   }
 }

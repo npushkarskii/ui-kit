@@ -6,5 +6,6 @@ export default {
   /** Globs to exclude */
   exclude: ['**/*.stories.tsx', '**/*.stories.ts', '**/*.stories.js'],
   stencil: true,
+  litelement: true,
   plugins: [cemPlugin()],
 };

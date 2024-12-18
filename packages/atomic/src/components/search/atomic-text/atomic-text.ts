@@ -1,7 +1,16 @@
-import {html, LitElement, PropertyValues, TemplateResult} from 'lit';
+import {
+  CSSResultGroup,
+  html,
+  LitElement,
+  PropertyValues,
+  TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {initializeBindings} from '../../../utils/initialization-lit-utils.js';
+import {TailwindElement} from '../../../utils/tailwind.element';
 import type {Bindings} from '../atomic-search-interface/interfaces.js';
+import styles from './atomic-text.styles.tw.css';
 
 type GenericRender = string | TemplateResult | undefined | null;
 
@@ -9,7 +18,7 @@ type GenericRender = string | TemplateResult | undefined | null;
  * The `atomic-text` component leverages the I18n translation module through the atomic-search-interface.
  */
 @customElement('atomic-text')
-export class AtomicText extends LitElement {
+export class AtomicText extends TailwindElement {
   @state() public bindings!: Bindings;
   @state() public error!: Error;
   protected firstUpdated(_changedProperties: PropertyValues): void {
@@ -22,6 +31,8 @@ export class AtomicText extends LitElement {
         count: this.count,
       }),
   };
+
+  static styles: CSSResultGroup = [TailwindElement.styles, unsafeCSS(styles)];
 
   #unsubscribeLanguageChanged = () => {};
 
@@ -70,7 +81,9 @@ export class AtomicText extends LitElement {
   @BindingGuard()
   @SetRenderedAttribute()
   public render(): GenericRender {
-    return this.#strings.value();
+    return html`<div class="bg-primary border p-2 text-xs">
+      ${this.#strings.value()}
+    </div>`;
   }
 }
 

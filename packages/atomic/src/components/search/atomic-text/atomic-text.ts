@@ -8,9 +8,9 @@ import {
 } from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {initializeBindings} from '../../../utils/initialization-lit-utils.js';
-import {TailwindLitElement} from '../../../utils/tailwind.element';
+import {TailwindLitElement} from '../../../utils/tailwind.element.js';
 import type {Bindings} from '../atomic-search-interface/interfaces.js';
-import styles from './atomic-text.styles.tw.css';
+import styles from './atomic-text.styles.tw.css.js';
 
 type GenericRender = string | TemplateResult | undefined | null;
 

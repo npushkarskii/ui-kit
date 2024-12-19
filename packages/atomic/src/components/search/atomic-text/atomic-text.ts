@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {initializeBindings} from '../../../utils/initialization-lit-utils.js';
-import {TailwindElement} from '../../../utils/tailwind.element';
+import {TailwindLitElement} from '../../../utils/tailwind.element';
 import type {Bindings} from '../atomic-search-interface/interfaces.js';
 import styles from './atomic-text.styles.tw.css';
 
@@ -18,7 +18,7 @@ type GenericRender = string | TemplateResult | undefined | null;
  * The `atomic-text` component leverages the I18n translation module through the atomic-search-interface.
  */
 @customElement('atomic-text')
-export class AtomicText extends TailwindElement {
+export class AtomicText extends TailwindLitElement {
   @state() public bindings!: Bindings;
   @state() public error!: Error;
   protected firstUpdated(_changedProperties: PropertyValues): void {
@@ -32,7 +32,10 @@ export class AtomicText extends TailwindElement {
       }),
   };
 
-  static styles: CSSResultGroup = [TailwindElement.styles, unsafeCSS(styles)];
+  static styles: CSSResultGroup = [
+    TailwindLitElement.styles,
+    unsafeCSS(styles),
+  ];
 
   #unsubscribeLanguageChanged = () => {};
 

@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {initializeBindings} from '../../../utils/initialization-lit-utils.js';
-import {TailwindLitElement} from '../../../utils/tailwind.element';
+import {TailwindLitElement} from '../../../utils/tailwind.element.js';
 import type {Bindings} from '../atomic-search-interface/interfaces.js';
 import styles from './atomic-text.styles.tw.css';
 
@@ -22,6 +22,9 @@ export class AtomicText extends TailwindLitElement {
   @state() public bindings!: Bindings;
   @state() public error!: Error;
   protected firstUpdated(_changedProperties: PropertyValues): void {
+    if (!this.value) {
+      this.error = new Error('The "value" attribute must be defined.');
+    }
     this.setAttribute(renderedAttribute, 'false');
     this.setAttribute(loadedAttribute, 'false');
   }
@@ -68,9 +71,7 @@ export class AtomicText extends TailwindLitElement {
 
   public connectedCallback() {
     super.connectedCallback();
-    if (!this.value) {
-      this.error = new Error('The "value" attribute must be defined.');
-    }
+
     initializeBindings(this)
       .then((bindings) => {
         this.bindings = bindings;

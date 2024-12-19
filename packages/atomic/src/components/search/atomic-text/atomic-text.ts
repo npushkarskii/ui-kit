@@ -1,4 +1,5 @@
 import {
+  css,
   CSSResultGroup,
   html,
   LitElement,
@@ -37,6 +38,12 @@ export class AtomicText extends TailwindLitElement {
 
   static styles: CSSResultGroup = [
     TailwindLitElement.styles,
+    css`
+      div {
+        border: 1px solid red;
+        border-radius: var(--atomic-border-radius-xl);
+      }
+    `,
     unsafeCSS(styles),
   ];
 

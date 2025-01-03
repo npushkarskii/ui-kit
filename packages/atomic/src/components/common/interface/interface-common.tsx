@@ -4,7 +4,6 @@ import {HTMLStencilElement} from '@stencil/core/internal';
 import {i18n, TFunction} from 'i18next';
 import Backend from 'i18next-http-backend';
 import {setCoveoGlobal} from '../../../global/environment';
-import {loadFocusVisiblePolyfill} from '../../../global/focus-visible';
 import {loadDayjsLocale} from '../../../utils/dayjs-locales';
 import {InitializeEvent} from '../../../utils/initialization-utils';
 import {
@@ -46,7 +45,6 @@ export class CommonAtomicInterfaceHelper<Engine extends AnyEngineType> {
     globalVariableName: string
   ) {
     setCoveoGlobal(globalVariableName);
-    loadFocusVisiblePolyfill();
 
     const {
       connectedCallback: originalConnectedCallback,

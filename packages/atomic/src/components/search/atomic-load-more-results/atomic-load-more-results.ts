@@ -14,11 +14,11 @@ import {
   bindStateToController,
   initializeBindings,
 } from '../../../utils/initialization-lit-utils.js';
+import {LoadMoreButton} from '../../common/load-more/lit-button.js';
 import {LoadMoreContainer} from '../../common/load-more/lit-container.js';
 import {loadMoreGuard} from '../../common/load-more/lit-guard.js';
-import '../../common/load-more/lit-summary.js';
+import {LoadMoreProgressBar} from '../../common/load-more/lit-progress-bar.js';
 import {LoadMoreSummary} from '../../common/load-more/lit-summary.js';
-// import {TailwindLitElement} from '../../../utils/tailwind.element';
 import type {Bindings} from '../atomic-search-interface/interfaces.js';
 
 type GenericRender = string | TemplateResult | undefined | null; // TODO: remove this and move to util
@@ -79,7 +79,7 @@ export class AtomicLoadMoreResults extends LitElement {
           ${LoadMoreButton({
             i18n,
             moreAvailable: this.resultListState.moreResultsAvailable,
-            click: () => this.onClick(),
+            onClick: () => this.onClick(),
           })}
         `)}
       `

@@ -1,7 +1,6 @@
-import {html} from 'lit-html';
+import {html, TemplateResult} from 'lit-html';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function LoadMoreContainer(children: any) {
+export function LoadMoreContainer(children: TemplateResult<1>) {
   return html`
     <div class="flex flex-col items-center" part="container">${children}</div>
   `;

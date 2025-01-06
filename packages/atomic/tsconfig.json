@@ -1,4 +1,18 @@
 {
   "extends": "./tsconfig.stencil.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "ts-lit-plugin",
+        "strict": true,
+        "rules": {
+          "no-unknown-property": "error",
+          "no-unknown-tag-name": "error",
+          "no-incompatible-type-binding": "error",
+          "no-unknown-attribute": "error"
+        }
+      }
+    ]
+  },
   "exclude": ["node_modules", "src/external-builds"]
 }

@@ -14,11 +14,12 @@ import {
   bindStateToController,
   initializeBindings,
 } from '../../../utils/initialization-lit-utils.js';
-import {LoadMoreButton} from '../../common/load-more/lit-button.js';
-import {LoadMoreContainer} from '../../common/load-more/lit-container.js';
+import {loadMoreButton} from '../../common/load-more/lit-button.js';
+import {loadMoreContainer} from '../../common/load-more/lit-container.js';
 import {loadMoreGuard} from '../../common/load-more/lit-guard.js';
-import {LoadMoreProgressBar} from '../../common/load-more/lit-progress-bar.js';
-import {LoadMoreSummary} from '../../common/load-more/lit-summary.js';
+import {loadMoreProgressBar} from '../../common/load-more/lit-progress-bar.js';
+import '../../common/load-more/lit-summary.js';
+import {loadMoreSummary} from '../../common/load-more/lit-summary.js';
 import type {Bindings} from '../atomic-search-interface/interfaces.js';
 
 type GenericRender = string | TemplateResult | undefined | null; // TODO: remove this and move to util
@@ -52,37 +53,35 @@ export class AtomicLoadMoreResults extends LitElement {
     this.resultList.fetchMoreResults();
   }
 
-  // TODO: move these 2 decorator in class decorator or in a component mixin
+  // TODO: move these 2 decorator in class decorator or in a component mixin!
   @ErrorGuard()
   @BindingGuard()
   public render(): GenericRender {
-    console.log('Render');
-
     const {lastResult: from, total: to} = this.querySummaryState;
     const {i18n} = this.bindings;
-    return loadMoreGuard(
+    const children = [
+      loadMoreSummary({
+        i18n,
+        from,
+        to,
+      }),
+      loadMoreProgressBar({
+        from,
+        to,
+      }),
+      loadMoreButton({
+        i18n,
+        moreAvailable: this.resultListState.moreResultsAvailable,
+        onClick: () => this.onClick(),
+      }),
+    ];
+
+    return html`${loadMoreGuard(
       {
         hasResults: this.querySummaryState.hasResults,
         isLoaded: this.bindings.store.isAppLoaded(),
       },
-      html`
-        ${LoadMoreContainer(html`
-          ${LoadMoreSummary({
-            i18n,
-            from,
-            to,
-          })}
-          ${LoadMoreProgressBar({
-            from,
-            to,
-          })}
-          ${LoadMoreButton({
-            i18n,
-            moreAvailable: this.resultListState.moreResultsAvailable,
-            onClick: () => this.onClick(),
-          })}
-        `)}
-      `
-    );
+      loadMoreContainer(children)
+    )}`;
   }
 }

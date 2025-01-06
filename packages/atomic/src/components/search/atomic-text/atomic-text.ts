@@ -41,7 +41,6 @@ export class AtomicText extends TailwindLitElement {
     TailwindLitElement.styles,
     css`
       div {
-        border: 1px solid red;
         border-radius: var(--atomic-border-radius-xl);
       }
     `,

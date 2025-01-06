@@ -8,7 +8,7 @@ interface LoadMoreSummaryProps {
   label?: 'showing-results-of-load-more' | 'showing-products-of-load-more';
 }
 
-export function LoadMoreSummary({i18n, from, to, label}: LoadMoreSummaryProps) {
+export function loadMoreSummary({i18n, from, to, label}: LoadMoreSummaryProps) {
   const wrapHighlight = (content: string) => {
     return `<span class="font-bold text-on-background" part="highlight">${content}</span>`;
   };

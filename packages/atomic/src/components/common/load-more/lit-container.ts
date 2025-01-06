@@ -1,7 +1,5 @@
-import {html, TemplateResult} from 'lit-html';
+import {html} from 'lit-html';
 
-export function LoadMoreContainer(children: TemplateResult<1>) {
-  return html`
-    <div class="flex flex-col items-center" part="container">${children}</div>
-  `;
-}
+export const loadMoreContainer = <T>(children: T) => html`
+  <div class="flex flex-col items-center" part="container">${children}</div>
+`;

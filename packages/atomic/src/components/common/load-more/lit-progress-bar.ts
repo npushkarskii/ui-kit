@@ -5,7 +5,7 @@ interface LoadMoreProgressBarProps {
   to: number;
 }
 
-export function LoadMoreProgressBar({from, to}: LoadMoreProgressBarProps) {
+export function loadMoreProgressBar({from, to}: LoadMoreProgressBarProps) {
   const percentage = (from / to) * 100;
   const width = `${Math.ceil(percentage)}%`;
   return html`<div

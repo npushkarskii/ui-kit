@@ -10,7 +10,7 @@ interface LoadMoreButtonProps {
   label?: 'load-more-results' | 'load-more-products';
 }
 
-export function LoadMoreButton({
+export function loadMoreButton({
   i18n,
   onClick,
   moreAvailable,

@@ -1,7 +1,5 @@
 import {i18n} from 'i18next';
-import {html} from 'lit-html';
-
-// import {Button} from '../button';
+import {button, ButtonProps} from '../lit-button';
 
 interface LoadMoreButtonProps {
   i18n: i18n;
@@ -19,13 +17,11 @@ export function loadMoreButton({
   if (!moreAvailable) {
     return;
   }
-  // TODO: use button function
-  return html`<button
-    style="primary"
-    part="load-more-results-button"
-    class="my-2 p-3 font-bold"
-    @click=${() => onClick()}
-  >
-    ${i18n.t(label || 'load-more-results')}
-  </button>`;
+  const props: ButtonProps = {
+    style: 'primary',
+    part: 'load-more-results-button',
+    class: 'my-2 p-3 font-bold',
+    onClick: () => onClick(),
+  };
+  return button({props, children: i18n.t(label || 'load-more-results')});
 }

@@ -15,7 +15,6 @@ import {
   initializeBindings,
 } from '../../../utils/initialization-lit-utils.js';
 import {loadMoreButton} from '../../common/load-more/lit-button.js';
-import {loadMoreContainer} from '../../common/load-more/lit-container.js';
 import {loadMoreGuard} from '../../common/load-more/lit-guard.js';
 import {loadMoreProgressBar} from '../../common/load-more/lit-progress-bar.js';
 import '../../common/load-more/lit-summary.js';
@@ -59,29 +58,27 @@ export class AtomicLoadMoreResults extends LitElement {
   public render(): GenericRender {
     const {lastResult: from, total: to} = this.querySummaryState;
     const {i18n} = this.bindings;
-    const children = [
-      loadMoreSummary({
-        i18n,
-        from,
-        to,
-      }),
-      loadMoreProgressBar({
-        from,
-        to,
-      }),
-      loadMoreButton({
-        i18n,
-        moreAvailable: this.resultListState.moreResultsAvailable,
-        onClick: () => this.onClick(),
-      }),
-    ];
+    const summary = loadMoreSummary({
+      i18n,
+      from,
+      to,
+    });
+    const progressBar = loadMoreProgressBar({
+      from,
+      to,
+    });
+    const button = loadMoreButton({
+      i18n,
+      moreAvailable: this.resultListState.moreResultsAvailable,
+      onClick: () => this.onClick(),
+    });
 
     return html`${loadMoreGuard(
       {
         hasResults: this.querySummaryState.hasResults,
         isLoaded: this.bindings.store.isAppLoaded(),
       },
-      loadMoreContainer(children)
+      html`${summary}${progressBar}${button}`
     )}`;
   }
 }

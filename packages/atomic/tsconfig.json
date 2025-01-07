@@ -9,7 +9,8 @@
           "no-unknown-property": "error",
           "no-unknown-tag-name": "error",
           "no-incompatible-type-binding": "error",
-          "no-unknown-attribute": "error"
+          "no-unknown-attribute": "error",
+          "no-nullable-attribute-binding": "warning"
         }
       }
     ]

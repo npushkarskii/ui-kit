@@ -79,8 +79,8 @@ jobs:
       
       - name: Move the docs into the version folder
         run: |
-          mv "packages/headless/docs" "packages/headless/docs/${{ env.version }}"
-          echo "Moved docs to: packages/headless/docs/${{ env.version }}
+          cp -r packages/headless/docs packages/headless/docs/${{ env.version }}
+          echo "Copied docs to: packages/headless/docs/${{ env.version }}
 
       # - name: Zip documentation folder
       #   run: |
@@ -98,4 +98,4 @@ jobs:
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4
         with:
           name: headless-docs-${{ env.version }}
-          path: packages/headless/docs/${{ env.version }}
+          path: packages/headless/docs/

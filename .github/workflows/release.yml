@@ -94,4 +94,3 @@ jobs:
         with:
           name: headless-docs-${{ env.version }}
           path: packages/headless/docs
-`

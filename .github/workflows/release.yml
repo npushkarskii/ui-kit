@@ -1,4 +1,4 @@
-name: 🤡 Release shrought 
+name: Create release
 on:
   # schedule:
   #   # At 13:00 (UTC) every Wednesday.

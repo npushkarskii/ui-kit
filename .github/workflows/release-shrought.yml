@@ -1,0 +1,96 @@
+name: Create release
+on:
+  # schedule:
+  #   # At 13:00 (UTC) every Wednesday.
+  #   - cron: '0 13 * * 3'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '⚠ be sure of yourself ⚠'
+        required: false
+        default: ''
+      debug:
+        description: 'Add DEBUG=* to the env if true'
+        type: boolean
+        default: false
+        required: false
+
+jobs:
+  # release:
+  #   environment: 'Release'
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #     packages: write
+  #     id-token: write
+  #   steps:
+  #     - name: Harden Runner
+  #       uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+  #       with:
+  #         egress-policy: audit
+
+  #     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+  #       with:
+  #         fetch-depth: 0
+  #     - uses: ./.github/actions/setup
+  #     - name: Release
+  #       run: npm run release
+  #       env:
+  #         VERSION: ${{ inputs.version }}
+  #         DEBUG: ${{ inputs.debug && '*' || '' }}
+  #         RELEASER_APP_ID: ${{ secrets.RELEASER_APP_ID }}
+  #         RELEASER_PRIVATE_KEY: ${{ secrets.RELEASER_PRIVATE_KEY }}
+  #         RELEASER_CLIENT_ID: ${{ secrets.RELEASER_CLIENT_ID }}
+  #         RELEASER_CLIENT_SECRET: ${{ secrets.RELEASER_CLIENT_SECRET }}
+  #         RELEASER_INSTALLATION_ID: ${{ secrets.RELEASER_INSTALLATION_ID }}
+  #         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #     - name: Call ui-kit-cd
+  #       run: node ./scripts/deploy/trigger-ui-kit-cd.mjs
+  #       env:
+  #         GH_TOKEN: ${{ secrets.UI_KIT_CD_DISPATCHER }}
+
+  typedoc-headless:
+    # needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: 'release/v3'
+
+      - uses: ./.github/actions/setup
+
+      - name: Build typedoc site
+        run: npm run build:typedoc
+        working-directory: packages/headless
+        shell: bash
+
+      - name: Read version from package.json
+        id: read_version
+        run: |
+          VERSION=$(jq -r '.version' packages/headless/package.json)
+          echo "Extracted version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_ENV
+
+      - name: Zip documentation folder
+        run: |
+          DOCS_DIR="packages/headless/docs"
+          if [ ! -d "$DOCS_DIR" ]; then
+            echo "Documentation folder $DOCS_DIR not found."
+            exit 1
+          fi
+
+          ZIP_NAME="headless-docs-${{ env.version }}.zip"
+          zip -r "$ZIP_NAME" "$DOCS_DIR"
+          echo "Created zip file: $ZIP_NAME"
+
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4
+        with:
+          name: headless-docs-${{ env.version }}
+          path: headless-docs-${{ env.version }}.zip

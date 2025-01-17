@@ -79,6 +79,7 @@ jobs:
       
       - name: Copy the docs into the version folder
         run: |
+          mkdir -p typedoc-headless-site/${{ env.version }}/
           cp -r packages/headless/docs/* typedoc-headless-site/${{ env.version }}/
           echo "Copied docs to: typedoc-headless-site/${{ env.version }}/"
 

@@ -77,9 +77,10 @@ jobs:
           echo "Extracted version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_ENV
       
-      - name: Move the docs into the version folder
+      - name: Copy the docs into the version folder
         run: |
-          cp -r packages/headless/docs packages/headless/docs/${{ env.version }}
+          mkdir -p packages/headless/docs/${{ env.version }}
+          cp -r packages/headless/docs/* packages/headless/docs/${{ env.version }}/
           echo "Copied docs to: packages/headless/docs/${{ env.version }}
 
       # - name: Zip documentation folder

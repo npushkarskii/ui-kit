@@ -79,24 +79,16 @@ jobs:
       
       - name: Copy the docs into the version folder
         run: |
-          mkdir -p typedoc-headless-site/${{ env.version }}/
-          cp -r packages/headless/docs/* typedoc-headless-site/${{ env.version }}/
-          echo "Copied docs to: typedoc-headless-site/${{ env.version }}/"
-
-      # - name: Zip documentation folder
-      #   run: |
-      #     DOCS_DIR="packages/headless/docs"
-      #     if [ ! -d "$DOCS_DIR" ]; then
-      #       echo "Documentation folder $DOCS_DIR not found."
-      #       exit 1
-      #     fi
-
-      #     ZIP_NAME="headless-docs-${{ env.version }}.zip"
-      #     zip -r "$ZIP_NAME" "$DOCS_DIR"
-      #     echo "Created zip file: $ZIP_NAME"
+          # mkdir -p typedoc-headless-site/${{ env.version }}/
+          mkdir -p typedoc-headless-site/6.6.6/
+          # cp -r packages/headless/docs/* typedoc-headless-site/${{ env.version }}/
+          cp -r packages/headless/docs/* typedoc-headless-site/6.6.6/
+          # echo "Copied docs to: typedoc-headless-site/${{ env.version }}/"
+          echo "Copied docs to: typedoc-headless-site/6.6.6/"
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4
         with:
-          name: headless-docs-${{ env.version }}
+          # name: headless-docs-${{ env.version }}
+          name: headless-docs-6.6.6
           path: typedoc-headless-site/

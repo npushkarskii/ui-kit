@@ -80,15 +80,15 @@ jobs:
       - name: Copy the docs into the version folder
         run: |
           # mkdir -p typedoc-headless-site/${{ env.version }}/
-          mkdir -p typedoc-headless-site/3.11.0/
+          mkdir -p typedoc-headless-site/3.14.0-pre.0bd99f241e/
           # cp -r packages/headless/docs/* typedoc-headless-site/${{ env.version }}/
-          cp -r packages/headless/docs/* typedoc-headless-site/3.11.0/
+          cp -r packages/headless/docs/* typedoc-headless-site/3.14.0-pre.0bd99f241e/
           # echo "Copied docs to: typedoc-headless-site/${{ env.version }}/"
-          echo "Copied docs to: typedoc-headless-site/3.11.0/"
+          echo "Copied docs to: typedoc-headless-site/3.14.0-pre.0bd99f241e/"
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4
         with:
           # name: headless-docs-${{ env.version }}
-          name: headless-docs-3.11.0
+          name: headless-docs-3.14.0-pre.0bd99f241e
           path: typedoc-headless-site/
